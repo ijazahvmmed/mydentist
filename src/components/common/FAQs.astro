@@ -1,0 +1,50 @@
+---
+import Icon from './Icon.astro';
+import type { FAQ } from '../../types/content';
+import { faqSchema } from '../../lib/schema';
+import { jsonLD } from '../../lib/seo';
+interface Props {
+  items: FAQ[];
+  title?: string;
+}
+const { items, title = 'A little clarity, before your visit.' } = Astro.props;
+---
+
+<section class="faq-section wrap">
+  <div>
+    <span class="section-cue">
+      <Icon name="help" />
+      <span class="eyebrow">GOOD QUESTIONS</span>
+    </span>
+    <h2>{title}</h2>
+    <p class="section-hint">Select a question to read the answer.</p>
+  </div>
+  <div class="faq-list">
+    {items.map((f, i) => (
+      <details>
+        <summary>
+          <span class="faq-number">0{i + 1}</span>
+          <span class="faq-question">{f.question}</span>
+          <span class="faq-plus" aria-hidden="true">
+            <Icon name="plus" />
+          </span>
+        </summary>
+        <p>{f.answer}</p>
+      </details>
+    ))}
+  </div>
+</section>
+<script type="application/ld+json" set:html={jsonLD(faqSchema(items))} />
+<script>
+  import { gsap } from 'gsap';
+  document.querySelectorAll<HTMLDetailsElement>('.faq-list details').forEach((details) => {
+    details.addEventListener('toggle', () => {
+      if (details.open && !matchMedia('(prefers-reduced-motion: reduce)').matches)
+        gsap.fromTo(
+          details.querySelector('p'),
+          { opacity: 0, y: -7 },
+          { opacity: 1, y: 0, duration: 0.28, clearProps: 'opacity,transform' }
+        );
+    });
+  });
+</script>

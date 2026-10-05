@@ -1,0 +1,120 @@
+[
+  {
+    "page": "home",
+    "scores": {
+      "performance": 85,
+      "accessibility": 100,
+      "best-practices": 100,
+      "seo": 66
+    },
+    "LCP": "2.2 s",
+    "CLS": "0.009",
+    "TBT": "500 ms",
+    "failed": [
+      {
+        "id": "total-blocking-time",
+        "title": "Total Blocking Time",
+        "score": 0.58
+      },
+      {
+        "id": "max-potential-fid",
+        "title": "Max Potential First Input Delay",
+        "score": 0.14
+      },
+      {
+        "id": "interactive",
+        "title": "Time to Interactive",
+        "score": 0.83
+      },
+      {
+        "id": "mainthread-work-breakdown",
+        "title": "Minimize main-thread work",
+        "score": 0
+      },
+      {
+        "id": "bootup-time",
+        "title": "Reduce JavaScript execution time",
+        "score": 0
+      },
+      {
+        "id": "valid-source-maps",
+        "title": "Missing source maps for large first-party JavaScript",
+        "score": 0
+      },
+      {
+        "id": "label-content-name-mismatch",
+        "title": "Elements with visible text labels do not have matching accessible names.",
+        "score": 0
+      },
+      {
+        "id": "is-crawlable",
+        "title": "Page is blocked from indexing",
+        "score": 0
+      },
+      {
+        "id": "forced-reflow-insight",
+        "title": "Forced reflow",
+        "score": 0
+      },
+      {
+        "id": "image-delivery-insight",
+        "title": "Improve image delivery",
+        "score": 0
+      },
+      {
+        "id": "network-dependency-tree-insight",
+        "title": "Network dependency tree",
+        "score": 0
+      },
+      {
+        "id": "render-blocking-insight",
+        "title": "Render-blocking requests",
+        "score": 0
+      }
+    ]
+  },
+  {
+    "page": "treatment",
+    "scores": {
+      "performance": 99,
+      "accessibility": 100,
+      "best-practices": 100,
+      "seo": 66
+    },
+    "LCP": "2.0 s",
+    "CLS": "0.002",
+    "TBT": "20 ms",
+    "failed": [
+      {
+        "id": "is-crawlable",
+        "title": "Page is blocked from indexing",
+        "score": 0
+      },
+      {
+        "id": "forced-reflow-insight",
+        "title": "Forced reflow",
+        "score": 0
+      },
+      {
+        "id": "image-delivery-insight",
+        "title": "Improve image delivery",
+        "score": 0
+      },
+      {
+        "id": "lcp-discovery-insight",
+        "title": "LCP request discovery",
+        "score": 0
+      },
+      {
+        "id": "network-dependency-tree-insight",
+        "title": "Network dependency tree",
+        "score": 0
+      },
+      {
+        "id": "render-blocking-insight",
+        "title": "Render-blocking requests",
+        "score": 0
+      }
+    ]
+  }
+]

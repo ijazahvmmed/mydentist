@@ -1,0 +1,54 @@
+---
+import type { MediaAsset } from '../../types/content';
+interface Props {
+  assets: MediaAsset[];
+  title: string;
+}
+const { assets, title } = Astro.props;
+---
+
+{assets.length > 0 && (
+  <section class="media-gallery wrap">
+    <h2>{title}</h2>
+    <div>
+      {assets.map((asset) => (
+        <figure>
+          <img
+            src={asset.src}
+            alt={asset.alt}
+            width={asset.width}
+            height={asset.height}
+            loading="lazy"
+          />
+          {asset.kind === 'illustration' && <figcaption>Illustrative visual</figcaption>}
+        </figure>
+      ))}
+    </div>
+  </section>
+)}
+<style>
+  .media-gallery {
+    padding-block: 30px 60px;
+  }
+  .media-gallery h2 {
+    font-size: 36px;
+    margin-bottom: 28px;
+  }
+  .media-gallery > div {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+    gap: 22px;
+  }
+  .media-gallery figure {
+    margin: 0;
+  }
+  .media-gallery img {
+    width: 100%;
+    height: auto;
+    border-radius: 22px;
+  }
+  .media-gallery figcaption {
+    font-size: 11px;
+    margin-top: 10px;
+  }
+</style>

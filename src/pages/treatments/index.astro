@@ -1,0 +1,46 @@
+---
+import Icon from '../../components/common/Icon.astro';
+import Base from '../../layouts/Base.astro';
+import Breadcrumbs from '../../components/common/Breadcrumbs.astro';
+import Arrow from '../../components/common/Arrow.astro';
+import { treatmentIcons } from '../../lib/treatment-icons';
+import { content } from '../../lib/content/repository';
+const treatments = await content.getTreatments();
+---
+
+<Base
+  title="Dental Treatments | Dr Kiran’s MyDentist"
+  description="Explore root canal treatment, clear aligners, braces, wisdom tooth removal, dental implants and other dental care at Dr Kiran’s MyDentist."
+>
+  <Breadcrumbs items={[{ name: 'Treatments', path: '/treatments/' }]} />
+  <section class="page-hero wrap">
+    <span class="eyebrow">UNDERSTAND YOUR OPTIONS</span>
+    <h1>
+      Care for every
+      <br />
+      chapter of your smile.
+    </h1>
+    <p>
+      Start with a little understanding. Your dentist will help you decide what is appropriate for
+      your teeth, your oral health and your needs.
+    </p>
+  </section>
+  <section class="treatment-directory wrap" aria-label="Dental treatments">
+    {treatments.map((t, i) => (
+      <a class="directory-item" href={`/treatments/${t.slug}/`}>
+        <span class="treatment-symbol">
+          <Icon name={treatmentIcons[t.slug] || 'tooth'} />
+          <span class="row-index">0{i + 1}</span>
+        </span>
+        <div class="directory-title">
+          <h2>{t.name}</h2>
+          <span class="guide-label">Read treatment guide</span>
+        </div>
+        <p>{t.summary}</p>
+        <span class="circle-link">
+          <Arrow diagonal />
+        </span>
+      </a>
+    ))}
+  </section>
+</Base>

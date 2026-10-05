@@ -1,0 +1,185 @@
+---
+import Icon from '../../components/common/Icon.astro';
+import Base from '../../layouts/Base.astro';
+import Breadcrumbs from '../../components/common/Breadcrumbs.astro';
+import FAQs from '../../components/common/FAQs.astro';
+import Arrow from '../../components/common/Arrow.astro';
+import MediaGallery from '../../components/common/MediaGallery.astro';
+import { formatDays, formatHours } from '../../lib/content/hours';
+import { content } from '../../lib/content/repository';
+import { dentist } from '../../lib/schema';
+import { createWhatsAppUrl, phoneHref } from '../../lib/whatsapp';
+export async function getStaticPaths() {
+  return (await content.getBranches()).map((branch) => ({
+    params: { slug: branch.slug },
+    props: { branch },
+  }));
+}
+const { branch: b } = Astro.props;
+const sunday = b.hours.find((hours) => hours.days.includes('Sunday'));
+const [branches, treatments] = await Promise.all([content.getBranches(), content.getTreatments()]);
+const directions =
+  b.mapUrl ||
+  `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${b.name}, ${b.address.street}, ${b.address.locality}, Kerala ${b.address.postalCode}`)}`;
+const faqs = [
+  {
+    id: 'address',
+    question: `Where is ${b.name}?`,
+    answer: `${b.name} is at ${b.address.street}, ${b.address.locality}, Kerala ${b.address.postalCode}. Landmark: ${b.landmark}.`,
+  },
+  {
+    id: 'sunday',
+    question: `What are the Sunday hours at ${b.name}?`,
+    answer: `${sunday ? `${b.name} is open on Sunday, ${formatHours(sunday)}.` : `Please contact ${b.name} for Sunday opening hours.`} Call ${b.phone} to confirm any holiday changes before travelling.`,
+  },
+  {
+    id: 'contact',
+    question: `How can I contact ${b.name}?`,
+    answer: `Call ${b.phone}. ${b.whatsapp ? 'You can also message the same number on WhatsApp.' : `For WhatsApp enquiries, message the central number +91 82818 85542 and mention ${b.locality}.`}`,
+  },
+];
+---
+
+<Base title={b.seo.title} description={b.seo.description} schema={dentist(b, Astro.site)}>
+  <Breadcrumbs
+    items={[
+      { name: 'Our clinics', path: '/locations/' },
+      { name: b.locality, path: `/locations/${b.slug}/` },
+    ]}
+  />
+  <section class="page-hero wrap" data-page-event="branch_view">
+    <span class="eyebrow">YOUR NEIGHBOURHOOD MYDENTIST / KERALA</span>
+    <h1>
+      MyDentist
+      <br />
+      {b.locality}.
+    </h1>
+    <p>{b.landmark}. Find the address, opening hours and direct contact details for your visit.</p>
+    <div class="hero-actions">
+      <a class="button" href={phoneHref(b.phone)} data-event="phone_click">
+        <span class="action-label">
+          <Icon name="phone" />
+          Call {b.locality}
+        </span>
+        <Arrow diagonal />
+      </a>
+      <a
+        class="text-link"
+        href={createWhatsAppUrl({ phone: b.whatsapp, branch: b.name })}
+        data-event="whatsapp_click"
+      >
+        <span class="action-label">
+          <Icon name="chat" />
+          {b.whatsapp ? 'WhatsApp the clinic' : 'Enquire on central WhatsApp'}
+        </span>
+        <Arrow diagonal />
+      </a>
+    </div>
+  </section>
+  <section class="branch-detail wrap">
+    <div>
+      <span class="section-cue">
+        <Icon name="pin" />
+        <span class="eyebrow">ADDRESS & DIRECTIONS</span>
+      </span>
+      <h2>Find us here.</h2>
+      <address class="branch-address">
+        {b.address.street}
+        <br />
+        {b.address.locality}
+        <br />
+        {b.address.region} {b.address.postalCode}
+      </address>
+      <p class="landmark">
+        <strong>Landmark:</strong> {b.landmark}
+      </p>
+      <a
+        class="text-link"
+        href={directions}
+        target="_blank"
+        rel="noopener noreferrer"
+        data-event="directions_click"
+      >
+        <span class="action-label">
+          <Icon name="directions" />
+          Open in Google Maps
+        </span>
+        <Arrow diagonal />
+      </a>
+      <p class="info-note">
+        The map link searches this address. Confirm the clinic entrance with the branch if needed.
+      </p>
+    </div>
+    <div class="hours-panel">
+      <span class="section-cue">
+        <Icon name="clock" />
+        <span class="eyebrow">PLAN YOUR VISIT</span>
+      </span>
+      <h2>Opening hours</h2>
+      <dl>
+        {b.hours.map((h) => (
+          <>
+            <dt>{formatDays(h.days)}</dt>
+            <dd>{formatHours(h)}</dd>
+          </>
+        ))}
+      </dl>
+      <p class="info-note">Please call to confirm appointment availability and holiday hours.</p>
+      <a class="text-link" href={phoneHref(b.phone)} data-event="phone_click">
+        <Icon name="phone" />
+        Call {b.phone}
+      </a>
+    </div>
+  </section>
+  <MediaGallery assets={b.photos} title={`Inside ${b.name}`} />
+  <section class="branch-guidance wrap">
+    <h2>
+      A little planning.
+      <br />
+      An easier visit.
+    </h2>
+    <div>
+      <p>
+        {b.slug === 'thuravoor'
+          ? `You will find the ${b.locality} clinic at ${b.address.street}. Published hours: ${b.hours.map((hours) => `${formatDays(hours.days)}, ${formatHours(hours)}`).join('; ')}.`
+          : `Use “${b.landmark}” as a landmark when planning your journey to ${b.locality}. ${sunday ? `Sunday opening hours are ${formatHours(sunday)}.` : 'Contact the branch to confirm Sunday hours.'} Check the opening hours above before planning your visit.`}
+      </p>
+      <p>
+        Contact {b.name} on {b.phone} to discuss your visit and confirm the care you need.
+        {b.personInCharge && ` ${b.personInCharge} is the listed person in charge.`}
+      </p>
+    </div>
+  </section>
+  <section class="related wrap">
+    <span class="eyebrow">BEFORE YOU VISIT</span>
+    <h2>Understand your treatment options.</h2>
+    <p>
+      Read our treatment guides, then contact {b.locality} to confirm local availability and
+      arrangements.
+    </p>
+    <div class="related-links">
+      {treatments.map((t) => (
+        <a href={`/treatments/${t.slug}/`}>
+          <Icon name="tooth" />
+          {t.shortName}
+          <Arrow diagonal />
+        </a>
+      ))}
+    </div>
+  </section>
+  <FAQs items={faqs} title={`Your ${b.locality} questions.`} />
+  <section class="related wrap">
+    <h2>Other MyDentist locations</h2>
+    <div class="related-links">
+      {branches
+        .filter((other) => other.id !== b.id)
+        .map((other) => (
+          <a href={`/locations/${other.slug}/`}>
+            <Icon name="pin" />
+            {other.locality}
+            <Arrow diagonal />
+          </a>
+        ))}
+    </div>
+  </section>
+</Base>

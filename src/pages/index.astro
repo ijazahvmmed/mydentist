@@ -1,0 +1,295 @@
+---
+import Icon from '../components/common/Icon.astro';
+import { treatmentVisuals } from '../lib/treatment-visuals';
+import Base from '../layouts/Base.astro';
+import Arrow from '../components/common/Arrow.astro';
+import ToothScene from '../components/three/ToothScene';
+import TechnologyVisual from '../components/home/TechnologyVisual.astro';
+import ToothStory from '../components/home/ToothStory.astro';
+import BranchFinder from '../components/locations/BranchFinder.astro';
+import FAQs from '../components/common/FAQs.astro';
+import { content } from '../lib/content/repository';
+import { createWhatsAppUrl } from '../lib/whatsapp';
+import { organization, website } from '../lib/schema';
+const [branches, treatments, allFAQs] = await Promise.all([
+  content.getBranches(),
+  content.getTreatments(),
+  content.getFAQs(),
+]);
+const homeFAQs = allFAQs.filter((faq) =>
+  ['locations', 'contact', 'sunday', 'treatment'].includes(faq.id)
+);
+---
+
+<Base
+  title="Dr Kiran’s MyDentist | Dental Care Across Alappuzha"
+  description="Explore specialised dental care at Dr Kiran’s MyDentist. Find six clinic locations, treatment information, opening hours and direct phone or WhatsApp contact."
+  schema={[organization(Astro.site), website(Astro.site)]}
+>
+  <section class="hero wrap">
+    <div class="hero-topline">
+      <span>
+        <i></i> DENTAL CARE, A LITTLE CLOSER.
+      </span>
+      <span>
+        <Icon name="pin" /> ALAPPUZHA, KERALA
+      </span>
+    </div>
+    <div class="hero-main">
+      <div class="hero-copy">
+        <h1>
+          Modern <br />
+          dentistry.
+          <br />
+          <span>Closer to you.</span>
+        </h1>
+        <p>
+          Specialised dental care. Six local clinics.
+          <br />
+          Find your MyDentist in Alappuzha.
+        </p>
+        <div class="hero-actions">
+          <a class="button" href="#clinics">
+            <span class="action-label">
+              <Icon name="pin" />
+              Find a clinic
+            </span>
+            <Arrow diagonal />
+          </a>
+          <a class="text-link" href={createWhatsAppUrl()} data-event="whatsapp_click">
+            <span class="action-label">
+              <Icon name="chat" />
+              WhatsApp us
+            </span>
+            <Arrow diagonal />
+          </a>
+        </div>
+      </div>
+      <div class="hero-media">
+        <div class="hero-orbit" aria-hidden="true"></div>
+        <picture>
+          <source
+            type="image/webp"
+            srcset="/images/treatments/tooth-hero-640.webp 640w, /images/treatments/tooth-hero.webp 1000w"
+            sizes="(max-width: 700px) 90vw, 55vw"
+          />
+          <img
+            src="/images/treatments/tooth-hero.webp"
+            alt="Ivory tooth illustration"
+            width="1000"
+            height="1000"
+            fetchpriority="high"
+          />
+        </picture>
+        <button
+          class="hero-image-note"
+          type="button"
+          aria-label="A closer look at care — Rotate the 3D tooth"
+        >
+          A CLOSER LOOK AT CARE <Icon name="rotate" />
+        </button>
+        <a class="hero-study" href="#tooth-story">
+          <span class="study-icon" aria-hidden="true">
+            <Icon name="tooth" />
+          </span>
+          <span>
+            Understand your tooth<small>EXPLORE THE STORY</small>
+          </span>
+          <Arrow diagonal />
+        </a>
+      </div>
+    </div>
+    <div class="hero-bottom">
+      <div class="clinic-signal">
+        <button
+          class="clinic-spark"
+          type="button"
+          aria-label="06 — Celebrate six neighbourhood clinics"
+        >
+          06
+        </button>
+        <p>
+          Neighbourhood clinics.
+          <br />
+          One MyDentist.
+        </p>
+      </div>
+      <div class="hero-locations">
+        Thuravoor · Poochakkal · Eramalloor
+        <br />
+        Thirunalloor · Aroor · Vaduthala
+      </div>
+      <a href="#care-intro" class="scroll-link">
+        SCROLL TO DISCOVER <Icon name="down" />
+      </a>
+    </div>
+  </section>
+  <section class="intro wrap" id="care-intro">
+    <span class="eyebrow">CARE THAT STARTS WITH CLARITY</span>
+    <div>
+      <h2>
+        Your questions.
+        <br />
+        Your choices.
+        <br />
+        <span>Your dental care.</span>
+      </h2>
+      <p>
+        Understanding your options is a good place to begin. Explore our treatments, get to know the
+        technology, and connect with a clinic close to home.
+      </p>
+      <a class="text-link" href="/about/">
+        Meet MyDentist <Arrow diagonal />
+      </a>
+    </div>
+    <span class="intro-flower" aria-hidden="true">
+      <Icon name="sparkle" />
+    </span>
+  </section>
+  <ToothScene client:idle />
+  <ToothStory />
+  <section class="treatments-home wrap">
+    <div class="section-top">
+      <div>
+        <span class="eyebrow">YOUR CARE, CONSIDERED</span>
+        <h2>
+          Different needs.
+          <br />
+          Thoughtful care.
+        </h2>
+      </div>
+      <a class="text-link" href="/treatments/">
+        Explore all treatments <Arrow diagonal />
+      </a>
+    </div>
+    <a class="featured-treatment" href="/treatments/clear-aligners/">
+      <div>
+        <span class="section-cue">
+          <Icon name="aligner" />
+          <span class="eyebrow">CLEAR ALIGNERS / ALIGNMENT</span>
+        </span>
+        <h3>
+          A little change.
+          <br />A new perspective.
+        </h3>
+        <p>Explore clear aligners and what an individual treatment plan could involve.</p>
+        <span class="button light">
+          Discover clear aligners <Arrow diagonal />
+        </span>
+      </div>
+      <div class="aligner-art" aria-hidden="true">
+        <picture>
+          <source
+            srcset="/images/treatments/aligner-640.webp 640w, /images/treatments/aligner.webp 1000w"
+            sizes="(max-width: 700px) 80vw, 45vw"
+          />
+          <img
+            src="/images/treatments/aligner.webp"
+            width="1000"
+            height="1000"
+            alt=""
+            loading="lazy"
+          />
+        </picture>
+        <span>
+          CLEAR ALIGNER
+          <br />
+          ILLUSTRATIVE VISUAL
+        </span>
+      </div>
+    </a>
+    <div class="treatment-rows">
+      {treatments
+        .filter((t) => t.priority < 5 && t.slug !== 'clear-aligners')
+        .map((t, i) => (
+          <a href={`/treatments/${t.slug}/`}>
+            <span class="row-index">0{i + 2}</span>
+            <div class="treatment-media" aria-hidden="true">
+              <img
+                src={`/images/treatments/${treatmentVisuals[t.slug]}-640.webp`}
+                width="640"
+                height="640"
+                alt=""
+                loading="lazy"
+              />
+            </div>
+            <h3>{t.name}</h3>
+            <p>{t.summary}</p>
+            <span class="circle-link">
+              <Arrow diagonal />
+            </span>
+          </a>
+        ))}
+    </div>
+  </section>
+  <section class="technology" id="technology">
+    <div class="wrap">
+      <div class="section-top">
+        <div>
+          <span class="eyebrow">A CLEARER PICTURE</span>
+          <h2>
+            Technology with
+            <br />a purpose.
+          </h2>
+        </div>
+        <p>
+          Tools that support the conversation.
+          <br />
+          Ask your clinic about availability.
+        </p>
+      </div>
+      <div class="tech-grid">
+        <a
+          class="tech-card"
+          href={createWhatsAppUrl({ treatment: 'Intraoral scanner availability' })}
+        >
+          <TechnologyVisual kind="scan" />
+          <div class="tech-copy">
+            <span class="section-cue">
+              <Icon name="scan" />
+              <span class="eyebrow">DIGITAL IMPRESSIONS</span>
+            </span>
+            <h3>Intraoral scanner</h3>
+            <p>
+              A digital view of the teeth and mouth, to support assessment and treatment planning.
+            </p>
+            <span class="tech-action">
+              <span class="action-label">
+                <Icon name="chat" />
+                Ask about availability
+              </span>
+              <Arrow diagonal />
+            </span>
+          </div>
+        </a>
+        <a
+          class="tech-card"
+          href={createWhatsAppUrl({ treatment: 'OPG full-mouth imaging availability' })}
+        >
+          <TechnologyVisual kind="opg" />
+          <div class="tech-copy">
+            <span class="section-cue">
+              <Icon name="imaging" />
+              <span class="eyebrow">PANORAMIC X-RAY / OPG</span>
+            </span>
+            <h3>Full-mouth imaging</h3>
+            <p>
+              OPG imaging provides a wider X-ray view. Your dentist decides when imaging is
+              appropriate.
+            </p>
+            <span class="tech-action">
+              <span class="action-label">
+                <Icon name="chat" />
+                Ask about availability
+              </span>
+              <Arrow diagonal />
+            </span>
+          </div>
+        </a>
+      </div>
+      <p class="tech-note">Illustrative graphics. Equipment availability may vary by clinic.</p>
+    </div>
+  </section>
+  <BranchFinder branches={branches} />
+  <FAQs items={homeFAQs} />
+</Base>

@@ -1,0 +1,157 @@
+---
+import Icon from '../common/Icon.astro';
+import type { Branch } from '../../types/content';
+import { createWhatsAppUrl, phoneHref } from '../../lib/whatsapp';
+import Arrow from '../common/Arrow.astro';
+interface Props {
+  branches: Branch[];
+}
+const { branches } = Astro.props;
+---
+
+<section class="branch-finder wrap" id="clinics">
+  <div class="section-top">
+    <div>
+      <span class="eyebrow">SIX LOCATIONS. CLOSER TO HOME.</span>
+      <h2>
+        Find MyDentist
+        <br />
+        near you.
+      </h2>
+    </div>
+    <p>
+      Choose your neighbourhood.
+      <br />
+      View a clinic’s details, call or get directions.
+    </p>
+  </div>
+  <div class="finder-layout">
+    <div class="finder-side">
+      <label for="clinic-search">Search by branch, locality or landmark</label>
+      <div class="search-box">
+        <Icon name="search" />
+        <input
+          id="clinic-search"
+          type="search"
+          autocomplete="off"
+          placeholder="Try Thuravoor or Lyceum"
+        />
+      </div>
+      <p class="search-count" role="status" aria-live="polite">
+        6 clinics
+      </p>
+      <div class="locality-art" aria-hidden="true">
+        <span>
+          Closer.
+          <br />
+          By design.
+        </span>
+        <svg viewBox="0 0 340 220" fill="none">
+          <path
+            d="M-10 175C90 70 140 250 350 48M-10 40C160 90 90 150 340 180M160-20C80 60 280 120 190 240"
+            stroke="currentColor"
+          />
+          <circle cx="126" cy="110" r="7" />
+          <circle cx="254" cy="123" r="7" />
+          <circle cx="183" cy="172" r="7" />
+        </svg>
+      </div>
+    </div>
+    <div class="branch-list">
+      {branches.map((b, i) => (
+        <article
+          class="branch-row"
+          data-search={`${b.locality} ${b.address.street} ${b.address.locality} ${b.landmark}`.toLowerCase()}
+        >
+          <div class="branch-row-head">
+            <span class="row-index">0{i + 1}</span>
+            <h3>
+              <a class="branch-main-link" href={`/locations/${b.slug}/`}>
+                {b.locality}
+              </a>
+            </h3>
+            <a class="circle-link" href={`/locations/${b.slug}/`} aria-label={`View ${b.name}`}>
+              <Arrow diagonal />
+            </a>
+          </div>
+          <div class="branch-row-content">
+            <p class="clinic-meta">
+              <Icon name="pin" />
+              <span>{b.landmark}</span>
+            </p>
+            <div class="clinic-meta">
+              <Icon name="clock" />
+              <div class="hours">
+                {b.hours.map((h) => (
+                  <span>{h.label}</span>
+                ))}
+              </div>
+            </div>
+            <div class="branch-links">
+              <a href={phoneHref(b.phone)} data-event="phone_click">
+                <Icon name="phone" />
+                <span>
+                  <small>Call clinic</small>
+                  {b.phone}
+                </span>
+              </a>
+              <a
+                href={createWhatsAppUrl({ phone: b.whatsapp, branch: b.name })}
+                data-event="whatsapp_click"
+              >
+                <Icon name="chat" />
+                <span>{b.whatsapp ? 'WhatsApp' : 'Central WhatsApp'}</span>
+              </a>
+              <a
+                href={
+                  b.mapUrl ||
+                  `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${b.name}, ${b.address.street}, ${b.address.locality}, Kerala ${b.address.postalCode}`)}`
+                }
+                target="_blank"
+                rel="noopener noreferrer"
+                data-event="directions_click"
+              >
+                <Icon name="directions" />
+                <span>Directions</span>
+              </a>
+            </div>
+          </div>
+        </article>
+      ))}
+      <p class="no-results" hidden>
+        No clinics match that search. Try a locality name or clear your search.
+      </p>
+    </div>
+  </div>
+</section>
+<script>
+  import { gsap } from 'gsap';
+  document.querySelectorAll<HTMLElement>('.branch-finder').forEach((finder) => {
+    const input = finder.querySelector<HTMLInputElement>('input');
+    const rows = Array.from(finder.querySelectorAll<HTMLElement>('.branch-row'));
+    input?.addEventListener('input', () => {
+      const words = input.value.toLowerCase().trim().split(/\s+/);
+      let count = 0;
+      rows.forEach((row) => {
+        const match = words.every((word) => row.dataset.search?.includes(word));
+        row.hidden = !match;
+        if (match) {
+          count++;
+          if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            gsap.killTweensOf(row);
+            gsap.fromTo(
+              row,
+              { opacity: 0.35, x: 10 },
+              { opacity: 1, x: 0, duration: 0.3, clearProps: 'opacity,transform' }
+            );
+          }
+        }
+      });
+      const status = finder.querySelector('.search-count');
+      if (status)
+        status.textContent = `${count} ${count === 1 ? 'clinic' : 'clinics'}${input.value ? ' found' : ''}`;
+      const empty = finder.querySelector<HTMLElement>('.no-results');
+      if (empty) empty.hidden = count > 0;
+    });
+  });
+</script>

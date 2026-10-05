@@ -1,0 +1,17 @@
+[
+  {
+    "Algorithm": "SHA256",
+    "Hash": "3854CC996FFD7120BC9D12865AB4E90C22E03D30215DA741D252F2043CB2F397",
+    "Path": "C:\\Users\\ijasa\\OneDrive\\Desktop\\dr kiran mydentist\\src\\content\\branches.ts"
+  },
+  {
+    "Algorithm": "SHA256",
+    "Hash": "229E8683072F83E9EB0A1A03CF3A7D94460E4CCA5FE39695333551D937E83993",
+    "Path": "C:\\Users\\ijasa\\OneDrive\\Desktop\\dr kiran mydentist\\src\\content\\faqs.ts"
+  },
+  {
+    "Algorithm": "SHA256",
+    "Hash": "A42D59440C55A95AB66256EF26A25CAD3C0B5DC2533380B9363A3DB1B64853B1",
+    "Path": "C:\\Users\\ijasa\\OneDrive\\Desktop\\dr kiran mydentist\\src\\content\\treatments.ts"
+  }
+]

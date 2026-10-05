@@ -1,0 +1,64 @@
+---
+import Icon from '../../components/common/Icon.astro';
+import Base from '../../layouts/Base.astro';
+import Breadcrumbs from '../../components/common/Breadcrumbs.astro';
+import Arrow from '../../components/common/Arrow.astro';
+import BranchFinder from '../../components/locations/BranchFinder.astro';
+import { content } from '../../lib/content/repository';
+import { createWhatsAppUrl, primaryPhone, phoneHref } from '../../lib/whatsapp';
+const branches = await content.getBranches();
+---
+
+<Base
+  title="Contact Dr Kiran’s MyDentist | Call or WhatsApp"
+  description="Call +91 82818 85542, send a WhatsApp enquiry or find the direct phone number for your preferred MyDentist clinic."
+>
+  <Breadcrumbs items={[{ name: 'Contact', path: '/contact/' }]} />
+  <section class="page-hero wrap">
+    <span class="eyebrow">LET’S START WITH A CONVERSATION</span>
+    <h1>
+      Here for your
+      <br />
+      next question.
+    </h1>
+    <p>
+      Enquire about care, find a branch or ask about appointment availability. The clinic will
+      confirm the arrangements with you.
+    </p>
+  </section>
+  <div class="contact-grid wrap">
+    <section class="contact-box">
+      <span class="section-cue">
+        <Icon name="phone" />
+        <span class="eyebrow">PHONE & WHATSAPP</span>
+      </span>
+      <h2>Talk to MyDentist.</h2>
+      <p>
+        <a class="text-link" href={phoneHref(primaryPhone)} data-event="phone_click">
+          <Icon name="phone" />
+          Call {primaryPhone}
+        </a>
+      </p>
+      <a class="button" href={createWhatsAppUrl()} data-event="whatsapp_click">
+        <span class="action-label">
+          <Icon name="chat" />
+          Start a WhatsApp enquiry
+        </span>
+        <Arrow diagonal />
+      </a>
+    </section>
+    <section class="contact-box">
+      <span class="section-cue">
+        <Icon name="mail" />
+        <span class="eyebrow">EMAIL</span>
+      </span>
+      <h2>Write to us.</h2>
+      <p>For general enquiries, you can contact the clinic by email.</p>
+      <a class="text-link" href="mailto:kiransdentalhospital@gmail.com">
+        <Icon name="mail" />
+        kiransdentalhospital@gmail.com
+      </a>
+    </section>
+  </div>
+  <BranchFinder branches={branches} />
+</Base>

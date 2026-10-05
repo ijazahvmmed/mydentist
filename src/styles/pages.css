@@ -1,0 +1,361 @@
+.page-hero {
+  padding-block: 55px 75px;
+}
+.page-hero .eyebrow {
+  margin-bottom: 25px;
+}
+.page-hero h1 {
+  font-size: clamp(46px, 6.2vw, 89px);
+  max-width: 1040px;
+}
+.page-hero p {
+  max-width: 570px;
+  font-size: 16px;
+  margin: 28px 0 0;
+}
+.page-hero .hero-actions {
+  margin-top: 30px;
+}
+.page-hero.blue {
+  background: var(--blue);
+  border-radius: 26px;
+  padding: 50px;
+  margin-bottom: 50px;
+}
+.page-hero.blue h1 {
+  max-width: 850px;
+}
+.treatment-directory {
+  padding-bottom: 90px;
+}
+.directory-item {
+  display: grid;
+  grid-template-columns: 55px 1fr 0.7fr 46px;
+  align-items: center;
+  gap: 30px;
+  border-top: 1px solid var(--line);
+  padding: 32px 0;
+}
+.directory-item h2 {
+  font-size: 34px;
+}
+.directory-item p {
+  font-size: 13px;
+  margin: 0;
+}
+.editorial-layout {
+  display: grid;
+  grid-template-columns: 1.4fr 0.7fr;
+  gap: 90px;
+  padding-block: 15px 90px;
+}
+.editorial-body section {
+  padding-block: 32px;
+  border-top: 1px solid var(--line);
+}
+.editorial-body h2 {
+  font-size: 36px;
+  margin-bottom: 20px;
+}
+.editorial-body p {
+  font-size: 15px;
+  max-width: 680px;
+}
+.editorial-body li {
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.8;
+}
+.enquiry-panel {
+  background: var(--blue);
+  border-radius: 22px;
+  padding: 30px;
+  height: fit-content;
+  position: sticky;
+  top: 30px;
+}
+.enquiry-panel h2 {
+  font-size: 32px;
+  margin: 18px 0;
+}
+.enquiry-panel p {
+  font-size: 13px;
+}
+.enquiry-panel .button {
+  font-size: 12px;
+  gap: 18px;
+}
+.enquiry-panel .text-link {
+  display: flex;
+  width: fit-content;
+  margin-top: 15px;
+}
+.info-note {
+  font-size: 11px !important;
+  border-top: 1px solid var(--line);
+  padding-top: 18px;
+  margin-top: 26px !important;
+}
+.related {
+  padding-block: 40px 70px;
+  border-top: 1px solid var(--line);
+}
+.related h2 {
+  font-size: 35px;
+  margin-bottom: 25px;
+}
+.related-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.related-links a {
+  border: 1px solid var(--line);
+  border-radius: 50px;
+  padding: 14px 20px;
+  font-size: 12px;
+  min-height: 44px;
+}
+.related-links a:hover {
+  background: var(--blue);
+}
+.branch-detail {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 60px;
+  padding-block: 10px 70px;
+}
+.branch-detail h2 {
+  font-size: 33px;
+  margin-bottom: 20px;
+}
+.branch-address {
+  font-style: normal;
+  font-size: 20px;
+  line-height: 1.65;
+  margin-bottom: 25px;
+  color: var(--muted);
+}
+.branch-detail .landmark {
+  font-size: 13px;
+}
+.hours-panel {
+  background: var(--blue);
+  padding: 35px;
+  border-radius: 22px;
+}
+.hours-panel h2 {
+  font-size: 28px;
+}
+.hours-panel dl {
+  margin: 0;
+}
+.hours-panel dt {
+  font-size: 13px;
+  margin-top: 22px;
+}
+.hours-panel dd {
+  margin: 6px 0 0;
+  font-size: 19px;
+}
+.hours-panel .info-note {
+  margin-bottom: 0;
+}
+.branch-guidance {
+  background: #eff3f1;
+  padding: 55px;
+  border-radius: 24px;
+  margin-bottom: 70px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 50px;
+}
+.branch-guidance h2 {
+  font-size: 37px;
+}
+.branch-guidance p {
+  font-size: 14px;
+}
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 26px;
+  margin-bottom: 90px;
+}
+.contact-box {
+  padding: 38px;
+  background: var(--blue);
+  border-radius: 22px;
+}
+.contact-box h2 {
+  font-size: 34px;
+  margin: 20px 0;
+}
+.contact-box p {
+  font-size: 14px;
+}
+.contact-box > a:not(.button) {
+  font-size: 19px;
+  overflow-wrap: anywhere;
+}
+.prose {
+  max-width: 800px;
+  padding-block: 10px 80px;
+}
+.prose h2 {
+  font-size: 29px;
+  margin: 36px 0 18px;
+}
+.prose p {
+  font-size: 15px;
+}
+.about-statement {
+  font-size: clamp(31px, 4vw, 58px);
+  line-height: 1.25;
+  letter-spacing: -0.04em;
+  max-width: 1050px;
+  margin-bottom: 70px;
+}
+.about-values {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+  padding-block: 35px 80px;
+}
+.about-values > div {
+  border-top: 1px solid var(--line);
+  padding-top: 25px;
+}
+.about-values h2 {
+  font-size: 27px;
+  margin: 20px 0;
+}
+.about-values p {
+  font-size: 14px;
+}
+.source-link {
+  font-size: 11px;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+@media (max-width: 1000px) {
+  .editorial-layout {
+    gap: 40px;
+    grid-template-columns: 1.2fr 0.8fr;
+  }
+  .directory-item {
+    grid-template-columns: 30px 1fr 0.7fr 44px;
+    gap: 20px;
+  }
+  .directory-item h2 {
+    font-size: 27px;
+  }
+  .branch-detail {
+    gap: 30px;
+  }
+  .branch-guidance {
+    padding: 35px;
+    gap: 30px;
+  }
+  .page-hero.blue {
+    padding: 40px;
+  }
+}
+@media (max-width: 700px) {
+  .page-hero {
+    padding-block: 35px 45px;
+  }
+  .page-hero h1 {
+    font-size: 46px;
+  }
+  .page-hero p {
+    font-size: 14px;
+    margin-top: 23px;
+  }
+  .page-hero.blue {
+    padding: 28px 24px;
+    margin-bottom: 35px;
+  }
+  .page-hero .hero-actions {
+    flex-wrap: wrap;
+  }
+  .directory-item {
+    grid-template-columns: 20px 1fr 40px;
+    gap: 12px;
+    padding-block: 26px;
+  }
+  .directory-item h2 {
+    font-size: 26px;
+  }
+  .directory-item p {
+    grid-column: 2/3;
+    grid-row: 2;
+    font-size: 12px;
+  }
+  .directory-item > .circle-link {
+    grid-column: 3;
+    grid-row: 1;
+  }
+  .treatment-directory {
+    padding-bottom: 55px;
+  }
+  .editorial-layout {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding-bottom: 55px;
+  }
+  .editorial-body h2 {
+    font-size: 31px;
+  }
+  .editorial-body p {
+    font-size: 14px;
+  }
+  .enquiry-panel {
+    position: static;
+    padding: 26px;
+  }
+  .branch-detail {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    padding-bottom: 40px;
+  }
+  .branch-address {
+    font-size: 17px;
+  }
+  .hours-panel {
+    padding: 26px;
+  }
+  .branch-guidance {
+    display: block;
+    padding: 27px;
+    margin-bottom: 45px;
+  }
+  .branch-guidance h2 {
+    font-size: 31px;
+    margin-bottom: 25px;
+  }
+  .contact-grid {
+    grid-template-columns: 1fr;
+    margin-bottom: 50px;
+  }
+  .contact-box {
+    padding: 28px;
+  }
+  .contact-box > a:not(.button) {
+    font-size: 17px;
+  }
+  .about-values {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding-bottom: 40px;
+  }
+  .about-statement {
+    margin-bottom: 30px;
+  }
+  .related h2 {
+    font-size: 29px;
+  }
+  .prose {
+    padding-bottom: 50px;
+  }
+}

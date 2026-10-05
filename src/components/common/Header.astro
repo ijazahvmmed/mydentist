@@ -1,0 +1,102 @@
+---
+import Icon from './Icon.astro';
+import Arrow from './Arrow.astro';
+import { createWhatsAppUrl } from '../../lib/whatsapp';
+---
+
+<header class="site-header">
+  <div class="header-inner wrap">
+    <a class="brand" href="/">
+      <span class="brand-logo">
+        <img src="/images/brand/mydentist-logo.png" width="150" height="150" alt="mydentist" />
+      </span>
+      <span class="brand-caption">
+        <small>DR KIRAN’S</small>
+        <span>ALAPPUZHA, KERALA</span>
+      </span>
+    </a>
+    <button class="menu-toggle" aria-expanded="false" aria-controls="main-nav">
+      Menu <Icon name="plus" />
+    </button>
+    <nav id="main-nav" aria-label="Main navigation">
+      <a
+        href="/treatments/"
+        aria-current={Astro.url.pathname.startsWith('/treatments/') ? 'page' : undefined}
+      >
+        <Icon name="tooth" /> Treatments
+      </a>
+      <a
+        href="/locations/"
+        aria-current={Astro.url.pathname.startsWith('/locations/') ? 'page' : undefined}
+      >
+        <Icon name="pin" /> Our clinics
+      </a>
+      <a href="/#technology">
+        <Icon name="scan" /> Technology
+      </a>
+      <a
+        href="/about/"
+        aria-current={Astro.url.pathname.startsWith('/about/') ? 'page' : undefined}
+      >
+        <Icon name="info" /> About
+      </a>
+      <a
+        href="/contact/"
+        aria-current={Astro.url.pathname.startsWith('/contact/') ? 'page' : undefined}
+      >
+        <Icon name="chat" /> Contact
+      </a>
+      <a class="button mobile-nav-cta" href={createWhatsAppUrl()} data-event="whatsapp_click">
+        Let’s talk <Arrow diagonal />
+      </a>
+    </nav>
+    <a class="button small header-cta" href={createWhatsAppUrl()} data-event="whatsapp_click">
+      Let’s talk <Arrow diagonal />
+    </a>
+  </div>
+  <span class="header-progress" aria-hidden="true"></span>
+</header>
+<script>
+  import { gsap } from 'gsap';
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+  const button = document.querySelector<HTMLButtonElement>('.menu-toggle');
+  const nav = document.querySelector<HTMLElement>('#main-nav');
+  function close() {
+    button?.setAttribute('aria-expanded', 'false');
+    nav?.classList.remove('is-open');
+  }
+  button?.addEventListener('click', () => {
+    const expanded = button.getAttribute('aria-expanded') === 'true';
+    button.setAttribute('aria-expanded', String(!expanded));
+    nav?.classList.toggle('is-open', !expanded);
+    if (!expanded && nav && !reduced.matches) {
+      gsap.fromTo(
+        nav,
+        { clipPath: 'inset(0 0 100% 0)' },
+        { clipPath: 'inset(0)', duration: 0.32, clearProps: 'clipPath' }
+      );
+      gsap.fromTo(
+        nav.querySelectorAll('a'),
+        { opacity: 0, x: 10 },
+        { opacity: 1, x: 0, duration: 0.25, stagger: 0.035, clearProps: 'opacity,transform' }
+      );
+    }
+  });
+  nav?.querySelectorAll('a').forEach((a) => a.addEventListener('click', close));
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Tab' && button?.getAttribute('aria-expanded') === 'true') {
+      const links = Array.from(nav?.querySelectorAll<HTMLAnchorElement>('a') || []);
+      if (e.shiftKey && document.activeElement === button) {
+        e.preventDefault();
+        links.at(-1)?.focus();
+      } else if (!e.shiftKey && document.activeElement === links.at(-1)) {
+        e.preventDefault();
+        button.focus();
+      }
+    }
+    if (e.key === 'Escape' && button?.getAttribute('aria-expanded') === 'true') {
+      close();
+      button.focus();
+    }
+  });
+</script>

@@ -1,0 +1,25 @@
+---
+import Base from '../../layouts/Base.astro';
+import Breadcrumbs from '../../components/common/Breadcrumbs.astro';
+import BranchFinder from '../../components/locations/BranchFinder.astro';
+import { content } from '../../lib/content/repository';
+const branches = await content.getBranches();
+---
+
+<Base
+  title="Our Six Dental Clinics | Dr Kiran’s MyDentist"
+  description="Find MyDentist in Thuravoor, Poochakkal, Eramalloor, Thirunalloor, Aroor and Vaduthala. View clinic addresses, phone numbers, landmarks and opening hours."
+>
+  <Breadcrumbs items={[{ name: 'Our clinics', path: '/locations/' }]} />
+  <section class="page-hero wrap">
+    <span class="eyebrow">SIX NEIGHBOURHOODS. ONE MYDENTIST.</span>
+    <h1>
+      A familiar name.
+      <br />A clinic close to you.
+    </h1>
+    <p>
+      Choose a location, check the opening hours and contact the branch directly before your visit.
+    </p>
+  </section>
+  <BranchFinder branches={branches} />
+</Base>

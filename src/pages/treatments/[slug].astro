@@ -1,0 +1,237 @@
+---
+import Icon from '../../components/common/Icon.astro';
+import { treatmentIcons } from '../../lib/treatment-icons';
+import { treatmentVisuals } from '../../lib/treatment-visuals';
+
+import Base from '../../layouts/Base.astro';
+
+import Breadcrumbs from '../../components/common/Breadcrumbs.astro';
+
+import FAQs from '../../components/common/FAQs.astro';
+
+import Arrow from '../../components/common/Arrow.astro';
+
+import MediaGallery from '../../components/common/MediaGallery.astro';
+
+import { content } from '../../lib/content/repository';
+
+import { service } from '../../lib/schema';
+
+import { enquiryService } from '../../lib/integrations/enquiry';
+
+export async function getStaticPaths() {
+  return (await content.getTreatments()).map((treatment) => ({
+    params: { slug: treatment.slug },
+
+    props: { treatment },
+  }));
+}
+
+const { treatment: t } = Astro.props;
+
+const [all, faqList, branches] = await Promise.all([
+  content.getTreatments(),
+
+  content.getFAQs(),
+
+  content.getBranches(),
+]);
+
+const faqs = faqList.filter((f) => t.faqIds.includes(f.id));
+---
+
+<Base title={t.seo.title} description={t.seo.description} schema={service(t, Astro.site)}>
+  <Breadcrumbs
+    items={[
+      { name: 'Treatments', path: '/treatments/' },
+
+      { name: t.shortName, path: `/treatments/${t.slug}/` },
+    ]}
+  />
+
+  <section class="page-hero blue wrap" data-page-event="treatment_view">
+    <span class="section-cue">
+      <Icon name={treatmentIcons[t.slug] || 'tooth'} />
+      <span class="eyebrow">TREATMENT GUIDE / DR KIRAN’S MYDENTIST</span>
+    </span>
+
+    <h1>{t.name}</h1>
+
+    <p>{t.summary}</p>
+
+    <div class="hero-actions">
+      <a
+        class="button"
+
+        href={enquiryService.createLink({ treatment: t.name })}
+
+        data-event="whatsapp_click"
+      >
+        <span class="action-label">
+          <Icon name="chat" />
+          Enquire about this treatment
+        </span>
+        <Arrow diagonal />
+      </a>
+
+      <a class="text-link" href="/locations/">
+        <span class="action-label">
+          <Icon name="pin" />
+          Find a clinic
+        </span>
+        <Arrow diagonal />
+      </a>
+    </div>
+  </section>
+
+  <nav class="guide-nav wrap" aria-label="Treatment guide sections">
+    <span class="eyebrow">IN THIS GUIDE</span>
+    <a href="#overview">Overview</a>
+    {t.sections.map((s, i) => (
+      <a href={`#guide-section-${i}`}>{s.title}</a>
+    ))}
+    <a href="#prepare">Before your appointment</a>
+  </nav>
+  <MediaGallery assets={t.media} title={t.name} />
+
+  <div class="editorial-layout wrap">
+    <div class="editorial-body">
+      {treatmentVisuals[t.slug] && (
+        <figure class="treatment-illustration">
+          <div class="editorial-media">
+            <img
+              src={`/images/treatments/${treatmentVisuals[t.slug]}.webp`}
+              width="1000"
+              height="1000"
+              loading="lazy"
+              alt={`Illustrative CGI for ${t.shortName.toLowerCase()}`}
+            />
+          </div>
+          <figcaption>Illustrative CGI · Not a patient result or clinic photograph.</figcaption>
+        </figure>
+      )}
+
+      <section id="overview">
+        <h2>What is {t.name.toLowerCase()}?</h2>
+
+        <p>{t.introduction}</p>
+      </section>
+
+      {t.sections.map((s, i) => (
+        <section id={`guide-section-${i}`}>
+          <h2>{s.title}</h2>
+
+          <p>{s.body}</p>
+        </section>
+      ))}
+
+      <section id="prepare">
+        <h2>Before your appointment</h2>
+
+        <p>
+          Let the clinic know what you would like to discuss. Bring details of previous dental
+          treatment and tell your dentist about medicines, allergies and relevant health conditions.
+        </p>
+
+        <p>
+          Confirm treatment availability with your preferred clinic. Fees and the number of visits
+          can be discussed after assessment.
+        </p>
+      </section>
+
+      <p class="info-note">
+        This guide provides general information and does not replace an examination or advice from
+        your treating dentist.
+      </p>
+
+      <a
+        class="source-link"
+
+        href={
+          t.slug === 'root-canal-treatment'
+            ? 'https://www.nhs.uk/tests-and-treatments/root-canal-treatment/'
+            : 'https://www.nhs.uk/live-well/healthy-teeth-and-gums/dental-treatments/'
+        }
+
+        target="_blank"
+
+        rel="noopener noreferrer"
+      >
+        Further reading: NHS dental treatment information <Arrow diagonal />
+      </a>
+    </div>
+
+    <aside class="enquiry-panel">
+      <span class="section-cue">
+        <Icon name="chat" />
+        <span class="eyebrow">YOUR NEXT STEP</span>
+      </span>
+
+      <h2>
+        A conversation
+        <br />
+        comes first.
+      </h2>
+
+      <p>Ask about {t.shortName.toLowerCase()} and connect with a MyDentist clinic.</p>
+
+      <a
+        class="button"
+
+        href={enquiryService.createLink({ treatment: t.name })}
+
+        data-event="whatsapp_click"
+      >
+        <span class="action-label">
+          <Icon name="chat" />
+          WhatsApp an enquiry
+        </span>
+        <Arrow diagonal />
+      </a>
+
+      <a class="text-link" href="/contact/">
+        Other ways to contact us
+      </a>
+
+      <p class="info-note">
+        An enquiry is not a confirmed appointment. The clinic will help with availability.
+      </p>
+    </aside>
+  </div>
+
+  <section class="related wrap">
+    <h2>Find a clinic to discuss your options</h2>
+
+    <div class="related-links">
+      {branches.map((b) => (
+        <a href={`/locations/${b.slug}/`}>
+          <Icon name="pin" />
+          {b.locality}
+          <Arrow diagonal />
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <FAQs items={faqs} title="Questions about your care." />
+
+  <section class="related wrap">
+    <h2>Explore other treatment guides</h2>
+
+    <div class="related-links">
+      {all
+
+        .filter((other) => other.id !== t.id)
+
+        .slice(0, 4)
+
+        .map((other) => (
+          <a href={`/treatments/${other.slug}/`}>
+            <Icon name={treatmentIcons[other.slug] || 'tooth'} />
+            {other.shortName}
+            <Arrow diagonal />
+          </a>
+        ))}
+    </div>
+  </section>
+</Base>

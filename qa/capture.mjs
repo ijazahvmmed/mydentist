@@ -1,0 +1,17 @@
+import { chromium } from '@playwright/test';
+import { mkdir } from 'node:fs/promises';
+await mkdir('qa/screenshots',{recursive:true});
+const browser=await chromium.launch({channel:'msedge',headless:true});
+const page=await browser.newPage({viewport:{width:1440,height:900}});
+await page.goto(process.env.QA_URL||'http://localhost:4322/',{waitUntil:'networkidle'});
+await page.evaluate(()=>document.fonts.ready);
+await page.screenshot({path:'qa/screenshots/desktop-hero.png'});
+await page.screenshot({path:'qa/screenshots/desktop-full.png',fullPage:true});
+await page.locator('.story-chapter').nth(1).scrollIntoViewIfNeeded();
+await page.waitForTimeout(1200);
+await page.screenshot({path:'qa/screenshots/desktop-story.png'});
+await page.setViewportSize({width:390,height:844});
+await page.goto(process.env.QA_URL||'http://localhost:4322/',{waitUntil:'networkidle'});
+await page.screenshot({path:'qa/screenshots/mobile-hero.png'});
+await page.screenshot({path:'qa/screenshots/mobile-full.png',fullPage:true});
+await browser.close();
