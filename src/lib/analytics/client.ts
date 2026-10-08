@@ -1,4 +1,4 @@
-/** No trackers load by default. A future consent manager can consume these events. */
+/** Local action events only; these are not forwarded to Vercel Web Analytics. */
 const allowed = new Set([
   'whatsapp_click',
   'phone_click',

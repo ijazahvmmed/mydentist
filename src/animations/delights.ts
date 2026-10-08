@@ -1,8 +1,6 @@
 import { gsap } from 'gsap';
 const motion = matchMedia('(prefers-reduced-motion: no-preference)');
-document.querySelector('.hero-image-note')?.addEventListener('click', () => {
-  if (motion.matches) dispatchEvent(new Event('mydentist:turn-tooth'));
-});
+
 document.querySelector<HTMLButtonElement>('.clinic-spark')?.addEventListener('click', (event) => {
   if (!motion.matches) return;
   const box = (event.currentTarget as HTMLElement).getBoundingClientRect();

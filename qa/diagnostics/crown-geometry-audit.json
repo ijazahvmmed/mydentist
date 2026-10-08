@@ -1,0 +1,24 @@
+[
+  {
+    "file": "C:\\Users\\ijasa\\OneDrive\\Desktop\\dr kiran mydentist\\public\\models\\dental-crowns.glb",
+    "mesh_count": 28,
+    "open_edges": 0,
+    "nonmanifold_edges": 0,
+    "samples_per_axis": 40,
+    "sampled_neighbor_pairs": 26,
+    "max_sampled_overlap_world_units": 0.0,
+    "positive_sampled_contacts": {},
+    "note": "Overlap is approximate sampled contact; topology counts are exact."
+  },
+  {
+    "file": "C:\\Users\\ijasa\\OneDrive\\Desktop\\dr kiran mydentist\\public\\models\\dental-scan-crowns.glb",
+    "mesh_count": 14,
+    "open_edges": 0,
+    "nonmanifold_edges": 0,
+    "samples_per_axis": 40,
+    "sampled_neighbor_pairs": 13,
+    "max_sampled_overlap_world_units": 0.0,
+    "positive_sampled_contacts": {},
+    "note": "Overlap is approximate sampled contact; topology counts are exact."
+  }
+]

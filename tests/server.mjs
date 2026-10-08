@@ -10,6 +10,7 @@ const types = {
   '.css': 'text/css',
   '.svg': 'image/svg+xml',
   '.webp': 'image/webp',
+  '.avif': 'image/avif',
   '.png': 'image/png',
   '.woff2': 'font/woff2',
   '.xml': 'application/xml',
@@ -25,6 +26,13 @@ createServer(async (req, res) => {
     const pathname = decodeURIComponent(
       new URL(req.url || '/', `http://127.0.0.1:${port}`).pathname
     );
+    // Vercel supplies this endpoint in production; local QA tests SDK initialization only.
+    if (pathname === '/_vercel/insights/script.js') {
+      res
+        .writeHead(200, { 'Content-Type': 'text/javascript' })
+        .end('// Local analytics collector fixture.');
+      return;
+    }
     let file = resolve(root, `.${pathname}`);
     if (file !== root && !file.startsWith(root + sep)) {
       res.writeHead(403).end();

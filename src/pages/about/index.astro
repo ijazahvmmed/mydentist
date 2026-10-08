@@ -1,4 +1,5 @@
 ---
+import EditorialMedia from '../../components/common/EditorialMedia.astro';
 import Icon from '../../components/common/Icon.astro';
 import Base from '../../layouts/Base.astro';
 import Breadcrumbs from '../../components/common/Breadcrumbs.astro';
@@ -18,11 +19,26 @@ import Arrow from '../../components/common/Arrow.astro';
       Clearer about care.
     </h1>
   </section>
+  <section class="about-editorial-lead editorial-split wrap">
+    <EditorialMedia
+      asset="consultation"
+      class="consultation-media"
+      sizes="(max-width: 700px) 100vw, 50vw"
+    />
+    <div class="editorial-copy">
+      <span class="eyebrow">ROOM FOR YOUR QUESTIONS</span>
+      <h2>
+        Dental care starts
+        <br />
+        with a conversation.
+      </h2>
+      <p>A question about your tooth. A treatment you want to understand. A clinic you can find.</p>
+      <a class="text-link" href="/contact/">
+        Talk to MyDentist <Arrow diagonal />
+      </a>
+    </div>
+  </section>
   <section class="wrap">
-    <h2 class="about-statement">
-      Dental care starts with a conversation. A question about your tooth. A treatment you want to
-      understand. A clinic you can find.
-    </h2>
     <div class="about-values">
       <div>
         <span class="section-cue">
@@ -60,6 +76,29 @@ import Arrow from '../../components/common/Arrow.astro';
       Explore our clinics <Arrow diagonal />
     </a>
   </section>
+  <section class="environment-study wrap" aria-label="Illustrative care environments">
+    <div class="environment-heading">
+      <span class="eyebrow">A VISUAL STUDY OF CARE</span>
+      <h2>
+        Space. Detail.
+        <br />A closer look.
+      </h2>
+      <p>
+        Illustrative environments and clinical details. These images do not document our branches.
+      </p>
+    </div>
+    <EditorialMedia
+      asset="treatment-room"
+      class="room-media"
+      sizes="(max-width: 700px) 100vw, 55vw"
+    />
+    <EditorialMedia
+      asset="dental-instruments"
+      class="instruments-media"
+      sizes="(max-width: 700px) 65vw, 24vw"
+      motion="horizontal"
+    />
+  </section>
   <section class="prose wrap">
     <h2>The clinic network</h2>
     <p>
@@ -72,5 +111,27 @@ import Arrow from '../../components/common/Arrow.astro';
       dentist will decide whether a scan or X-ray is appropriate. Ask your branch about equipment
       availability.
     </p>
+  </section>
+  <section class="brand-atmosphere wrap">
+    <div>
+      <span class="eyebrow">MYDENTIST / BRAND STUDY</span>
+      <h2>
+        One MyDentist.
+        <br />
+        Six local clinics.
+      </h2>
+      <p>
+        This reception image is an illustrative brand concept. For addresses, opening hours and
+        contact details, explore the clinic directory.
+      </p>
+      <a class="text-link" href="/locations/">
+        Find your clinic <Arrow diagonal />
+      </a>
+    </div>
+    <EditorialMedia
+      asset="reception"
+      class="reception-media"
+      sizes="(max-width: 700px) 100vw, 48vw"
+    />
   </section>
 </Base>

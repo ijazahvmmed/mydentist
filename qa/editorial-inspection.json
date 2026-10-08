@@ -1,0 +1,572 @@
+[
+  {
+    "width": 390,
+    "height": 844,
+    "route": "/",
+    "overflow": false,
+    "assets": [
+      {
+        "asset": "lifestyle-smile",
+        "image": "http://127.0.0.1:4326/images/editorial/lifestyle-smile-480.avif",
+        "loaded": true,
+        "caption": "Editorial illustration"
+      },
+      {
+        "asset": "clear-aligner",
+        "image": "http://127.0.0.1:4326/images/treatments/clear-aligner-480.avif",
+        "loaded": true,
+        "caption": "Treatment illustration · Not a patient result"
+      },
+      {
+        "asset": "dental-implant",
+        "image": "http://127.0.0.1:4326/images/treatments/dental-implant-480.avif",
+        "loaded": true
+      },
+      {
+        "asset": "digital-teeth",
+        "image": "http://127.0.0.1:4326/images/technology/digital-teeth-480.avif",
+        "loaded": true,
+        "caption": "Digital illustration · Not a patient scan"
+      },
+      {
+        "asset": "intraoral-scan",
+        "image": "http://127.0.0.1:4326/images/technology/intraoral-scan-480.avif",
+        "loaded": true,
+        "caption": "Procedure illustration · Not a clinic photograph"
+      },
+      {
+        "asset": "opg-equipment",
+        "image": "http://127.0.0.1:4326/images/technology/opg-equipment-480.avif",
+        "loaded": true,
+        "caption": "Equipment illustration · Exact machine not verified"
+      },
+      {
+        "asset": "smiling-portrait",
+        "image": "http://127.0.0.1:4326/images/editorial/smiling-portrait-480.avif",
+        "loaded": true,
+        "caption": "Editorial illustration"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "width": 390,
+    "height": 844,
+    "route": "/about/",
+    "overflow": false,
+    "assets": [
+      {
+        "asset": "consultation",
+        "loaded": true
+      },
+      {
+        "asset": "treatment-room",
+        "loaded": true
+      },
+      {
+        "asset": "dental-instruments",
+        "loaded": true
+      },
+      {
+        "asset": "reception",
+        "loaded": true
+      }
+    ],
+    "errors": []
+  },
+  {
+    "width": 390,
+    "height": 844,
+    "route": "/treatments/",
+    "overflow": false,
+    "assets": [
+      {
+        "asset": "smile-closeup",
+        "loaded": true
+      }
+    ],
+    "errors": []
+  },
+  {
+    "width": 390,
+    "height": 844,
+    "route": "/treatments/clear-aligners/",
+    "overflow": false,
+    "assets": [
+      {
+        "asset": "clear-aligner",
+        "loaded": true
+      }
+    ],
+    "errors": []
+  },
+  {
+    "width": 390,
+    "height": 844,
+    "route": "/treatments/dental-implants/",
+    "overflow": false,
+    "assets": [
+      {
+        "asset": "dental-implant",
+        "loaded": true
+      }
+    ],
+    "errors": []
+  },
+  {
+    "width": 430,
+    "height": 932,
+    "route": "/",
+    "overflow": false,
+    "assets": [
+      {
+        "asset": "lifestyle-smile",
+        "image": "http://127.0.0.1:4326/images/editorial/lifestyle-smile-480.avif",
+        "loaded": true,
+        "caption": "Editorial illustration"
+      },
+      {
+        "asset": "clear-aligner",
+        "image": "http://127.0.0.1:4326/images/treatments/clear-aligner-480.avif",
+        "loaded": true,
+        "caption": "Treatment illustration · Not a patient result"
+      },
+      {
+        "asset": "dental-implant",
+        "image": "http://127.0.0.1:4326/images/treatments/dental-implant-480.avif",
+        "loaded": true
+      },
+      {
+        "asset": "digital-teeth",
+        "image": "http://127.0.0.1:4326/images/technology/digital-teeth-480.avif",
+        "loaded": true,
+        "caption": "Digital illustration · Not a patient scan"
+      },
+      {
+        "asset": "intraoral-scan",
+        "image": "http://127.0.0.1:4326/images/technology/intraoral-scan-480.avif",
+        "loaded": true,
+        "caption": "Procedure illustration · Not a clinic photograph"
+      },
+      {
+        "asset": "opg-equipment",
+        "image": "http://127.0.0.1:4326/images/technology/opg-equipment-480.avif",
+        "loaded": true,
+        "caption": "Equipment illustration · Exact machine not verified"
+      },
+      {
+        "asset": "smiling-portrait",
+        "image": "http://127.0.0.1:4326/images/editorial/smiling-portrait-480.avif",
+        "loaded": true,
+        "caption": "Editorial illustration"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "width": 430,
+    "height": 932,
+    "route": "/about/",
+    "overflow": false,
+    "assets": [
+      {
+        "asset": "consultation",
+        "loaded": true
+      },
+      {
+        "asset": "treatment-room",
+        "loaded": true
+      },
+      {
+        "asset": "dental-instruments",
+        "loaded": true
+      },
+      {
+        "asset": "reception",
+        "loaded": true
+      }
+    ],
+    "errors": []
+  },
+  {
+    "width": 430,
+    "height": 932,
+    "route": "/treatments/",
+    "overflow": false,
+    "assets": [
+      {
+        "asset": "smile-closeup",
+        "loaded": true
+      }
+    ],
+    "errors": []
+  },
+  {
+    "width": 430,
+    "height": 932,
+    "route": "/treatments/clear-aligners/",
+    "overflow": false,
+    "assets": [
+      {
+        "asset": "clear-aligner",
+        "loaded": true
+      }
+    ],
+    "errors": []
+  },
+  {
+    "width": 430,
+    "height": 932,
+    "route": "/treatments/dental-implants/",
+    "overflow": false,
+    "assets": [
+      {
+        "asset": "dental-implant",
+        "loaded": true
+      }
+    ],
+    "errors": []
+  },
+  {
+    "width": 768,
+    "height": 1024,
+    "route": "/",
+    "overflow": false,
+    "assets": [
+      {
+        "asset": "lifestyle-smile",
+        "image": "http://127.0.0.1:4326/images/editorial/lifestyle-smile-480.avif",
+        "loaded": true,
+        "caption": "Editorial illustration"
+      },
+      {
+        "asset": "clear-aligner",
+        "image": "http://127.0.0.1:4326/images/treatments/clear-aligner-480.avif",
+        "loaded": true,
+        "caption": "Treatment illustration · Not a patient result"
+      },
+      {
+        "asset": "dental-implant",
+        "image": "http://127.0.0.1:4326/images/treatments/dental-implant-480.avif",
+        "loaded": true
+      },
+      {
+        "asset": "digital-teeth",
+        "image": "http://127.0.0.1:4326/images/technology/digital-teeth-480.avif",
+        "loaded": true,
+        "caption": "Digital illustration · Not a patient scan"
+      },
+      {
+        "asset": "intraoral-scan",
+        "image": "http://127.0.0.1:4326/images/technology/intraoral-scan-480.avif",
+        "loaded": true,
+        "caption": "Procedure illustration · Not a clinic photograph"
+      },
+      {
+        "asset": "opg-equipment",
+        "image": "http://127.0.0.1:4326/images/technology/opg-equipment-480.avif",
+        "loaded": true,
+        "caption": "Equipment illustration · Exact machine not verified"
+      },
+      {
+        "asset": "smiling-portrait",
+        "image": "http://127.0.0.1:4326/images/editorial/smiling-portrait-480.avif",
+        "loaded": true,
+        "caption": "Editorial illustration"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "width": 768,
+    "height": 1024,
+    "route": "/about/",
+    "overflow": false,
+    "assets": [
+      {
+        "asset": "consultation",
+        "loaded": true
+      },
+      {
+        "asset": "treatment-room",
+        "loaded": true
+      },
+      {
+        "asset": "dental-instruments",
+        "loaded": true
+      },
+      {
+        "asset": "reception",
+        "loaded": true
+      }
+    ],
+    "errors": []
+  },
+  {
+    "width": 768,
+    "height": 1024,
+    "route": "/treatments/",
+    "overflow": false,
+    "assets": [
+      {
+        "asset": "smile-closeup",
+        "loaded": true
+      }
+    ],
+    "errors": []
+  },
+  {
+    "width": 768,
+    "height": 1024,
+    "route": "/treatments/clear-aligners/",
+    "overflow": false,
+    "assets": [
+      {
+        "asset": "clear-aligner",
+        "loaded": true
+      }
+    ],
+    "errors": []
+  },
+  {
+    "width": 768,
+    "height": 1024,
+    "route": "/treatments/dental-implants/",
+    "overflow": false,
+    "assets": [
+      {
+        "asset": "dental-implant",
+        "loaded": true
+      }
+    ],
+    "errors": []
+  },
+  {
+    "width": 1440,
+    "height": 900,
+    "route": "/",
+    "overflow": false,
+    "assets": [
+      {
+        "asset": "lifestyle-smile",
+        "image": "http://127.0.0.1:4326/images/editorial/lifestyle-smile-893.avif",
+        "loaded": true,
+        "caption": "Editorial illustration"
+      },
+      {
+        "asset": "clear-aligner",
+        "image": "http://127.0.0.1:4326/images/treatments/clear-aligner-768.avif",
+        "loaded": true,
+        "caption": "Treatment illustration · Not a patient result"
+      },
+      {
+        "asset": "dental-implant",
+        "image": "http://127.0.0.1:4326/images/treatments/dental-implant-480.avif",
+        "loaded": true
+      },
+      {
+        "asset": "digital-teeth",
+        "image": "http://127.0.0.1:4326/images/technology/digital-teeth-768.avif",
+        "loaded": true,
+        "caption": "Digital illustration · Not a patient scan"
+      },
+      {
+        "asset": "intraoral-scan",
+        "image": "http://127.0.0.1:4326/images/technology/intraoral-scan-768.avif",
+        "loaded": true,
+        "caption": "Procedure illustration · Not a clinic photograph"
+      },
+      {
+        "asset": "opg-equipment",
+        "image": "http://127.0.0.1:4326/images/technology/opg-equipment-768.avif",
+        "loaded": true,
+        "caption": "Equipment illustration · Exact machine not verified"
+      },
+      {
+        "asset": "smiling-portrait",
+        "image": "http://127.0.0.1:4326/images/editorial/smiling-portrait-768.avif",
+        "loaded": true,
+        "caption": "Editorial illustration"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "width": 1440,
+    "height": 900,
+    "route": "/about/",
+    "overflow": false,
+    "assets": [
+      {
+        "asset": "consultation",
+        "loaded": true
+      },
+      {
+        "asset": "treatment-room",
+        "loaded": true
+      },
+      {
+        "asset": "dental-instruments",
+        "loaded": true
+      },
+      {
+        "asset": "reception",
+        "loaded": true
+      }
+    ],
+    "errors": []
+  },
+  {
+    "width": 1440,
+    "height": 900,
+    "route": "/treatments/",
+    "overflow": false,
+    "assets": [
+      {
+        "asset": "smile-closeup",
+        "loaded": true
+      }
+    ],
+    "errors": []
+  },
+  {
+    "width": 1440,
+    "height": 900,
+    "route": "/treatments/clear-aligners/",
+    "overflow": false,
+    "assets": [
+      {
+        "asset": "clear-aligner",
+        "loaded": true
+      }
+    ],
+    "errors": []
+  },
+  {
+    "width": 1440,
+    "height": 900,
+    "route": "/treatments/dental-implants/",
+    "overflow": false,
+    "assets": [
+      {
+        "asset": "dental-implant",
+        "loaded": true
+      }
+    ],
+    "errors": []
+  },
+  {
+    "width": 1920,
+    "height": 1080,
+    "route": "/",
+    "overflow": false,
+    "assets": [
+      {
+        "asset": "lifestyle-smile",
+        "image": "http://127.0.0.1:4326/images/editorial/lifestyle-smile-893.avif",
+        "loaded": true,
+        "caption": "Editorial illustration"
+      },
+      {
+        "asset": "clear-aligner",
+        "image": "http://127.0.0.1:4326/images/treatments/clear-aligner-893.avif",
+        "loaded": true,
+        "caption": "Treatment illustration · Not a patient result"
+      },
+      {
+        "asset": "dental-implant",
+        "image": "http://127.0.0.1:4326/images/treatments/dental-implant-480.avif",
+        "loaded": true
+      },
+      {
+        "asset": "digital-teeth",
+        "image": "http://127.0.0.1:4326/images/technology/digital-teeth-768.avif",
+        "loaded": true,
+        "caption": "Digital illustration · Not a patient scan"
+      },
+      {
+        "asset": "intraoral-scan",
+        "image": "http://127.0.0.1:4326/images/technology/intraoral-scan-900.avif",
+        "loaded": true,
+        "caption": "Procedure illustration · Not a clinic photograph"
+      },
+      {
+        "asset": "opg-equipment",
+        "image": "http://127.0.0.1:4326/images/technology/opg-equipment-900.avif",
+        "loaded": true,
+        "caption": "Equipment illustration · Exact machine not verified"
+      },
+      {
+        "asset": "smiling-portrait",
+        "image": "http://127.0.0.1:4326/images/editorial/smiling-portrait-768.avif",
+        "loaded": true,
+        "caption": "Editorial illustration"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "width": 1920,
+    "height": 1080,
+    "route": "/about/",
+    "overflow": false,
+    "assets": [
+      {
+        "asset": "consultation",
+        "loaded": true
+      },
+      {
+        "asset": "treatment-room",
+        "loaded": true
+      },
+      {
+        "asset": "dental-instruments",
+        "loaded": true
+      },
+      {
+        "asset": "reception",
+        "loaded": true
+      }
+    ],
+    "errors": []
+  },
+  {
+    "width": 1920,
+    "height": 1080,
+    "route": "/treatments/",
+    "overflow": false,
+    "assets": [
+      {
+        "asset": "smile-closeup",
+        "loaded": true
+      }
+    ],
+    "errors": []
+  },
+  {
+    "width": 1920,
+    "height": 1080,
+    "route": "/treatments/clear-aligners/",
+    "overflow": false,
+    "assets": [
+      {
+        "asset": "clear-aligner",
+        "loaded": true
+      }
+    ],
+    "errors": []
+  },
+  {
+    "width": 1920,
+    "height": 1080,
+    "route": "/treatments/dental-implants/",
+    "overflow": false,
+    "assets": [
+      {
+        "asset": "dental-implant",
+        "loaded": true
+      }
+    ],
+    "errors": []
+  }
+]

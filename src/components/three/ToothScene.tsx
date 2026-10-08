@@ -10,7 +10,9 @@ import {
   MeshBasicMaterial,
   ShaderMaterial,
   Vector3,
+  PMREMGenerator,
 } from 'three';
+import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { createStorySnap, getStoryStops } from '../../animations/story-snap';
@@ -34,24 +36,40 @@ function Molar({ ready }: { ready: () => void }) {
   const [geometry, setGeometry] = useState<BufferGeometry>();
   const group = useRef<Group>(null);
   const ring = useRef<Mesh>(null);
-  const { camera, viewport, invalidate, gl } = useThree();
-  const metrics = useMemo(
-    () => ({ hero: { top: 0, left: 0, width: 0, height: 0 }, stage: { top: 0, height: 0 } }),
-    []
-  );
+  const { camera, viewport, invalidate, gl, scene } = useThree();
+  const metrics = useMemo(() => ({ stage: { top: 0, height: 0 } }), []);
   const bounds = useMemo(() => new Box3(), []);
   const state = useMemo(() => ({ p: 0, entry: 0, turn: 0 }), []);
   const enamel = useMemo(
     () =>
       new MeshPhysicalMaterial({
         color: '#f3edda',
-        roughness: 0.29,
+        roughness: 0.26,
         metalness: 0,
-        clearcoat: 0.28,
+        clearcoat: 0.42,
+        envMapIntensity: 0.35,
         clearcoatRoughness: 0.38,
       }),
     []
   );
+  useEffect(() => {
+    if (!geometry) return;
+    const studio = new RoomEnvironment();
+    const generator = new PMREMGenerator(gl);
+    let environment: ReturnType<PMREMGenerator['fromScene']> | undefined;
+    const frame = requestAnimationFrame(() => {
+      environment = generator.fromScene(studio, 0.04, 0.1, 100, { size: 64 });
+      scene.environment = environment.texture;
+      invalidate();
+    });
+    return () => {
+      cancelAnimationFrame(frame);
+      scene.environment = null;
+      environment?.dispose();
+      generator.dispose();
+      studio.dispose();
+    };
+  }, [geometry, gl, scene, invalidate]);
   const wire = useMemo(
     () =>
       new MeshBasicMaterial({ color: '#3e66b7', wireframe: true, transparent: true, opacity: 0 }),
@@ -108,9 +126,7 @@ function Molar({ ready }: { ready: () => void }) {
     const stage = document.querySelector('.story-stage')!;
     const mobileStory = createMobileStory(stage);
     const measure = () => {
-      const h = document.querySelector('.hero-media')!.getBoundingClientRect();
       const s = stage.getBoundingClientRect();
-      metrics.hero = { top: h.top + scrollY, left: h.left, width: h.width, height: h.height };
       metrics.stage = { top: s.top + scrollY, height: s.height };
     };
     measure();
@@ -135,10 +151,8 @@ function Molar({ ready }: { ready: () => void }) {
       });
     });
     const redraw = () => {
-      const hero = document.querySelector('.hero-media')!.getBoundingClientRect();
       const rect = stage.getBoundingClientRect();
-      const active =
-        hero.bottom > 0 || (rect.top < innerHeight && rect.bottom > innerHeight * 0.15);
+      const active = rect.top < innerHeight && rect.bottom > innerHeight * 0.15;
       if (!active) (gl.domElement.closest('.tooth-canvas') as HTMLElement).style.opacity = '0';
       if (!document.hidden && active) invalidate();
     };
@@ -171,36 +185,25 @@ function Molar({ ready }: { ready: () => void }) {
   }, [state, invalidate, metrics, geometry, gl]);
   useFrame(() => {
     if (!group.current || document.hidden) return;
-    const hero = {
-      ...metrics.hero,
-      top: metrics.hero.top - scrollY,
-      bottom: metrics.hero.top + metrics.hero.height - scrollY,
-    };
     const stage = {
       top: metrics.stage.top - scrollY,
       bottom: metrics.stage.top + metrics.stage.height - scrollY,
     };
     const mobile = innerWidth < 900;
-    const story = stage.top < innerHeight * 0.65;
-    const visible = story ? stage.bottom > innerHeight * 0.15 : hero.bottom > 0;
+    const visible = stage.top < innerHeight && stage.bottom > innerHeight * 0.15;
     (gl.domElement.closest('.tooth-canvas') as HTMLElement).style.opacity = visible ? '1' : '0';
     const p = state.p;
     const turn = Math.cos(p * Math.PI);
     const intensity = Math.sin(Math.PI * Math.min(1, p / 3));
     const exit = Math.min(0, stage.bottom - innerHeight);
-    const targetX = story
-      ? mobile
-        ? 0.5
-        : 0.5 - turn * 0.23
-      : (hero.left + hero.width * 0.5) / innerWidth;
-    const targetY = story
-      ? Math.max(mobile ? 0.72 : 0.5, stage.top / innerHeight + (mobile ? 0.72 : 0.5)) +
-        exit / innerHeight
-      : (hero.top + hero.height * 0.48) / innerHeight;
+    const targetX = mobile ? 0.5 : 0.5 - turn * 0.23;
+    const targetY =
+      Math.max(mobile ? 0.72 : 0.5, stage.top / innerHeight + (mobile ? 0.72 : 0.5)) +
+      exit / innerHeight;
     camera.position.set(
       Math.sin(p * 1.8) * 0.18,
-      story && p > 1.5 ? -0.12 : 0,
-      7.3 - (story ? Math.sin((p / 3) * Math.PI) * 0.65 : state.entry * 0.4)
+      p > 1.5 ? -0.12 : 0,
+      7.3 - Math.sin((p / 3) * Math.PI) * 0.65
     );
     camera.lookAt(0, 0, 0);
     camera.updateMatrixWorld();
@@ -210,16 +213,12 @@ function Molar({ ready }: { ready: () => void }) {
       (0.5 - targetY) * world.height + (1 - state.entry) * 0.3,
       0
     );
-    const scale = story
-      ? mobile
-        ? 0.43
-        : 0.79 * Math.min(1, innerWidth / innerHeight / 1.6)
-      : (((hero.height / innerHeight) * world.height) / 3.35) * 0.62;
+    const scale = mobile ? 0.43 : 0.79 * Math.min(1, innerWidth / innerHeight / 1.6);
     group.current.scale.setScalar(scale * (0.92 + 0.08 * state.entry));
     group.current.rotation.set(
-      0.3 + (story ? Math.sin(p) * 0.1 : 0),
+      0.3 + Math.sin(p) * 0.1,
       -1.0 - p * 0.3 + (1 - state.entry) * 0.5 + state.turn,
-      story ? turn * -0.08 : -0.1
+      turn * -0.08
     );
     wire.opacity = intensity * 0.035;
     if (ring.current) {
@@ -304,10 +303,10 @@ export default function ToothScene() {
             );
           }}
         >
-          <ambientLight intensity={0.7} />
-          <hemisphereLight args={['#e9f4ff', '#536264', 1.2]} />
-          <directionalLight position={[-3, 5, 5]} intensity={3.4} />
-          <directionalLight position={[4, 1, -2]} intensity={2.5} color="#cde9ff" />
+          <ambientLight intensity={0.25} />
+          <hemisphereLight args={['#e9f4ff', '#536264', 0.55]} />
+          <directionalLight position={[-3, 5, 5]} intensity={2.1} />
+          <directionalLight position={[4, 1, -2]} intensity={1.4} color="#cde9ff" />
           <Molar ready={ready} />
         </Canvas>
       </div>

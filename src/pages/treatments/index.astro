@@ -1,4 +1,5 @@
 ---
+import EditorialMedia from '../../components/common/EditorialMedia.astro';
 import Icon from '../../components/common/Icon.astro';
 import Base from '../../layouts/Base.astro';
 import Breadcrumbs from '../../components/common/Breadcrumbs.astro';
@@ -13,17 +14,25 @@ const treatments = await content.getTreatments();
   description="Explore root canal treatment, clear aligners, braces, wisdom tooth removal, dental implants and other dental care at Dr Kiran’s MyDentist."
 >
   <Breadcrumbs items={[{ name: 'Treatments', path: '/treatments/' }]} />
-  <section class="page-hero wrap">
-    <span class="eyebrow">UNDERSTAND YOUR OPTIONS</span>
-    <h1>
-      Care for every
-      <br />
-      chapter of your smile.
-    </h1>
-    <p>
-      Start with a little understanding. Your dentist will help you decide what is appropriate for
-      your teeth, your oral health and your needs.
-    </p>
+  <section class="page-hero wrap treatment-index-hero">
+    <div>
+      <span class="eyebrow">UNDERSTAND YOUR OPTIONS</span>
+      <h1>
+        Care for every
+        <br />
+        chapter of your smile.
+      </h1>
+      <p>
+        Start with a little understanding. Your dentist will help you decide what is appropriate for
+        your teeth, your oral health and your needs.
+      </p>
+    </div>
+    <EditorialMedia
+      asset="smile-closeup"
+      class="smile-media"
+      sizes="(max-width: 700px) 100vw, 38vw"
+      motion="horizontal"
+    />
   </section>
   <section class="treatment-directory wrap" aria-label="Dental treatments">
     {treatments.map((t, i) => (

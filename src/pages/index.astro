@@ -4,6 +4,7 @@ import { treatmentVisuals } from '../lib/treatment-visuals';
 import Base from '../layouts/Base.astro';
 import Arrow from '../components/common/Arrow.astro';
 import ToothScene from '../components/three/ToothScene';
+import EditorialMedia from '../components/common/EditorialMedia.astro';
 import TechnologyVisual from '../components/home/TechnologyVisual.astro';
 import ToothStory from '../components/home/ToothStory.astro';
 import BranchFinder from '../components/locations/BranchFinder.astro';
@@ -22,11 +23,11 @@ const homeFAQs = allFAQs.filter((faq) =>
 ---
 
 <Base
-  title="Dr Kiran’s MyDentist | Dental Care Across Alappuzha"
-  description="Explore specialised dental care at Dr Kiran’s MyDentist. Find six clinic locations, treatment information, opening hours and direct phone or WhatsApp contact."
+  title="Dr Kiranâ€™s MyDentist | Dental Care Across Alappuzha"
+  description="Explore specialised dental care at Dr Kiranâ€™s MyDentist. Find six clinic locations, treatment information, opening hours and direct phone or WhatsApp contact."
   schema={[organization(Astro.site), website(Astro.site)]}
 >
-  <section class="hero wrap">
+  <section class="hero hero-photographic wrap">
     <div class="hero-topline">
       <span>
         <i></i> DENTAL CARE, A LITTLE CLOSER.
@@ -66,28 +67,33 @@ const homeFAQs = allFAQs.filter((faq) =>
         </div>
       </div>
       <div class="hero-media">
-        <div class="hero-orbit" aria-hidden="true"></div>
-        <picture>
+        <picture class="hero-artwork">
+          <source
+            type="image/avif"
+            srcset="/images/hero/dental-care-640.avif 640w, /images/hero/dental-care-960.avif 960w, /images/hero/dental-care-1440.avif 1440w, /images/hero/dental-care-1920.avif 1920w"
+            sizes="(max-width: 700px) 100vw, 85vw"
+          />
           <source
             type="image/webp"
-            srcset="/images/treatments/tooth-hero-640.webp 640w, /images/treatments/tooth-hero.webp 1000w"
-            sizes="(max-width: 700px) 90vw, 55vw"
+            srcset="/images/hero/dental-care-640.webp 640w, /images/hero/dental-care-960.webp 960w, /images/hero/dental-care-1440.webp 1440w, /images/hero/dental-care-1920.webp 1920w"
+            sizes="(max-width: 700px) 100vw, 85vw"
           />
           <img
-            src="/images/treatments/tooth-hero.webp"
-            alt="Ivory tooth illustration"
-            width="1000"
-            height="1000"
+            src="/images/hero/dental-care-1920.webp"
+            alt="A patient receiving a dental examination with a mirror and blue-gloved hands"
+            width="2400"
+            height="1600"
             fetchpriority="high"
           />
         </picture>
-        <button
-          class="hero-image-note"
-          type="button"
-          aria-label="A closer look at care — Rotate the 3D tooth"
+        <a
+          class="hero-photo-credit"
+          href="https://www.pexels.com/photo/unrecognizable-crop-dentist-in-latex-gloves-examining-teeth-of-patient-in-clinic-3881451/"
+          target="_blank"
+          rel="noopener noreferrer"
         >
-          A CLOSER LOOK AT CARE <Icon name="rotate" />
-        </button>
+          Stock photography / Andrea Piacquadio
+        </a>
         <a class="hero-study" href="#tooth-story">
           <span class="study-icon" aria-hidden="true">
             <Icon name="tooth" />
@@ -104,7 +110,7 @@ const homeFAQs = allFAQs.filter((faq) =>
         <button
           class="clinic-spark"
           type="button"
-          aria-label="06 — Celebrate six neighbourhood clinics"
+          aria-label="06 â€” Celebrate six neighbourhood clinics"
         >
           06
         </button>
@@ -148,6 +154,28 @@ const homeFAQs = allFAQs.filter((faq) =>
   </section>
   <ToothScene client:idle />
   <ToothStory />
+  <section class="human-transition editorial-split wrap">
+    <EditorialMedia
+      asset="lifestyle-smile"
+      class="lifestyle-media"
+      sizes="(max-width: 700px) 100vw, 60vw"
+    />
+    <div class="editorial-copy">
+      <span class="eyebrow">YOUR LIFE. YOUR DENTAL CARE.</span>
+      <h2>
+        Care that fits
+        <br />
+        back into life.
+      </h2>
+      <p>
+        Understanding your options is a good place to begin. Explore our treatments and connect with
+        a clinic close to home.
+      </p>
+      <a class="text-link" href="/treatments/">
+        Understand your options <Arrow diagonal />
+      </a>
+    </div>
+  </section>
   <section class="treatments-home wrap">
     <div class="section-top">
       <div>
@@ -177,26 +205,12 @@ const homeFAQs = allFAQs.filter((faq) =>
           Discover clear aligners <Arrow diagonal />
         </span>
       </div>
-      <div class="aligner-art" aria-hidden="true">
-        <picture>
-          <source
-            srcset="/images/treatments/aligner-640.webp 640w, /images/treatments/aligner.webp 1000w"
-            sizes="(max-width: 700px) 80vw, 45vw"
-          />
-          <img
-            src="/images/treatments/aligner.webp"
-            width="1000"
-            height="1000"
-            alt=""
-            loading="lazy"
-          />
-        </picture>
-        <span>
-          CLEAR ALIGNER
-          <br />
-          ILLUSTRATIVE VISUAL
-        </span>
-      </div>
+      <EditorialMedia
+        asset="clear-aligner"
+        class="featured-aligner"
+        sizes="(max-width: 700px) 100vw, 45vw"
+        motion="none"
+      />
     </a>
     <div class="treatment-rows">
       {treatments
@@ -205,13 +219,23 @@ const homeFAQs = allFAQs.filter((faq) =>
           <a href={`/treatments/${t.slug}/`}>
             <span class="row-index">0{i + 2}</span>
             <div class="treatment-media" aria-hidden="true">
-              <img
-                src={`/images/treatments/${treatmentVisuals[t.slug]}-640.webp`}
-                width="640"
-                height="640"
-                alt=""
-                loading="lazy"
-              />
+              {t.slug === 'dental-implants' ? (
+                <EditorialMedia
+                  asset="dental-implant"
+                  caption={false}
+                  decorative
+                  motion="none"
+                  sizes="130px"
+                />
+              ) : (
+                <img
+                  src={`/images/treatments/${treatmentVisuals[t.slug]}-640.webp`}
+                  width="640"
+                  height="640"
+                  alt=""
+                  loading="lazy"
+                />
+              )}
             </div>
             <h3>{t.name}</h3>
             <p>{t.summary}</p>
@@ -238,7 +262,31 @@ const homeFAQs = allFAQs.filter((faq) =>
           Ask your clinic about availability.
         </p>
       </div>
-      <div class="tech-grid">
+      <div class="technology-intro">
+        <EditorialMedia
+          asset="digital-teeth"
+          class="digital-teeth-media"
+          sizes="(max-width: 700px) 100vw, 40vw"
+          motion="horizontal"
+          scanning
+        />
+        <div class="technology-intro-copy">
+          <span class="eyebrow">FROM A VIEW TO A CONVERSATION</span>
+          <h3>
+            See more.
+            <br />
+            Understand more.
+          </h3>
+          <p>
+            Intraoral scanning and full-mouth imaging support assessment and treatment planning.
+            Your dentist will explain which view is appropriate for you.
+          </p>
+          <a class="text-link" href="/about/">
+            Technology in your care <Arrow diagonal />
+          </a>
+        </div>
+      </div>
+      <div class="tech-grid technology-live-grid">
         <a
           class="tech-card"
           href={createWhatsAppUrl({ treatment: 'Intraoral scanner availability' })}
@@ -287,9 +335,44 @@ const homeFAQs = allFAQs.filter((faq) =>
           </div>
         </a>
       </div>
-      <p class="tech-note">Illustrative graphics. Equipment availability may vary by clinic.</p>
+      <p class="tech-note">Illustrative media. Equipment availability may vary by clinic.</p>
     </div>
   </section>
   <BranchFinder branches={branches} />
   <FAQs items={homeFAQs} />
+  <section class="human-cta editorial-split wrap">
+    <div class="editorial-copy">
+      <span class="eyebrow">YOUR NEXT STEP</span>
+      <h2>
+        A conversation
+        <br />
+        comes first.
+      </h2>
+      <p>
+        Need help finding the right clinic? Find your MyDentist in Alappuzha, or ask a question on
+        WhatsApp.
+      </p>
+      <div class="hero-actions">
+        <a class="button" href="/locations/">
+          <span class="action-label">
+            <Icon name="pin" />
+            Find a clinic
+          </span>
+          <Arrow diagonal />
+        </a>
+        <a class="text-link" href={createWhatsAppUrl()} data-event="whatsapp_click">
+          <span class="action-label">
+            <Icon name="chat" />
+            WhatsApp us
+          </span>
+          <Arrow diagonal />
+        </a>
+      </div>
+    </div>
+    <EditorialMedia
+      asset="smiling-portrait"
+      class="portrait-media"
+      sizes="(max-width: 700px) 100vw, 38vw"
+    />
+  </section>
 </Base>

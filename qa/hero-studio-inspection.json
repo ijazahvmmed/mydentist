@@ -1,0 +1,32 @@
+[
+  {
+    "width": 390,
+    "hero": {
+      "src": "http://localhost:4323/images/hero/dental-studio-640.avif",
+      "loaded": true,
+      "radius": "14px"
+    },
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "width": 768,
+    "hero": {
+      "src": "http://localhost:4323/images/hero/dental-studio-640.avif",
+      "loaded": true,
+      "radius": "20px"
+    },
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "width": 1440,
+    "hero": {
+      "src": "http://localhost:4323/images/hero/dental-studio-1000.avif",
+      "loaded": true,
+      "radius": "20px"
+    },
+    "overflow": false,
+    "errors": []
+  }
+]

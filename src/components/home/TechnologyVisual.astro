@@ -4,83 +4,36 @@ interface Props {
   kind: 'scan' | 'opg';
 }
 const { kind } = Astro.props;
-const teeth = Array.from({ length: 14 }, (_, i) => ({
-  x: 100 + i * 30.8,
-  y: 124 + Math.sin((i / 13) * Math.PI) * 30,
-  r: (i - 6.5) * 2.1,
-}));
 ---
 
 <div
-  class:list={['digital-visual', kind === 'opg' ? 'opg-visual' : 'arch-visual']}
+  class:list={[
+    'digital-visual',
+    'professional-visual',
+    kind === 'opg' ? 'opg-visual' : 'arch-visual',
+  ]}
   aria-hidden="true"
 >
   <span class="visual-coordinate">
     {kind === 'scan' ? 'SURFACE ACQUISITION / 3D' : 'PANORAMIC STUDY / 180°'}
   </span>
-  {kind === 'scan' ? (
-    <>
-      <img
-        class="scan-base"
-        src="/images/treatments/digital-arch.svg"
-        width="600"
-        height="400"
-        alt=""
-        loading="lazy"
-      />
-      <div class="scan-resolved">
-        <img
-          src="/images/treatments/digital-arch.svg"
-          width="600"
-          height="400"
-          alt=""
-          loading="lazy"
-        />
-      </div>
-    </>
-  ) : (
-    <svg viewBox="0 0 600 400" fill="none">
-      <defs>
-        <linearGradient id="xray" x2="0" y2="1">
-          <stop stop-color="#b6edf1" stop-opacity=".8" />
-          <stop offset="1" stop-color="#3c8294" stop-opacity=".12" />
-        </linearGradient>
-        <filter id="soft">
-          <feGaussianBlur stdDeviation="3" />
-        </filter>
-      </defs>
-      <path
-        d="M65 95Q300 210 535 95M65 280Q300 360 535 280"
-        stroke="#79b7c4"
-        stroke-width="18"
-        opacity=".15"
-        filter="url(#soft)"
-      />
-      <g class="scan-light" id="panoramic-teeth">
-        {teeth.map((t) => (
-          <g transform={`translate(${t.x} ${t.y}) rotate(${t.r})`}>
-            <path
-              d="M-12 0Q-17-15-10-20L-7-59Q-4-67 0-44Q6-73 9-57L12-20Q18-7 12 0Q0 5-12 0Z"
-              fill="url(#xray)"
-              stroke="#9cd7e1"
-              stroke-opacity=".5"
-              stroke-width=".8"
-            />
-            <path
-              d="M-12 20Q-17 35-10 40L-7 77Q-4 88 0 64Q6 93 9 76L12 40Q18 27 12 20Q0 15-12 20Z"
-              fill="url(#xray)"
-              stroke="#9cd7e1"
-              stroke-opacity=".4"
-              stroke-width=".8"
-            />
-          </g>
-        ))}
-      </g>
-      <path d="M67 300Q300 371 533 300M68 81Q300 181 532 81" stroke="#69a7b8" opacity=".3" />
-    </svg>
-  )}
+  <img
+    class:list={['study-poster', kind === 'scan' && 'scan-base']}
+    src={`/images/technology/${kind === 'scan' ? 'arch' : 'opg'}-study.webp`}
+    width="800"
+    height="500"
+    alt=""
+    loading="lazy"
+  />
   <TechnologyScene kind={kind} client:visible />
   <div class="scan-sweep"></div>
+  <div class="visual-reticle" aria-hidden="true">
+    <i></i>
+    <i></i>
+    <i></i>
+    <i></i>
+  </div>
+  <span class="visual-mode">{kind === 'scan' ? '3D SURFACE VIEW' : 'PANORAMIC VIEW'}</span>
   <span class="visual-coordinate bottom">
     ILLUSTRATIVE VISUAL · {kind === 'scan' ? 'EXTERNAL SURFACES' : 'NOT A PATIENT RADIOGRAPH'}
   </span>

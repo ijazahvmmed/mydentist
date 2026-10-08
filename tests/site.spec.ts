@@ -1,5 +1,26 @@
 import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
+test('photographic hero remains visible independently of the animated tooth story', async ({
+  page,
+}) => {
+  for (const width of [390, 768, 1440]) {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto('/');
+    await expect(page.locator('html')).toHaveClass(/tooth-ready/);
+    const image = page.locator('.hero-artwork img');
+    await expect(image).toHaveJSProperty('complete', true);
+    expect(await image.evaluate((img: HTMLImageElement) => img.naturalWidth)).toBeGreaterThan(0);
+    await expect(page.locator('.hero-artwork')).toHaveCSS('opacity', '1');
+    await expect(page.locator('.tooth-canvas')).toHaveCSS('opacity', '0');
+    await page.locator('.hero-study').click();
+    await expect(page).toHaveURL(/#tooth-story$/);
+    await page.locator('.story-chapter').first().scrollIntoViewIfNeeded();
+    await expect(page.locator('.tooth-canvas')).toHaveCSS('opacity', '1');
+    await page.emulateMedia({ reducedMotion: 'reduce' });
+    await expect(page.locator('.hero-artwork')).toHaveCSS('opacity', '1');
+    await page.emulateMedia({ reducedMotion: 'no-preference' });
+  }
+});
 const branches = ['thuravoor', 'poochakkal', 'eramalloor', 'thirunalloor', 'aroor', 'vaduthala'];
 const treatments = [
   'root-canal-treatment',
@@ -99,7 +120,7 @@ for (const [width, height] of [
   [1440, 900],
   [1920, 1080],
 ]) {
-  test(`responsive layout ${width}×${height}`, async ({ page }) => {
+  test(`responsive layout ${width}Ãƒâ€”${height}`, async ({ page }) => {
     await page.setViewportSize({ width, height });
     const errors: string[] = [];
     page.on('pageerror', (e) => errors.push(e.message));
@@ -151,7 +172,7 @@ test('desktop story keeps copy clear and releases after the final chapter', asyn
     await page.waitForTimeout(1300);
     await expect(page.locator('html')).toHaveClass(/tooth-ready/);
     const canvas = page.locator('.tooth-canvas canvas');
-    await expect(canvas).toHaveAttribute('data-triangles', '27704');
+    await expect(canvas).toHaveAttribute('data-triangles', '30200');
     const picture = JSON.parse((await canvas.getAttribute('data-bounds'))!);
     expect(Number(await canvas.getAttribute('data-phase'))).toBeCloseTo(i, 0);
     const scan = Number(await canvas.getAttribute('data-scan'));
@@ -282,28 +303,38 @@ for (const width of [390, 1440]) {
     await expect(page).toHaveURL(/treatments\/root-canal-treatment/);
   });
 }
-test('technology cards route enquiries and both live scans keep moving', async ({ page }) => {
+test('live technology studies animate, route enquiries and respect reduced motion', async ({
+  page,
+}) => {
   await page.goto('/');
   await page.locator('.tech-grid').scrollIntoViewIfNeeded();
   await expect(page.locator('.technology-canvas.ready')).toHaveCount(2);
   for (const card of await page.locator('.tech-card').all()) {
     await expect(card).toHaveAttribute('href', /https:\/\/wa.me\/918281885542\?text=/);
+    await card.scrollIntoViewIfNeeded();
     await card.click({ trial: true });
+    const canvas = card.locator('.technology-canvas canvas');
+    await expect(canvas).toHaveAttribute('data-animation-time', /[0-9]+\.[0-9]+/);
+    const before = await canvas.screenshot();
+    const elapsed = Number(await canvas.getAttribute('data-animation-time'));
+    const rotation = Number(await canvas.getAttribute('data-rotation'));
+    await page.waitForTimeout(1400);
+    expect(Number(await canvas.getAttribute('data-animation-time')) - elapsed).toBeGreaterThan(0.7);
+    expect(Number(await canvas.getAttribute('data-rotation'))).not.toEqual(rotation);
+    expect(before.equals(await canvas.screenshot())).toBe(false);
+    const sweep = card.locator('.scan-sweep');
+    await expect(sweep).toBeVisible();
+    await expect(sweep).toHaveCSS('animation-play-state', 'running');
   }
-  const before = await page.locator('.technology-canvas canvas').first().screenshot();
-  await page.waitForTimeout(650);
-  const after = await page.locator('.technology-canvas canvas').first().screenshot();
-  expect(before.equals(after)).toBe(false);
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await expect(page.locator('.technology-canvas.ready')).toHaveCount(0);
+  await expect(page.locator('.arch-visual .scan-base')).toBeVisible();
+  await expect(page.locator('.opg-visual > .study-poster')).toBeVisible();
 });
-test('tooth and six-clinic micro-interactions respond to input', async ({ page }) => {
+test('six-clinic micro-interaction responds to input', async ({ page }) => {
   await page.goto('/');
   await expect(page.locator('html')).toHaveClass(/tooth-ready/);
   await page.waitForTimeout(1300);
-  const canvas = page.locator('.tooth-canvas canvas');
-  const rotation = Number(await canvas.getAttribute('data-rotation'));
-  await page.getByRole('button', { name: /Rotate the 3D tooth/ }).click();
-  await page.waitForTimeout(1700);
-  expect(Number(await canvas.getAttribute('data-rotation')) - rotation).toBeGreaterThan(6);
   await page.getByRole('button', { name: /Celebrate six neighbourhood clinics/ }).click();
   await expect(page.locator('.smile-spark')).toHaveCount(6);
 });

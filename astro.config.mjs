@@ -11,4 +11,11 @@ export default defineConfig({
   output: 'static',
   trailingSlash: 'always',
   integrations: [react()],
+  // A build must not replace dependency files that the running preview is serving.
+  vite: {
+    cacheDir:
+      process.env.NODE_ENV === 'production'
+        ? 'node_modules/.vite-production'
+        : 'node_modules/.vite-development',
+  },
 });

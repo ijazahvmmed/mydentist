@@ -1,0 +1,47 @@
+---
+import library from '../../lib/editorial-media.json';
+interface Props {
+  asset: keyof typeof library;
+  class?: string;
+  sizes?: string;
+  caption?: boolean;
+  decorative?: boolean;
+  motion?: 'vertical' | 'horizontal' | 'none';
+  scanning?: boolean;
+}
+const {
+  asset,
+  class: className = '',
+  sizes = '(max-width: 700px) 100vw, 55vw',
+  caption = true,
+  decorative = false,
+  motion = 'vertical',
+  scanning = false,
+} = Astro.props;
+const media = library[asset];
+const srcset = (format: string) =>
+  media.widths.map((width) => `${media.base}-${width}.${format} ${width}w`).join(', ');
+---
+
+<figure
+  class:list={['media-frame', className]}
+  data-asset={asset}
+  style={`--media-position: ${media.position}`}
+>
+  <div class:list={['editorial-media', { 'media-scanning': scanning }]} data-media-motion={motion}>
+    <picture>
+      <source type="image/avif" srcset={srcset('avif')} sizes={sizes} />
+      <source type="image/webp" srcset={srcset('webp')} sizes={sizes} />
+      <img
+        src={`${media.base}-${media.width}.webp`}
+        alt={decorative ? '' : media.alt}
+        width={media.width}
+        height={media.height}
+        loading="lazy"
+        decoding="async"
+      />
+    </picture>
+    {scanning && <span class="media-scan-plane" aria-hidden="true"></span>}
+  </div>
+  {caption && <figcaption>{media.caption}</figcaption>}
+</figure>

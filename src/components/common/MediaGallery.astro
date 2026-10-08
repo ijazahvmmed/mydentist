@@ -45,7 +45,9 @@ const { assets, title } = Astro.props;
   .media-gallery img {
     width: 100%;
     height: auto;
-    border-radius: 22px;
+    border-radius: var(--media-radius);
+    border: 1px solid var(--media-hairline);
+    display: block;
   }
   .media-gallery figcaption {
     font-size: 11px;

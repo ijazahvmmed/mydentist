@@ -1,4 +1,5 @@
 ---
+import EditorialMedia from '../../components/common/EditorialMedia.astro';
 import Icon from '../../components/common/Icon.astro';
 import { treatmentIcons } from '../../lib/treatment-icons';
 import { treatmentVisuals } from '../../lib/treatment-visuals';
@@ -37,6 +38,12 @@ const [all, faqList, branches] = await Promise.all([
   content.getBranches(),
 ]);
 
+const productAsset =
+  t.slug === 'clear-aligners'
+    ? 'clear-aligner'
+    : t.slug === 'dental-implants'
+      ? 'dental-implant'
+      : null;
 const faqs = faqList.filter((f) => t.faqIds.includes(f.id));
 ---
 
@@ -49,39 +56,52 @@ const faqs = faqList.filter((f) => t.faqIds.includes(f.id));
     ]}
   />
 
-  <section class="page-hero blue wrap" data-page-event="treatment_view">
-    <span class="section-cue">
-      <Icon name={treatmentIcons[t.slug] || 'tooth'} />
-      <span class="eyebrow">TREATMENT GUIDE / DR KIRAN’S MYDENTIST</span>
-    </span>
+  <section
+    class:list={['page-hero blue wrap', { 'product-guide': productAsset }]}
+    data-page-event="treatment_view"
+  >
+    <div class="product-guide-copy">
+      <span class="section-cue">
+        <Icon name={treatmentIcons[t.slug] || 'tooth'} />
+        <span class="eyebrow">TREATMENT GUIDE / DR KIRAN’S MYDENTIST</span>
+      </span>
 
-    <h1>{t.name}</h1>
+      <h1>{t.name}</h1>
 
-    <p>{t.summary}</p>
+      <p>{t.summary}</p>
 
-    <div class="hero-actions">
-      <a
-        class="button"
+      <div class="hero-actions">
+        <a
+          class="button"
 
-        href={enquiryService.createLink({ treatment: t.name })}
+          href={enquiryService.createLink({ treatment: t.name })}
 
-        data-event="whatsapp_click"
-      >
-        <span class="action-label">
-          <Icon name="chat" />
-          Enquire about this treatment
-        </span>
-        <Arrow diagonal />
-      </a>
+          data-event="whatsapp_click"
+        >
+          <span class="action-label">
+            <Icon name="chat" />
+            Enquire about this treatment
+          </span>
+          <Arrow diagonal />
+        </a>
 
-      <a class="text-link" href="/locations/">
-        <span class="action-label">
-          <Icon name="pin" />
-          Find a clinic
-        </span>
-        <Arrow diagonal />
-      </a>
+        <a class="text-link" href="/locations/">
+          <span class="action-label">
+            <Icon name="pin" />
+            Find a clinic
+          </span>
+          <Arrow diagonal />
+        </a>
+      </div>
     </div>
+    {productAsset && (
+      <EditorialMedia
+        asset={productAsset}
+        class="product-guide-media"
+        sizes="(max-width: 700px) 100vw, 38vw"
+        motion="none"
+      />
+    )}
   </section>
 
   <nav class="guide-nav wrap" aria-label="Treatment guide sections">
@@ -96,7 +116,7 @@ const faqs = faqList.filter((f) => t.faqIds.includes(f.id));
 
   <div class="editorial-layout wrap">
     <div class="editorial-body">
-      {treatmentVisuals[t.slug] && (
+      {treatmentVisuals[t.slug] && !productAsset && (
         <figure class="treatment-illustration">
           <div class="editorial-media">
             <img

@@ -1,0 +1,222 @@
+/* Real photography leads the composition; copy remains live, accessible HTML. */
+.hero.hero-photographic {
+  color: #fff;
+  background: #102632;
+  border-radius: 26px;
+  padding: 30px 42px 0;
+  isolation: isolate;
+}
+.hero-photographic .hero-main {
+  display: block;
+  position: static;
+  min-height: clamp(540px, 42vw, 680px);
+}
+.hero-photographic .hero-copy {
+  width: 48%;
+  max-width: 650px;
+  padding: clamp(65px, 7vw, 112px) 0 48px;
+}
+.hero-photographic h1 {
+  color: #fff;
+  font-size: clamp(62px, 5.9vw, 94px);
+  line-height: 1.04;
+  letter-spacing: -0.06em;
+}
+.hero-photographic .hero-copy h1 span {
+  color: #fff;
+}
+.hero-photographic h1 > span,
+.hero-photographic .hero-copy h1 .line-mask:last-child > span {
+  color: #d0e4ed;
+}
+.hero-photographic .hero-copy p {
+  color: #e4edf1;
+  font-size: 15px;
+  margin: 28px 0;
+}
+.hero-photographic .hero-media {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  isolation: isolate;
+  z-index: 0;
+}
+.hero-photographic .hero-media picture {
+  position: absolute;
+  inset: 0 0 0 16%;
+  width: 84%;
+  display: block;
+  opacity: 1;
+}
+.hero-photographic .hero-media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 46%;
+  transform: none;
+  mask-image: none;
+  mix-blend-mode: normal;
+}
+.hero-photographic .hero-media::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(0deg, #102632ee, transparent 35%),
+    linear-gradient(90deg, #102632 0%, #102632f2 20%, #102632bd 35%, #10263240 55%, transparent 75%);
+  pointer-events: none;
+  z-index: 1;
+}
+.hero-photographic .hero-topline {
+  color: #e9f2f5;
+}
+.hero-photographic .hero-topline > span:last-child {
+  background: #102632cf;
+  border-radius: 30px;
+  padding: 7px 11px;
+}
+.hero-photographic .hero-topline i {
+  background: #bada8d;
+}
+.hero-photographic .hero-actions .button {
+  color: #172b52;
+  background: #fff;
+  border-color: #fff;
+}
+.hero-photographic .hero-actions .button:hover {
+  background: #dfebf4;
+}
+.hero-photographic .hero-actions .text-link {
+  color: #fff;
+}
+.hero-photographic .hero-study {
+  right: 36px;
+  bottom: 146px;
+  border-radius: 12px;
+  background: #fcfcfaf2;
+  color: #172b52;
+  border: 1px solid #ffffff70;
+  font-size: 12px;
+  padding: 16px 20px;
+}
+.hero-photographic .hero-bottom {
+  border-color: #ffffff30;
+  padding: 26px 0;
+  color: #e3edf1;
+}
+.hero-photographic .clinic-signal p,
+.hero-photographic .hero-locations {
+  color: #d1e1e8;
+}
+.hero-photographic .clinic-spark {
+  color: #fff;
+}
+.hero-photographic .hero-photo-credit {
+  position: absolute;
+  bottom: 112px;
+  right: 38px;
+  z-index: 3;
+  color: #e8eff2;
+  font-size: 9px;
+  letter-spacing: 0.015em;
+  padding: 8px 0;
+  text-underline-offset: 3px;
+}
+.hero-photographic .hero-photo-credit:hover {
+  text-decoration: underline;
+}
+@media (min-width: 1600px) {
+  .hero-photographic .hero-copy {
+    padding-top: 100px;
+  }
+}
+@media (max-width: 1000px) and (min-width: 701px) {
+  .hero-photographic .hero-copy {
+    width: 55%;
+  }
+  .hero-photographic h1 {
+    font-size: 60px;
+  }
+  .hero-photographic .hero-main {
+    min-height: 540px;
+  }
+  .hero-photographic .hero-study {
+    right: 24px;
+    bottom: 142px;
+  }
+}
+@media (max-width: 700px) {
+  .hero.hero-photographic {
+    padding: 24px 22px 0;
+    border-radius: 20px;
+  }
+  .hero-photographic .hero-main {
+    min-height: 665px;
+  }
+  .hero-photographic .hero-copy {
+    width: 100%;
+    max-width: none;
+    padding: 32px 0 0;
+  }
+  .hero-photographic h1 {
+    font-size: clamp(49px, 11.9vw, 70px);
+  }
+  .hero-photographic h1 > span {
+    margin-top: 5px;
+  }
+  .hero-photographic .hero-copy p {
+    font-size: 13px;
+    margin: 22px 0;
+  }
+  .hero-photographic .hero-actions {
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .hero-photographic .hero-actions .button {
+    width: auto;
+    font-size: 12px;
+    padding: 15px 20px;
+  }
+  .hero-photographic .hero-actions .text-link {
+    font-size: 12px;
+  }
+  .hero-photographic .hero-media picture {
+    inset: 32% 0 0;
+    width: 100%;
+    height: 68%;
+  }
+  .hero-photographic .hero-media img {
+    object-position: 48% 30%;
+  }
+  .hero-photographic .hero-media::before {
+    background:
+      linear-gradient(0deg, #102632 0%, #102632bf 10%, transparent 30%),
+      linear-gradient(
+        180deg,
+        #102632 0%,
+        #102632 32%,
+        #102632e0 43%,
+        #10263240 60%,
+        transparent 72%
+      );
+  }
+  .hero-photographic .hero-study {
+    bottom: 118px;
+    right: 20px;
+    padding: 12px 15px;
+    font-size: 11px;
+  }
+  .hero-photographic .hero-photo-credit {
+    bottom: 85px;
+    right: 22px;
+    font-size: 8px;
+  }
+  .hero-photographic .hero-bottom {
+    padding: 22px 0;
+    gap: 12px;
+  }
+}

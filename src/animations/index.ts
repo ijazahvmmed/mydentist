@@ -40,23 +40,31 @@ export function revealText(element: HTMLElement) {
   };
 }
 export function revealImage(element: HTMLElement) {
+  const mediaMotion = element.dataset.mediaMotion;
   gsap.from(element, {
-    clipPath: 'inset(12% 0 88% 0)',
+    clipPath: mediaMotion === 'horizontal' ? 'inset(0 100% 0 0)' : 'inset(100% 0 0 0)',
     duration: 1.1,
     ease: 'power3.inOut',
   });
   const image = element.querySelector('img');
   if (image) {
-    gsap.from(image, {
-      scale: 1.06,
-      duration: 1.3,
-      ease: 'power2.out',
-    });
-    gsap.to(image, {
-      yPercent: -4,
-      ease: 'none',
-      scrollTrigger: { trigger: element, start: 'top bottom', end: 'bottom top', scrub: 0.6 },
-    });
+    gsap.fromTo(
+      element.querySelector('picture') || image,
+      { scale: mediaMotion === 'none' ? 1.025 : 1.06 },
+      { scale: 1, duration: 1.3, ease: 'power2.out', clearProps: 'transform' }
+    );
+    if (mediaMotion !== 'none') {
+      const horizontal = mediaMotion === 'horizontal';
+      gsap.fromTo(
+        image,
+        horizontal ? { xPercent: -2, scale: 1.05 } : { yPercent: -3, scale: 1.07 },
+        {
+          ...(horizontal ? { xPercent: 2 } : { yPercent: 3 }),
+          ease: 'none',
+          scrollTrigger: { trigger: element, start: 'top bottom', end: 'bottom top', scrub: 0.6 },
+        }
+      );
+    }
   }
 }
 export function initMotion() {
@@ -72,7 +80,9 @@ export function initMotion() {
         ease: 'power2.out',
       });
       document.querySelectorAll<HTMLElement>('.tech-card').forEach((card, i) => {
-        gsap.from(card.querySelector('.digital-visual'), {
+        const visual = card.querySelector('.digital-visual');
+        if (!visual) return;
+        gsap.from(visual, {
           scale: 0.92,
           opacity: 0.2,
           duration: 1.1,
@@ -119,12 +129,17 @@ export function initMotion() {
       .querySelectorAll(
         'h1,h2,.tech-copy h3,.featured-treatment h3,.eyebrow,.hero-topline,.hero-copy>p,.hero-actions,.tech-copy>p,.aligner-art,.treatment-media,.editorial-media'
       )
-      .forEach((el) => entrance.observe(el));
+      .forEach((el) => {
+        if (el.matches('.treatment-media') && el.querySelector('.editorial-media')) return;
+        entrance.observe(el);
+      });
     const observer = new IntersectionObserver(
       (entries) => entries.forEach((e) => e.target.classList.toggle('in-view', e.isIntersecting)),
       { threshold: 0.1 }
     );
-    document.querySelectorAll('.digital-visual').forEach((el) => observer.observe(el));
+    document
+      .querySelectorAll('.digital-visual,.media-scanning')
+      .forEach((el) => observer.observe(el));
     return () => {
       context.revert();
       restores.forEach((fn) => fn());
@@ -132,6 +147,10 @@ export function initMotion() {
       entrance.disconnect();
     };
   });
+  const visibility = () =>
+    document.documentElement.classList.toggle('is-page-hidden', document.hidden);
+  document.addEventListener('visibilitychange', visibility);
+  visibility();
   const header = document.querySelector('.site-header');
   const scroll = () => header?.classList.toggle('is-scrolled', scrollY > 30);
   addEventListener('scroll', scroll, { passive: true });
@@ -141,6 +160,7 @@ export function initMotion() {
     () => {
       mm.revert();
       removeEventListener('scroll', scroll);
+      document.removeEventListener('visibilitychange', visibility);
     },
     { once: true }
   );
