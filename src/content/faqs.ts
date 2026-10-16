@@ -28,6 +28,48 @@ export const homeFAQs: FAQ[] = [
 ];
 export const faqs: FAQ[] = [
   ...homeFAQs,
+  {
+    id: 'opg',
+    question: 'What is OPG imaging?',
+    answer:
+      'OPG is a panoramic dental X-ray that gives a broad view of the teeth, jaws and surrounding structures. Your dentist decides when this type of imaging is appropriate. Ask your clinic about availability.',
+  },
+  {
+    id: 'cbct',
+    question: 'What is CBCT in dentistry?',
+    answer:
+      'Cone beam computed tomography uses X-rays to create three-dimensional images of teeth, jaw bone and surrounding structures. It is used when your dentist needs information beyond a two-dimensional view; it is not required for every visit.',
+  },
+  {
+    id: 'intraoral-scanner',
+    question: 'What does an intraoral scanner do?',
+    answer:
+      'An intraoral scanner records the visible surfaces of teeth and gums to create a digital impression. It supports assessment and treatment planning. It is different from an X-ray and does not show the inside of teeth or jaw bone.',
+  },
+  {
+    id: 'children-treatments',
+    question: 'What treatments are available for children?',
+    answer:
+      'Pediatric care includes pulpectomy, pulpotomy, pediatric crowns, myofunctional therapy and habit-breaking appliances when appropriate. A dentist assesses your child’s teeth, development and needs before recommending care. Confirm availability with your chosen clinic.',
+  },
+  {
+    id: 'pulpotomy-pulpectomy',
+    question: 'What is the difference between pulpotomy and pulpectomy?',
+    answer:
+      'A pulpotomy removes affected pulp from the crown of a baby tooth while retaining suitable tissue in the roots. A pulpectomy removes pulp from both the crown and root canals. The condition of the tooth guides the choice.',
+  },
+  {
+    id: 'root-canal-care',
+    question: 'Does MyDentist provide Root Canal Therapy?',
+    answer:
+      'Yes. Root Canal Therapy is a priority service at MyDentist, with access to full-time endodontic care. Contact your clinic to discuss assessment, appointment arrangements and the restoration your tooth may need afterwards.',
+  },
+  {
+    id: 'aligner-care',
+    question: 'Does MyDentist provide clear aligners?',
+    answer:
+      'Yes. Clear aligners are part of MyDentist’s orthodontic services. A dental assessment is needed to decide whether they are suitable for your teeth and bite and to explain the wearing and review plan.',
+  },
   ...treatments.flatMap((t) => [
     {
       id: `${t.id}-suitability`,

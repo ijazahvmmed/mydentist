@@ -1,30 +1,35 @@
 ---
 import EditorialMedia from '../../components/common/EditorialMedia.astro';
-import Icon from '../../components/common/Icon.astro';
+import ServiceFamilies from '../../components/common/ServiceFamilies.astro';
+import { serviceCatalog } from '../../lib/schema';
 import Base from '../../layouts/Base.astro';
 import Breadcrumbs from '../../components/common/Breadcrumbs.astro';
 import Arrow from '../../components/common/Arrow.astro';
-import { treatmentIcons } from '../../lib/treatment-icons';
 import { content } from '../../lib/content/repository';
-const treatments = await content.getTreatments();
+const [treatments, categories, services] = await Promise.all([
+  content.getTreatments(),
+  content.getServiceCategories(),
+  content.getServices(),
+]);
 ---
 
 <Base
   title="Dental Treatments | Dr Kiran’s MyDentist"
-  description="Explore root canal treatment, clear aligners, braces, wisdom tooth removal, dental implants and other dental care at Dr Kiran’s MyDentist."
+  description="Explore restorative and endodontic care, surgical and periodontal care, orthodontics and pediatric dentistry at Dr Kiran’s MyDentist."
+  schema={serviceCatalog(categories, services, Astro.site)}
 >
   <Breadcrumbs items={[{ name: 'Treatments', path: '/treatments/' }]} />
   <section class="page-hero wrap treatment-index-hero">
     <div>
       <span class="eyebrow">UNDERSTAND YOUR OPTIONS</span>
       <h1>
-        Care for every
+        Explore
         <br />
-        chapter of your smile.
+        our services.
       </h1>
       <p>
-        Start with a little understanding. Your dentist will help you decide what is appropriate for
-        your teeth, your oral health and your needs.
+        Care across restorative dentistry, surgery, orthodontics and pediatric dentistry. Explore
+        the options, then discuss an individual plan with your dentist.
       </p>
     </div>
     <EditorialMedia
@@ -34,22 +39,31 @@ const treatments = await content.getTreatments();
       motion="horizontal"
     />
   </section>
-  <section class="treatment-directory wrap" aria-label="Dental treatments">
-    {treatments.map((t, i) => (
-      <a class="directory-item" href={`/treatments/${t.slug}/`}>
-        <span class="treatment-symbol">
-          <Icon name={treatmentIcons[t.slug] || 'tooth'} />
-          <span class="row-index">0{i + 1}</span>
-        </span>
-        <div class="directory-title">
-          <h2>{t.name}</h2>
-          <span class="guide-label">Read treatment guide</span>
-        </div>
-        <p>{t.summary}</p>
-        <span class="circle-link">
-          <Arrow diagonal />
-        </span>
+  <nav class="service-family-nav wrap" aria-label="Service families">
+    {categories.map((category) => (
+      <a href={`#${category.id}`}>
+        <span>{category.number}</span>
+        {category.name}
+        <Arrow diagonal />
       </a>
     ))}
+  </nav>
+  <section class="treatment-directory wrap" aria-label="Dental service families">
+    <ServiceFamilies categories={categories} services={services} />
+  </section>
+  <section class="related wrap service-guides">
+    <span class="eyebrow">KEEP EXPLORING</span>
+    <h2>In-depth treatment guides.</h2>
+    <div class="related-links">
+      {treatments.map((t) => (
+        <a href={`/treatments/${t.slug}/`}>
+          {t.name}
+          <Arrow diagonal />
+        </a>
+      ))}
+    </div>
+    <p class="info-note">
+      Treatment availability and suitability are discussed with your chosen clinic.
+    </p>
   </section>
 </Base>

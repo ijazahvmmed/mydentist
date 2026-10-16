@@ -1,0 +1,42 @@
+---
+import type { TrustPoint } from '../../types/content';
+import Arrow from '../common/Arrow.astro';
+interface Props {
+  points: TrustPoint[];
+}
+const { points } = Astro.props;
+---
+
+<section class="why-choose wrap" aria-labelledby="why-heading">
+  <div class="why-heading">
+    <span class="eyebrow">THE CARE BEHIND THE NAME</span>
+    <h2 id="why-heading">
+      Why choose
+      <br />
+      MyDentist?
+    </h2>
+    <p>
+      Technology, experience and focused care.
+      <br />
+      With room for your questions.
+    </p>
+  </div>
+  <div class="trust-points">
+    {points.map((point) => (
+      <a class="trust-point" href={point.href}>
+        <span class="eyebrow">{point.number}</span>
+        <div>
+          {point.displayValue && (
+            <span class="trust-value" aria-hidden="true">
+              {point.displayValue}
+              <small>{point.label}</small>
+            </span>
+          )}
+          <h3>{point.name}</h3>
+          <p>{point.summary}</p>
+        </div>
+        <Arrow diagonal />
+      </a>
+    ))}
+  </div>
+</section>

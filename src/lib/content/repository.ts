@@ -2,6 +2,9 @@ import type { ContentRepository, Doctor } from '../../types/content';
 import { branches } from '../../content/branches';
 import { treatments } from '../../content/treatments';
 import { faqs } from '../../content/faqs';
+import { services, serviceCategories } from '../../content/services';
+import { technologies } from '../../content/technologies';
+import { trustPoints } from '../../content/trust';
 const doctors: Doctor[] = [
   {
     id: 'kiran-kishore',
@@ -23,6 +26,18 @@ export class LocalContentRepository implements ContentRepository {
   }
   async getFAQs() {
     return faqs;
+  }
+  async getServiceCategories() {
+    return [...serviceCategories];
+  }
+  async getServices() {
+    return [...services];
+  }
+  async getTechnologies() {
+    return [...technologies];
+  }
+  async getTrustPoints() {
+    return [...trustPoints];
   }
 }
 export const content: ContentRepository = new LocalContentRepository();

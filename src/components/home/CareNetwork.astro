@@ -1,0 +1,120 @@
+---
+import type { Branch } from '../../types/content';
+import { careExperience } from '../../content/trust';
+import Arrow from '../common/Arrow.astro';
+interface Props {
+  branches: Branch[];
+}
+const { branches } = Astro.props;
+const first = branches[0];
+---
+
+<section
+  class="care-network wrap"
+  id="care-intro"
+  data-care-motion
+  aria-labelledby="closer-heading"
+>
+  <div class="care-duration" data-care-reveal>
+    <span class="duration-mask">
+      <strong>{careExperience.years}</strong>
+    </span>
+    <span class="eyebrow">{careExperience.label}</span>
+    <p>
+      {careExperience.description}.<br />A local connection to your care.
+    </p>
+  </div>
+  <div class="care-network-heading">
+    <span class="eyebrow">DR KIRAN’S MYDENTIST</span>
+    <h2 id="closer-heading">
+      Now, closer to you
+      <br />
+      with advanced
+      <br />
+      dental care.
+    </h2>
+    <a class="text-link" href="/about/">
+      Get to know MyDentist <Arrow diagonal />
+    </a>
+  </div>
+  <div class="network-selector" data-network-selector>
+    <div class="network-list-heading">
+      <span class="eyebrow">{String(branches.length).padStart(2, '0')} CLINIC LOCATIONS</span>
+      <span data-network-index>01 / 06</span>
+    </div>
+    <div class="network-list">
+      <span class="network-marker" aria-hidden="true"></span>
+      {branches.map((branch, index) => (
+        <a
+          class:list={['network-location', { 'is-active': index === 0 }]}
+          href={`/locations/${branch.slug}/`}
+          data-network-location
+          data-index={index}
+          data-name={branch.locality}
+          data-landmark={branch.landmark}
+          data-hours={branch.hours.map((h) => h.label).join(' / ')}
+        >
+          <span class="network-location-number">{String(index + 1).padStart(2, '0')}</span>
+          <span>{branch.locality}</span>
+          <Arrow diagonal />
+        </a>
+      ))}
+    </div>
+    <div class="network-summary">
+      <span class="eyebrow">YOUR LOCAL MYDENTIST</span>
+      <h3 data-network-name>{first.locality}</h3>
+      <p data-network-landmark>{first.landmark}</p>
+      <small data-network-hours>{first.hours.map((h) => h.label).join(' / ')}</small>
+      <a class="text-link" href={`/locations/${first.slug}/`} data-network-link>
+        Explore this clinic <Arrow diagonal />
+      </a>
+    </div>
+  </div>
+</section>
+<script>
+  import { gsap } from 'gsap';
+  document.querySelectorAll<HTMLElement>('[data-network-selector]').forEach((root) => {
+    const links = [...root.querySelectorAll<HTMLAnchorElement>('[data-network-location]')];
+    const marker = root.querySelector<HTMLElement>('.network-marker');
+    let active = links[0];
+    const moveMarker = (animate = false) => {
+      if (!marker) return;
+      const y = active.offsetTop;
+      if (animate && !matchMedia('(prefers-reduced-motion: reduce)').matches)
+        gsap.to(marker, { y, duration: 0.4, ease: 'power3.out', overwrite: true });
+      else gsap.set(marker, { y });
+    };
+    const select = (link: HTMLAnchorElement) => {
+      if (active === link) return;
+      active.classList.remove('is-active');
+      active = link;
+      active.classList.add('is-active');
+      for (const field of ['name', 'landmark', 'hours']) {
+        const target = root.querySelector(`[data-network-${field}]`);
+        if (target) target.textContent = link.dataset[field] || '';
+      }
+      const target = root.querySelector<HTMLAnchorElement>('[data-network-link]');
+      if (target) target.href = link.href;
+      const index = root.querySelector('[data-network-index]');
+      if (index)
+        index.textContent = `${String(Number(link.dataset.index) + 1).padStart(2, '0')} / ${String(links.length).padStart(2, '0')}`;
+      moveMarker(true);
+      if (!matchMedia('(prefers-reduced-motion: reduce)').matches)
+        gsap.fromTo(
+          root.querySelector('.network-summary'),
+          { opacity: 0.4, y: 5 },
+          { opacity: 1, y: 0, duration: 0.3, overwrite: true, clearProps: 'opacity,transform' }
+        );
+    };
+    links.forEach((link) => {
+      link.addEventListener('pointerenter', (event) => {
+        if (event.pointerType !== 'touch') select(link);
+      });
+      link.addEventListener('focus', () => select(link));
+    });
+    const resize = new ResizeObserver(() => moveMarker());
+    resize.observe(root);
+    moveMarker();
+    document.addEventListener('astro:before-swap', () => resize.disconnect(), { once: true });
+  });
+</script>

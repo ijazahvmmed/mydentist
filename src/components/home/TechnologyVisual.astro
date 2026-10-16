@@ -1,40 +1,67 @@
 ---
+import type { MediaAsset } from '../../types/content';
 import TechnologyScene from '../three/TechnologyScene';
 interface Props {
-  kind: 'scan' | 'opg';
+  kind: 'scan' | 'opg' | 'cbct';
+  media: MediaAsset;
 }
-const { kind } = Astro.props;
+const { kind, media } = Astro.props;
 ---
 
-<div
-  class:list={[
-    'digital-visual',
-    'professional-visual',
-    kind === 'opg' ? 'opg-visual' : 'arch-visual',
-  ]}
-  aria-hidden="true"
->
-  <span class="visual-coordinate">
-    {kind === 'scan' ? 'SURFACE ACQUISITION / 3D' : 'PANORAMIC STUDY / 180°'}
-  </span>
-  <img
-    class:list={['study-poster', kind === 'scan' && 'scan-base']}
-    src={`/images/technology/${kind === 'scan' ? 'arch' : 'opg'}-study.webp`}
-    width="800"
-    height="500"
-    alt=""
-    loading="lazy"
-  />
-  <TechnologyScene kind={kind} client:visible />
-  <div class="scan-sweep"></div>
-  <div class="visual-reticle" aria-hidden="true">
-    <i></i>
-    <i></i>
-    <i></i>
-    <i></i>
+{kind === 'scan' ? (
+  <div class="digital-visual professional-visual arch-visual" aria-hidden="true">
+    <span class="visual-coordinate">SURFACE ACQUISITION / 3D</span>
+    <img
+      class="study-poster scan-base"
+      src={media.src}
+      width={media.width}
+      height={media.height}
+      alt=""
+      loading="lazy"
+    />
+    <TechnologyScene client:visible />
+    <div class="scan-sweep"></div>
+    <div class="visual-reticle">
+      <i></i>
+      <i></i>
+      <i></i>
+      <i></i>
+    </div>
+    <span class="visual-mode">3D SURFACE VIEW</span>
+    <span class="visual-coordinate bottom">ILLUSTRATIVE VISUAL · EXTERNAL SURFACES</span>
   </div>
-  <span class="visual-mode">{kind === 'scan' ? '3D SURFACE VIEW' : 'PANORAMIC VIEW'}</span>
-  <span class="visual-coordinate bottom">
-    ILLUSTRATIVE VISUAL · {kind === 'scan' ? 'EXTERNAL SURFACES' : 'NOT A PATIENT RADIOGRAPH'}
-  </span>
-</div>
+) : (
+  <div class:list={['digital-visual', 'imaging-visual', `${kind}-imaging-visual`]}>
+    <span class="imaging-caption">
+      {kind === 'opg' ? 'PANORAMIC DENTAL IMAGING / OPG' : 'DENTAL VOLUME / CBCT'}
+    </span>
+    <picture class="imaging-base">
+      <source srcset={media.src.replace('.webp', '.avif')} type="image/avif" />
+      <img
+        src={media.src}
+        width={media.width}
+        height={media.height}
+        alt={media.alt}
+        loading="lazy"
+        decoding="async"
+      />
+    </picture>
+    {kind === 'opg' ? (
+      <>
+        <img
+          class="radiograph-scan"
+          src={media.src}
+          width={media.width}
+          height={media.height}
+          alt=""
+          loading="lazy"
+          aria-hidden="true"
+        />
+        <span class="radiograph-band" aria-hidden="true"></span>
+      </>
+    ) : (
+      <span class="cbct-slice" aria-hidden="true"></span>
+    )}
+    <span class="imaging-caption bottom">ILLUSTRATIVE STUDY · NOT A PATIENT SCAN</span>
+  </div>
+)}

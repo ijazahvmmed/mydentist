@@ -1,0 +1,96 @@
+---
+import type { ServiceCategory, Service } from '../../types/content';
+import { serviceDirectoryHref } from '../../content/services';
+import { createWhatsAppUrl } from '../../lib/whatsapp';
+import EditorialMedia from './EditorialMedia.astro';
+import Arrow from './Arrow.astro';
+interface Props {
+  categories: ServiceCategory[];
+  services: Service[];
+  compact?: boolean;
+}
+const { categories, services, compact = false } = Astro.props;
+const Heading = compact ? 'h3' : 'h2';
+---
+
+<div class:list={['service-families', { 'service-families-overview': compact }]}>
+  {categories.map((category) => (
+    <article
+      class="service-family"
+      id={compact ? `home-${category.id}` : category.id}
+      data-service-family
+    >
+      <div class="family-heading">
+        <span class="family-number" data-family-number>
+          {category.number}
+        </span>
+        <div>
+          <Heading>{category.name}</Heading>
+          <p>{category.summary}</p>
+        </div>
+      </div>
+      <div class="family-content">
+        {!compact && (
+          <EditorialMedia
+            asset={category.mediaAsset}
+            class={`family-media family-media-${category.id}`}
+            sizes="(max-width: 700px) 100vw, 36vw"
+            motion="none"
+          />
+        )}
+        <div class="family-services">
+          {category.serviceIds
+            .map((id) => services.find((service) => service.id === id)!)
+            .map((service) => (
+              <div
+                class="family-service"
+                id={compact ? undefined : `${category.id}-${service.id}`}
+                data-family-service
+              >
+                <a
+                  class="family-service-link"
+                  href={
+                    compact
+                      ? serviceDirectoryHref(service, category.id)
+                      : service.treatmentId
+                        ? `/treatments/${service.treatmentId}/`
+                        : createWhatsAppUrl({ treatment: service.name })
+                  }
+                  data-event={!compact && !service.treatmentId ? 'whatsapp_click' : undefined}
+                >
+                  <span>{service.name}</span>
+                  <Arrow diagonal />
+                </a>
+                {!compact && (
+                  <>
+                    <p>{service.summary}</p>
+                    <span class="family-service-note">
+                      {service.treatmentId
+                        ? 'Read treatment guide'
+                        : 'Enquire about this care on WhatsApp'}
+                    </span>
+                  </>
+                )}
+              </div>
+            ))}
+          {!compact && (
+            <a
+              class="text-link family-cta"
+              href={
+                category.id === 'pediatric-dentistry'
+                  ? '/treatments/pediatric-dentistry/'
+                  : createWhatsAppUrl({ treatment: category.name })
+              }
+              data-family-cta
+            >
+              {category.id === 'pediatric-dentistry'
+                ? 'Read the children’s care guide'
+                : 'Discuss your care'}{' '}
+              <Arrow diagonal />
+            </a>
+          )}
+        </div>
+      </div>
+    </article>
+  ))}
+</div>

@@ -1,9 +1,32 @@
 import type { Treatment } from '../types/content';
+import { services } from './services';
+const serviceRelationships: Record<string, string[]> = {
+  'root-canal-treatment': ['root-canal'],
+  'clear-aligners': ['clear-aligners'],
+  'braces-orthodontics': ['fixed-braces', 'myofunctional-therapy'],
+  'wisdom-tooth-removal': ['wisdom-tooth-removal'],
+  'dental-implants': ['dental-implants'],
+  'crowns-bridges': ['crowns'],
+  'cosmetic-dentistry': ['veneers', 'tooth-jewellery', 'gum-depigmentation'],
+  'general-dentistry': ['tooth-coloured-fillings', 'periodontal-therapy', 'dental-trauma'],
+  'pediatric-dentistry': [
+    'pulpectomy',
+    'pulpotomy',
+    'pediatric-crowns',
+    'myofunctional-therapy',
+    'habit-breaking-appliances',
+  ],
+};
+const extraFAQs: Record<string, string[]> = {
+  'pediatric-dentistry': ['children-treatments', 'pulpotomy-pulpectomy'],
+  'root-canal-treatment': ['root-canal-care'],
+  'clear-aligners': ['aligner-care'],
+};
 const rows = [
   [
     'root-canal-treatment',
-    'Specialised Root Canal Treatment',
-    'Root canal',
+    'Root Canal Therapy',
+    'Root Canal Therapy',
     'Care for the tooth. Beyond the surface.',
     'Root canal treatment treats infection within the soft tissue inside a tooth. Your dentist assesses whether this treatment is appropriate for you.',
     'Understanding the treatment',
@@ -24,7 +47,7 @@ const rows = [
   ],
   [
     'braces-orthodontics',
-    'Orthodontic Treatment / Braces',
+    'Fixed Braces / Straight-Wire Orthodontics',
     'Braces & orthodontics',
     'Making room for a better-aligned bite.',
     'Orthodontic treatment uses appliances, such as braces, to move teeth and address alignment or bite concerns.',
@@ -35,7 +58,7 @@ const rows = [
   ],
   [
     'wisdom-tooth-removal',
-    'Surgical Wisdom Tooth Removal',
+    'Wisdom Tooth Removal',
     'Wisdom tooth care',
     'Understand your options. Plan your next step.',
     'A dentist may consider wisdom tooth removal when a wisdom tooth is causing problems. Examination and imaging, when needed, help guide the decision.',
@@ -112,7 +135,15 @@ export const treatments: Treatment[] = rows.map(
       { title: t1, body: b1 },
       { title: t2, body: b2 },
     ],
-    faqIds: [`${slug}-suitability`, `${slug}-visit`],
+    faqIds: [`${slug}-suitability`, `${slug}-visit`, ...(extraFAQs[slug] || [])],
+    serviceIds: serviceRelationships[slug] || [],
+    categoryIds: [
+      ...new Set(
+        services
+          .filter((item) => (serviceRelationships[slug] || []).includes(item.id))
+          .flatMap((item) => item.categoryIds)
+      ),
+    ],
     branchIds: [],
     priority: i,
     media: [],

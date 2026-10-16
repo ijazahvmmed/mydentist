@@ -1,0 +1,90 @@
+---
+import type { Technology } from '../../types/content';
+import { technologyAvailability } from '../../content/technologies';
+import { createWhatsAppUrl } from '../../lib/whatsapp';
+import TechnologyVisual from './TechnologyVisual.astro';
+import Arrow from '../common/Arrow.astro';
+import Icon from '../common/Icon.astro';
+import EditorialMedia from '../common/EditorialMedia.astro';
+interface Props {
+  technologies: Technology[];
+}
+const { technologies } = Astro.props;
+---
+
+<section
+  class="technology technology-editorial"
+  id="technology"
+  aria-labelledby="technology-heading"
+>
+  <div class="wrap">
+    <div class="technology-editorial-heading">
+      <span class="eyebrow">ADVANCED EQUIPMENT / A CLEARER PICTURE</span>
+      <h2 id="technology-heading">
+        Technology that helps us
+        <br />
+        see more clearly.
+      </h2>
+      <p>{technologyAvailability}</p>
+    </div>
+    <div class="technology-sequence">
+      {technologies.map((technology) => (
+        <article
+          class={`technology-chapter technology-chapter-${technology.visual}`}
+          id={`technology-${technology.id}`}
+        >
+          <div class="technology-chapter-copy">
+            <span class="section-cue">
+              <Icon name={technology.visual === 'scan' ? 'scan' : 'imaging'} />
+              <span class="eyebrow">
+                {technology.number} / {technology.label}
+              </span>
+            </span>
+            <h3>{technology.displayName || technology.name}</h3>
+            <p>{technology.summary}</p>
+            <a
+              class="text-link"
+              href={createWhatsAppUrl({
+                treatment: `${technology.displayName || technology.name} availability`,
+              })}
+              data-event="whatsapp_click"
+            >
+              Ask about availability <Arrow diagonal />
+            </a>
+          </div>
+          <figure class="technology-chapter-media">
+            <TechnologyVisual kind={technology.visual} media={technology.media} />
+            <figcaption>
+              {technology.visual === 'scan'
+                ? 'Illustrative surface study · Not a patient scan'
+                : technology.visual === 'cbct'
+                  ? 'Illustrative CBCT volume · Not a patient scan'
+                  : 'Illustrative panoramic dental imaging · Not a patient radiograph'}
+            </figcaption>
+          </figure>
+        </article>
+      ))}
+    </div>
+    <div class="technology-supporting-media" aria-label="Illustrative scanning and imaging studies">
+      <EditorialMedia
+        asset="intraoral-scan"
+        class="scanner-editorial-detail"
+        sizes="(max-width: 700px) 50vw, 20vw"
+        motion="none"
+        scanning
+      />
+      <EditorialMedia
+        asset="digital-teeth"
+        class="digital-editorial-detail"
+        sizes="(max-width: 700px) 50vw, 20vw"
+        motion="horizontal"
+        scanning
+      />
+      <p>
+        Different views. One conversation about your care.
+        <br />
+        <span>Your dentist will explain which imaging, if any, is appropriate.</span>
+      </p>
+    </div>
+  </div>
+</section>

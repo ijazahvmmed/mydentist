@@ -20,7 +20,7 @@ class Boundary extends Component<{ children: ReactNode }, { failed: boolean }> {
     return this.state.failed ? null : this.props.children;
   }
 }
-function Arch({ kind, onReady }: { kind: 'scan' | 'opg'; onReady: () => void }) {
+function Arch({ onReady }: { onReady: () => void }) {
   const [object, setObject] = useState<Group>();
   const ref = useRef<Group>(null);
   const sweep = useRef<Mesh>(null);
@@ -29,7 +29,7 @@ function Arch({ kind, onReady }: { kind: 'scan' | 'opg'; onReady: () => void }) 
     let active = true;
     let loaded: Group | undefined;
     new GLTFLoader().load(
-      kind === 'opg' ? '/models/technology-dentition.glb' : '/models/technology-scan.glb',
+      '/models/technology-scan.glb',
       (g) => {
         loaded = g.scene;
         if (!active) return;
@@ -45,13 +45,7 @@ function Arch({ kind, onReady }: { kind: 'scan' | 'opg'; onReady: () => void }) 
             const gum = node.name.startsWith('gingiva');
             if (!node.geometry.getAttribute('normal')) node.geometry.computeVertexNormals();
             node.material = new MeshStandardMaterial({
-              color: gum
-                ? kind === 'scan'
-                  ? '#91b7ce'
-                  : '#38566e'
-                : kind === 'scan'
-                  ? '#f0ede3'
-                  : '#bfd9e7',
+              color: gum ? '#91b7ce' : '#f0ede3',
               emissive: '#000000',
               roughness: gum ? 0.72 : 0.32,
               metalness: 0.025,
@@ -66,7 +60,7 @@ function Arch({ kind, onReady }: { kind: 'scan' | 'opg'; onReady: () => void }) 
               polygonOffsetUnits: -1,
               uniforms: {
                 plane: { value: 0 },
-                tint: { value: new Color(kind === 'scan' ? '#78bcd9' : '#b4dcff') },
+                tint: { value: new Color('#78bcd9') },
               },
               vertexShader: `
                 varying vec3 world;
@@ -115,22 +109,18 @@ function Arch({ kind, onReady }: { kind: 'scan' | 'opg'; onReady: () => void }) 
         }
       });
     };
-  }, [kind, onReady]);
+  }, [onReady]);
   useFrame(({ gl, camera, viewport }, delta) => {
     // Use elapsed time so a slower GPU does not turn the loop into near-static motion.
     clock.current += delta;
     const t = clock.current;
     if (ref.current) {
       const view = viewport.getCurrentViewport(camera);
-      const studyHeight = kind === 'scan' ? 4.8 : 2.8;
+      const studyHeight = 4.8;
       ref.current.scale.setScalar(
         Math.min((view.width * 0.82) / 5, (view.height * 0.83) / studyHeight)
       );
-      ref.current.rotation.set(
-        kind === 'scan' ? 0.08 : 0.02,
-        Math.sin(t * 0.38) * 0.28,
-        kind === 'scan' ? -0.08 : 0
-      );
+      ref.current.rotation.set(0.08, Math.sin(t * 0.38) * 0.28, -0.08);
     }
     const x = Math.sin(t * 0.75) * 2.7;
     gl.domElement.dataset.animationTime = t.toFixed(3);
@@ -158,7 +148,7 @@ function Arch({ kind, onReady }: { kind: 'scan' | 'opg'; onReady: () => void }) 
     </group>
   );
 }
-export default function TechnologyScene({ kind }: { kind: 'scan' | 'opg' }) {
+export default function TechnologyScene() {
   const root = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(false);
   const [ready, setReady] = useState(false);
@@ -199,7 +189,7 @@ export default function TechnologyScene({ kind }: { kind: 'scan' | 'opg' }) {
             orthographic
             frameloop={active ? 'always' : 'never'}
             dpr={[1, 1.25]}
-            camera={{ position: kind === 'scan' ? [0, 9, 6] : [0, 0.15, 10], zoom: 60 }}
+            camera={{ position: [0, 9, 6], zoom: 60 }}
             gl={{ alpha: true, antialias: true }}
             onCreated={({ camera, gl }) => {
               camera.lookAt(0, 0, 0);
@@ -216,15 +206,11 @@ export default function TechnologyScene({ kind }: { kind: 'scan' | 'opg' }) {
             }}
           >
             <ambientLight intensity={0.5} />
-            <hemisphereLight args={['#edf5ff', '#53667d', kind === 'scan' ? 0.75 : 1]} />
-            <directionalLight
-              position={[-3, 6, 5]}
-              intensity={kind === 'scan' ? 3.1 : 1.7}
-              color="#fff8ee"
-            />
+            <hemisphereLight args={['#edf5ff', '#53667d', 0.75]} />
+            <directionalLight position={[-3, 6, 5]} intensity={3.1} color="#fff8ee" />
             <directionalLight position={[4, 2, -2]} intensity={1.7} color="#98c6f0" />
             <directionalLight position={[1, -1, 4]} intensity={0.45} color="#dceafa" />
-            <Arch kind={kind} onReady={onReady} />
+            <Arch onReady={onReady} />
           </Canvas>
         )}
       </Boundary>

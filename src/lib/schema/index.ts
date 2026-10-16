@@ -1,4 +1,6 @@
-import type { Branch, FAQ, Treatment } from '../../types/content';
+import type { Branch, FAQ, Treatment, ServiceCategory, Service } from '../../types/content';
+import { serviceCategories, services } from '../../content/services';
+import { serviceDirectoryHref } from '../../content/services';
 import { brand, absolute } from '../seo';
 export const organization = (site?: URL) => ({
   '@context': 'https://schema.org',
@@ -43,6 +45,44 @@ export const service = (t: Treatment, site?: URL) => ({
   description: t.introduction,
   url: absolute(`/treatments/${t.slug}/`, site),
   provider: { '@type': 'Organization', name: brand },
+  category: serviceCategories.filter((c) => t.categoryIds?.includes(c.id)).map((c) => c.name),
+  hasOfferCatalog: t.serviceIds?.length
+    ? {
+        '@type': 'OfferCatalog',
+        name: `${t.name} care options`,
+        itemListElement: services
+          .filter((s) => t.serviceIds?.includes(s.id))
+          .map((s) => ({
+            '@type': 'Offer',
+            itemOffered: { '@type': 'Service', '@id': absolute(serviceDirectoryHref(s), site), identifier: s.id, name: s.name, description: s.summary },
+          })),
+      }
+    : undefined,
+});
+export const serviceCatalog = (categories: ServiceCategory[], items: Service[], site?: URL) => ({
+  '@context': 'https://schema.org',
+  '@type': 'OfferCatalog',
+  name: `${brand} dental services`,
+  url: absolute('/treatments/', site),
+  itemListElement: categories.map((category) => ({
+    '@type': 'OfferCatalog',
+    name: category.name,
+    description: category.summary,
+    itemListElement: category.serviceIds
+      .map((id) => items.find((item) => item.id === id)!)
+      .map((item) => ({
+        '@type': 'Offer',
+        itemOffered: {
+          '@type': 'Service',
+          '@id': absolute(serviceDirectoryHref(item), site),
+          identifier: item.id,
+          name: item.name,
+          description: item.summary,
+          url: absolute(serviceDirectoryHref(item, category.id), site),
+          provider: { '@type': 'Organization', name: brand },
+        },
+      })),
+  })),
 });
 export const faqSchema = (items: FAQ[]) => ({
   '@context': 'https://schema.org',

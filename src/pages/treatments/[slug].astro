@@ -19,6 +19,7 @@ import { content } from '../../lib/content/repository';
 import { service } from '../../lib/schema';
 
 import { enquiryService } from '../../lib/integrations/enquiry';
+import { serviceDirectoryHref } from '../../content/services';
 
 export async function getStaticPaths() {
   return (await content.getTreatments()).map((treatment) => ({
@@ -30,12 +31,13 @@ export async function getStaticPaths() {
 
 const { treatment: t } = Astro.props;
 
-const [all, faqList, branches] = await Promise.all([
+const [all, faqList, branches, services] = await Promise.all([
   content.getTreatments(),
 
   content.getFAQs(),
 
   content.getBranches(),
+  content.getServices(),
 ]);
 
 const productAsset =
@@ -45,6 +47,7 @@ const productAsset =
       ? 'dental-implant'
       : null;
 const faqs = faqList.filter((f) => t.faqIds.includes(f.id));
+const careOptions = services.filter((item) => t.serviceIds?.includes(item.id));
 ---
 
 <Base title={t.seo.title} description={t.seo.description} schema={service(t, Astro.site)}>
@@ -111,6 +114,7 @@ const faqs = faqList.filter((f) => t.faqIds.includes(f.id));
       <a href={`#guide-section-${i}`}>{s.title}</a>
     ))}
     <a href="#prepare">Before your appointment</a>
+    {careOptions.length > 0 && <a href="#care-options">Care options</a>}
   </nav>
   <MediaGallery assets={t.media} title={t.name} />
 
@@ -145,6 +149,37 @@ const faqs = faqList.filter((f) => t.faqIds.includes(f.id));
         </section>
       ))}
 
+      {careOptions.length > 0 && (
+        <section id="care-options" class="treatment-care-options">
+          <h2>
+            {t.slug === 'pediatric-dentistry'
+              ? 'Care for developing teeth.'
+              : 'Explore your care options.'}
+          </h2>
+          <p>
+            {t.slug === 'pediatric-dentistry'
+              ? 'Your child’s age, dental development and the condition of each tooth guide the plan. These options are considered after an assessment.'
+              : 'Your dentist will help you understand which care is appropriate for your needs.'}
+          </p>
+          {careOptions.map((item) => (
+            <div class="treatment-care-option">
+              <h3>{item.name}</h3>
+              <p>{item.summary}</p>
+              <a
+                class="text-link"
+                href={
+                  item.treatmentId === t.id
+                    ? enquiryService.createLink({ treatment: item.name })
+                    : serviceDirectoryHref(item)
+                }
+              >
+                {item.treatmentId === t.id ? 'Discuss this care' : 'Explore this service'}{' '}
+                <Arrow diagonal />
+              </a>
+            </div>
+          ))}
+        </section>
+      )}
       <section id="prepare">
         <h2>Before your appointment</h2>
 
@@ -168,16 +203,22 @@ const faqs = faqList.filter((f) => t.faqIds.includes(f.id));
         class="source-link"
 
         href={
-          t.slug === 'root-canal-treatment'
-            ? 'https://www.nhs.uk/tests-and-treatments/root-canal-treatment/'
-            : 'https://www.nhs.uk/live-well/healthy-teeth-and-gums/dental-treatments/'
+          t.slug === 'pediatric-dentistry'
+            ? 'https://www.aapd.org/globalassets/media/policies_guidelines/bp_pulptherapy25.pdf'
+            : t.slug === 'root-canal-treatment'
+              ? 'https://www.nhs.uk/tests-and-treatments/root-canal-treatment/'
+              : 'https://www.nhs.uk/live-well/healthy-teeth-and-gums/dental-treatments/'
         }
 
         target="_blank"
 
         rel="noopener noreferrer"
       >
-        Further reading: NHS dental treatment information <Arrow diagonal />
+        Further reading:{' '}
+        {t.slug === 'pediatric-dentistry'
+          ? 'AAPD children’s pulp therapy information'
+          : 'NHS dental treatment information'}{' '}
+        <Arrow diagonal />
       </a>
     </div>
 

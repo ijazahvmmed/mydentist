@@ -59,6 +59,43 @@ export interface Treatment {
   seo: SEOFields;
   medicallyReviewedBy?: string;
   reviewedAt?: string;
+  serviceIds?: string[];
+  categoryIds?: string[];
+}
+export interface ServiceCategory {
+  id: string;
+  number: string;
+  name: string;
+  summary: string;
+  serviceIds: string[];
+  mediaAsset: 'smile-closeup' | 'dental-implant' | 'clear-aligner' | 'consultation';
+}
+export interface Service {
+  id: string;
+  name: string;
+  summary: string;
+  categoryIds: string[];
+  treatmentId?: string;
+}
+export interface Technology {
+  id: string;
+  name: string;
+  displayName?: string;
+  number: string;
+  label: string;
+  summary: string;
+  visual: 'scan' | 'cbct' | 'opg';
+  faqId: string;
+  media: MediaAsset;
+}
+export interface TrustPoint {
+  id: string;
+  number: string;
+  name: string;
+  summary: string;
+  href: string;
+  displayValue?: string;
+  label?: string;
 }
 export interface Doctor {
   id: string;
@@ -77,4 +114,8 @@ export interface ContentRepository {
   getTreatments(): Promise<Treatment[]>;
   getDoctors(): Promise<Doctor[]>;
   getFAQs(): Promise<FAQ[]>;
+  getServiceCategories(): Promise<ServiceCategory[]>;
+  getServices(): Promise<Service[]>;
+  getTechnologies(): Promise<Technology[]>;
+  getTrustPoints(): Promise<TrustPoint[]>;
 }
