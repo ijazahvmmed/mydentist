@@ -1,0 +1,148 @@
+/* Frosted controls use the existing blue palette; content and image frames stay quiet. */
+:root {
+  --glass-base: var(--paper);
+  --glass-blue-base: var(--brand);
+  --glass-surface: linear-gradient(145deg, #ffffffe6, #edf1fbba);
+  --glass-blue-surface:
+    linear-gradient(160deg, #ffffff2e, #ffffff00 48%), linear-gradient(180deg, #153f92eb, #153f92fa);
+  --glass-shadow: 0 6px 20px #172b5210, inset 0 1px 0 #ffffffe6, inset 0 -1px 0 #ffffff55;
+}
+
+@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  :root {
+    --glass-base: transparent;
+    --glass-blue-base: transparent;
+  }
+}
+
+.button,
+.home-campaign .hero .hero-actions .button,
+.site-header .mobile-nav-cta {
+  border: 1px solid #ffffff45;
+  border-radius: 999px;
+  background-color: var(--glass-blue-base);
+  background-image: var(--glass-blue-surface);
+  color: #fff;
+  box-shadow:
+    0 6px 18px #153f9226,
+    inset 0 1px 0 #ffffff59,
+    inset 0 -1px 0 #172b5233;
+  -webkit-backdrop-filter: blur(16px) saturate(145%);
+  backdrop-filter: blur(16px) saturate(145%);
+  transition:
+    background-color 0.2s,
+    border-color 0.2s,
+    box-shadow 0.2s,
+    transform 0.2s;
+}
+.button:is(:hover, :focus-visible),
+.home-campaign .hero .hero-actions .button:is(:hover, :focus-visible) {
+  background-color: var(--brand);
+  border-color: #ffffff80;
+  box-shadow:
+    0 8px 24px #153f9230,
+    inset 0 1px 0 #ffffff73,
+    inset 0 -1px 0 #172b5233;
+}
+.button.light,
+.featured-treatment .button.light:hover {
+  background-color: var(--glass-base);
+  background-image: var(--glass-surface);
+  border-color: #ffffffb3;
+  color: var(--brand);
+  box-shadow: var(--glass-shadow);
+}
+.button.light:is(:hover, :focus-visible) {
+  background-color: #ffffff40;
+  border-color: #fff;
+  box-shadow:
+    0 8px 24px #172b521a,
+    inset 0 1px 0 #fff,
+    inset 0 -1px 0 #ffffff80;
+}
+.button:focus-visible,
+.menu-toggle:focus-visible,
+.hero-study:focus-visible,
+.story-step-nav button:focus-visible {
+  outline-color: var(--brand);
+  outline-offset: 4px;
+}
+
+.site-header nav {
+  background-color: var(--glass-base);
+  background-image: var(--glass-surface);
+  border: 1px solid #ffffffb3;
+  border-radius: 999px;
+  box-shadow: var(--glass-shadow);
+  -webkit-backdrop-filter: blur(20px) saturate(155%);
+  backdrop-filter: blur(20px) saturate(155%);
+}
+.site-header nav a {
+  border-radius: 999px;
+}
+.site-header nav a:not(.mobile-nav-cta):is(:hover, :focus-visible),
+.site-header nav a[aria-current='page'],
+.site-header nav a[aria-current='page']:hover {
+  background: #ffffffb3;
+  color: var(--brand);
+  box-shadow:
+    0 2px 8px #172b520d,
+    inset 0 1px 0 #fff;
+}
+
+.menu-toggle,
+.home-campaign .hero .hero-study,
+.story-step-nav button {
+  background-color: var(--glass-base);
+  background-image: var(--glass-surface);
+  border: 1px solid #ffffffb3;
+  color: var(--brand);
+  box-shadow: var(--glass-shadow);
+  -webkit-backdrop-filter: blur(20px) saturate(155%);
+  backdrop-filter: blur(20px) saturate(155%);
+}
+.menu-toggle {
+  border-radius: 999px;
+}
+.home-campaign .hero .hero-study {
+  border-radius: 18px;
+  color: var(--ink);
+  transition:
+    background-color 0.2s,
+    box-shadow 0.2s;
+}
+.home-campaign .hero .hero-study:hover {
+  background-color: #ffffff40;
+  box-shadow:
+    0 10px 30px #172b5226,
+    inset 0 1px 0 #fff;
+}
+.story-step-nav button[aria-current='step'] {
+  background-color: var(--glass-blue-base);
+  background-image: var(--glass-blue-surface);
+  color: #fff;
+  border-color: #ffffff66;
+  box-shadow:
+    0 4px 12px #153f9226,
+    inset 0 1px 0 #ffffff59;
+}
+
+@media (max-width: 700px) {
+  .site-header nav {
+    border-radius: 22px;
+    background-image: linear-gradient(145deg, #fffffff0, #edf1fbe8);
+    box-shadow:
+      0 16px 40px #172b5224,
+      inset 0 1px 0 #fff;
+  }
+  .site-header nav a:not(.mobile-nav-cta) {
+    border-radius: 12px;
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  :root {
+    --glass-base: var(--paper);
+    --glass-blue-base: var(--brand);
+  }
+}
