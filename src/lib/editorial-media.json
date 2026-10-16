@@ -3,7 +3,11 @@
     "base": "/images/editorial/lifestyle-smile",
     "width": 893,
     "height": 1600,
-    "widths": [480, 768, 893],
+    "widths": [
+      480,
+      768,
+      893
+    ],
     "alt": "Woman smiling while holding a cup, editorial illustration.",
     "caption": "Editorial illustration",
     "position": "50% 42%",
@@ -15,7 +19,11 @@
     "base": "/images/environment/dental-instruments",
     "width": 900,
     "height": 1600,
-    "widths": [480, 768, 900],
+    "widths": [
+      480,
+      768,
+      900
+    ],
     "alt": "Dental instruments arranged beside a treatment chair, illustrative image.",
     "caption": "Illustrative clinical detail",
     "position": "50% 52%",
@@ -27,7 +35,11 @@
     "base": "/images/environment/treatment-room",
     "width": 900,
     "height": 1600,
-    "widths": [480, 768, 900],
+    "widths": [
+      480,
+      768,
+      900
+    ],
     "alt": "Dental treatment room with a chair and examination light, illustrative image.",
     "caption": "Environment concept · Not a branch photograph",
     "position": "50% 52%",
@@ -39,7 +51,11 @@
     "base": "/images/environment/reception",
     "width": 900,
     "height": 1600,
-    "widths": [480, 768, 900],
+    "widths": [
+      480,
+      768,
+      900
+    ],
     "alt": "Reception space with MyDentist-style branding, illustrative image.",
     "caption": "Brand concept · Not a branch photograph",
     "position": "50% 44%",
@@ -51,7 +67,11 @@
     "base": "/images/environment/exterior-concept",
     "width": 900,
     "height": 1600,
-    "widths": [480, 768, 900],
+    "widths": [
+      480,
+      768,
+      900
+    ],
     "alt": "Illustrative dental-clinic exterior concept.",
     "caption": "Exterior concept · Not a branch photograph",
     "position": "50% 50%",
@@ -63,7 +83,11 @@
     "base": "/images/technology/digital-teeth",
     "width": 900,
     "height": 1600,
-    "widths": [480, 768, 900],
+    "widths": [
+      480,
+      768,
+      900
+    ],
     "alt": "Digital illustration of dental arches and a scanning plane.",
     "caption": "Digital illustration · Not a patient scan",
     "position": "50% 50%",
@@ -75,7 +99,11 @@
     "base": "/images/treatments/dental-implant",
     "width": 893,
     "height": 1600,
-    "widths": [480, 768, 893],
+    "widths": [
+      480,
+      768,
+      893
+    ],
     "alt": "Illustration of an implant, connector and tooth crown.",
     "caption": "Treatment illustration · Not a patient result",
     "position": "50% 50%",
@@ -87,7 +115,11 @@
     "base": "/images/treatments/clear-aligner",
     "width": 893,
     "height": 1600,
-    "widths": [480, 768, 893],
+    "widths": [
+      480,
+      768,
+      893
+    ],
     "alt": "Clear orthodontic aligner held between fingers, illustrative image.",
     "caption": "Treatment illustration · Not a patient result",
     "position": "50% 50%",
@@ -99,7 +131,11 @@
     "base": "/images/technology/opg-equipment",
     "width": 900,
     "height": 1600,
-    "widths": [480, 768, 900],
+    "widths": [
+      480,
+      768,
+      900
+    ],
     "alt": "Dental imaging equipment, illustrative image.",
     "caption": "Equipment illustration · Exact machine not verified",
     "position": "50% 46%",
@@ -111,7 +147,11 @@
     "base": "/images/editorial/smile-closeup",
     "width": 900,
     "height": 1600,
-    "widths": [480, 768, 900],
+    "widths": [
+      480,
+      768,
+      900
+    ],
     "alt": "Close-up of a smile, editorial illustration.",
     "caption": "Editorial illustration · Not a treatment result",
     "position": "50% 48%",
@@ -123,7 +163,11 @@
     "base": "/images/editorial/smiling-portrait",
     "width": 900,
     "height": 1600,
-    "widths": [480, 768, 900],
+    "widths": [
+      480,
+      768,
+      900
+    ],
     "alt": "Portrait of a smiling woman, editorial illustration.",
     "caption": "Editorial illustration",
     "position": "50% 42%",
@@ -135,7 +179,11 @@
     "base": "/images/editorial/consultation",
     "width": 900,
     "height": 1600,
-    "widths": [480, 768, 900],
+    "widths": [
+      480,
+      768,
+      900
+    ],
     "alt": "Dentist discussing dental imaging with a patient, illustrative image.",
     "caption": "Consultation illustration · People are not identified",
     "position": "50% 53%",
@@ -147,11 +195,155 @@
     "base": "/images/technology/intraoral-scan",
     "width": 900,
     "height": 1600,
-    "widths": [480, 768, 900],
+    "widths": [
+      480,
+      768,
+      900
+    ],
     "alt": "Intraoral scanning procedure, illustrative image.",
     "caption": "Procedure illustration · Not a clinic photograph",
     "position": "50% 56%",
     "original": "13_Intraoral_Scan.jpeg",
+    "illustrative": true,
+    "published": true
+  },
+  "pediatric-lifestyle": {
+    "base": "/images/editorial/pediatric-lifestyle",
+    "width": 1536,
+    "height": 1024,
+    "widths": [
+      480,
+      768,
+      1152,
+      1536
+    ],
+    "alt": "An Indian child laughing with a parent at home, an editorial lifestyle illustration.",
+    "caption": "Lifestyle illustration · Not a treatment result",
+    "position": "50% 42%",
+    "original": "assets/generated/cinematic/pediatric-lifestyle.png",
+    "illustrative": true,
+    "published": true
+  },
+  "endodontic-conversation": {
+    "base": "/images/editorial/endodontic-conversation",
+    "width": 1536,
+    "height": 1024,
+    "widths": [
+      480,
+      768,
+      1152,
+      1536
+    ],
+    "alt": "Anonymous clinician and patient discussing an illustrative dental scan, an editorial scene.",
+    "caption": "Editorial consultation · Not a MyDentist clinician or patient",
+    "position": "53% 44%",
+    "original": "assets/generated/cinematic/endodontic-conversation.png",
+    "illustrative": true,
+    "published": true
+  },
+  "beauty-dental-macro": {
+    "base": "/images/editorial/beauty-dental-macro",
+    "width": 1536,
+    "height": 1024,
+    "widths": [
+      480,
+      768,
+      1152,
+      1536
+    ],
+    "alt": "Close editorial crop of a South Asian woman’s natural smile and lower face.",
+    "caption": "Editorial illustration · Not a treatment result",
+    "position": "60% 44%",
+    "original": "assets/generated/cinematic/beauty-dental-macro.png",
+    "illustrative": true,
+    "published": true
+  },
+  "clinical-light-detail": {
+    "base": "/images/editorial/clinical-light-detail",
+    "width": 1536,
+    "height": 1024,
+    "widths": [
+      480,
+      768,
+      1152,
+      1536
+    ],
+    "alt": "Examination light and dental chair in a generic clinical environment illustration.",
+    "caption": "Clinical detail concept · Not a branch photograph",
+    "position": "65% 40%",
+    "original": "assets/generated/cinematic/clinical-light-detail.png",
+    "illustrative": true,
+    "published": true
+  },
+  "lifestyle-at-home-client": {
+    "base": "/images/editorial/lifestyle-at-home-client",
+    "width": 2048,
+    "height": 1536,
+    "widths": [
+      480,
+      768,
+      1152,
+      1600,
+      2048
+    ],
+    "alt": "Two people sharing a laugh on a sofa at home, editorial lifestyle imagery.",
+    "caption": "Editorial lifestyle image · Not a treatment result",
+    "position": "50% 44%",
+    "original": "assets/editorial/client-cinematic/lifestyle-at-home.png",
+    "illustrative": true,
+    "published": true
+  },
+  "endodontic-review-client": {
+    "base": "/images/editorial/endodontic-review-client",
+    "width": 2048,
+    "height": 1536,
+    "widths": [
+      480,
+      768,
+      1152,
+      1600,
+      2048
+    ],
+    "alt": "An editorial consultation scene with a clinician pointing to a dental image on a monitor.",
+    "caption": "Editorial consultation · Not a MyDentist clinician or patient",
+    "position": "48% 48%",
+    "original": "assets/editorial/client-cinematic/endodontic-review.png",
+    "illustrative": true,
+    "published": true
+  },
+  "clinical-light-client": {
+    "base": "/images/editorial/clinical-light-client",
+    "width": 1664,
+    "height": 1024,
+    "widths": [
+      480,
+      768,
+      1152,
+      1600,
+      1664
+    ],
+    "alt": "A close editorial view of an examination light and dental chair.",
+    "caption": "Clinical detail concept · Not a branch photograph",
+    "position": "40% 35%",
+    "original": "assets/editorial/client-cinematic/clinical-light.png",
+    "illustrative": true,
+    "published": true
+  },
+  "smile-macro-client": {
+    "base": "/images/editorial/smile-macro-client",
+    "width": 2048,
+    "height": 1152,
+    "widths": [
+      480,
+      768,
+      1152,
+      1600,
+      2048
+    ],
+    "alt": "An editorial close-up of a natural smile, lips and cheek.",
+    "caption": "Editorial image · Not a treatment result",
+    "position": "40% 45%",
+    "original": "assets/editorial/client-cinematic/smile-macro.png",
     "illustrative": true,
     "published": true
   }

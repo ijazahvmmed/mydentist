@@ -2,11 +2,11 @@
 import type { Branch } from '../../types/content';
 import { careExperience } from '../../content/trust';
 import Arrow from '../common/Arrow.astro';
+import EditorialMedia from '../common/EditorialMedia.astro';
 interface Props {
   branches: Branch[];
 }
 const { branches } = Astro.props;
-const first = branches[0];
 ---
 
 <section
@@ -17,13 +17,34 @@ const first = branches[0];
 >
   <div class="care-duration" data-care-reveal>
     <span class="duration-mask">
-      <strong>{careExperience.years}</strong>
+      <strong class="duration-value">
+        <span class="duration-readable">{careExperience.years}</span>
+        <span class="duration-digits" aria-hidden="true">
+          {String(careExperience.years)
+            .split('')
+            .map((digit) => (
+              <span class="duration-digit-mask">
+                <span class="duration-digit" data-experience-digit>
+                  {digit}
+                </span>
+              </span>
+            ))}
+        </span>
+      </strong>
+      <span class="duration-rule" aria-hidden="true"></span>
     </span>
     <span class="eyebrow">{careExperience.label}</span>
     <p>
       {careExperience.description}.<br />A local connection to your care.
     </p>
   </div>
+  <EditorialMedia
+    asset="clinical-light-client"
+    class="care-network-media"
+    sizes="(max-width: 700px) 100vw, 40vw"
+    motion="cinematic"
+    position="40% 35%"
+  />
   <div class="care-network-heading">
     <span class="eyebrow">DR KIRAN’S MYDENTIST</span>
     <h2 id="closer-heading">
@@ -60,19 +81,12 @@ const first = branches[0];
         </a>
       ))}
     </div>
-    <div class="network-summary">
-      <span class="eyebrow">YOUR LOCAL MYDENTIST</span>
-      <h3 data-network-name>{first.locality}</h3>
-      <p data-network-landmark>{first.landmark}</p>
-      <small data-network-hours>{first.hours.map((h) => h.label).join(' / ')}</small>
-      <a class="text-link" href={`/locations/${first.slug}/`} data-network-link>
-        Explore this clinic <Arrow diagonal />
-      </a>
-    </div>
   </div>
 </section>
 <script>
   import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  gsap.registerPlugin(ScrollTrigger);
   document.querySelectorAll<HTMLElement>('[data-network-selector]').forEach((root) => {
     const links = [...root.querySelectorAll<HTMLAnchorElement>('[data-network-location]')];
     const marker = root.querySelector<HTMLElement>('.network-marker');
@@ -89,22 +103,10 @@ const first = branches[0];
       active.classList.remove('is-active');
       active = link;
       active.classList.add('is-active');
-      for (const field of ['name', 'landmark', 'hours']) {
-        const target = root.querySelector(`[data-network-${field}]`);
-        if (target) target.textContent = link.dataset[field] || '';
-      }
-      const target = root.querySelector<HTMLAnchorElement>('[data-network-link]');
-      if (target) target.href = link.href;
       const index = root.querySelector('[data-network-index]');
       if (index)
         index.textContent = `${String(Number(link.dataset.index) + 1).padStart(2, '0')} / ${String(links.length).padStart(2, '0')}`;
       moveMarker(true);
-      if (!matchMedia('(prefers-reduced-motion: reduce)').matches)
-        gsap.fromTo(
-          root.querySelector('.network-summary'),
-          { opacity: 0.4, y: 5 },
-          { opacity: 1, y: 0, duration: 0.3, overwrite: true, clearProps: 'opacity,transform' }
-        );
     };
     links.forEach((link) => {
       link.addEventListener('pointerenter', (event) => {
@@ -112,9 +114,42 @@ const first = branches[0];
       });
       link.addEventListener('focus', () => select(link));
     });
+    let pointerHeld = false;
+    root.addEventListener('pointerenter', (event) => {
+      if (event.pointerType === 'mouse') pointerHeld = true;
+    });
+    root.addEventListener('pointerleave', () => {
+      pointerHeld = false;
+    });
+    root.addEventListener('focusin', () => {
+      pointerHeld = true;
+    });
+    root.addEventListener('focusout', (event) => {
+      if (!root.contains(event.relatedTarget as Node)) pointerHeld = false;
+    });
+    const motion = gsap.matchMedia();
+    motion.add('(prefers-reduced-motion: no-preference)', () => {
+      const trigger = ScrollTrigger.create({
+        trigger: root,
+        start: 'top 78%',
+        end: 'bottom 35%',
+        onUpdate: (self) => {
+          if (!pointerHeld)
+            select(links[Math.min(links.length - 1, Math.floor(self.progress * links.length))]);
+        },
+      });
+      return () => trigger.kill();
+    });
     const resize = new ResizeObserver(() => moveMarker());
     resize.observe(root);
     moveMarker();
-    document.addEventListener('astro:before-swap', () => resize.disconnect(), { once: true });
+    document.addEventListener(
+      'astro:before-swap',
+      () => {
+        resize.disconnect();
+        motion.revert();
+      },
+      { once: true }
+    );
   });
 </script>

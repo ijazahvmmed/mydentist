@@ -1,0 +1,18 @@
+---
+interface Props {
+  variant?: 'blue' | 'white';
+  loading?: 'eager' | 'lazy';
+}
+const { variant = 'blue', loading = 'eager' } = Astro.props;
+---
+
+<span class={`brand-logo brand-logo-${variant}`}>
+  <img
+    src={`/images/brand/mydentist-${variant}.png`}
+    width="1246"
+    height="307"
+    alt="mydentist"
+    loading={loading}
+    decoding="async"
+  />
+</span>

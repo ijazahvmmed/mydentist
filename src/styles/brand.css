@@ -1,5 +1,5 @@
 :root {
-  --brand: #244185;
+  --brand: #153f92;
   --ink: #172b52;
   --muted: #52627d;
   --blue: #edf1fb;
@@ -7,7 +7,7 @@
   --paper: #fcfcfa;
   --line: #d7deed;
   --green: #244185;
-  --lime: #dceaa7;
+  --lime: #d2f170;
   --radius: 22px;
 }
 ::selection {
@@ -98,36 +98,20 @@
 .brand {
   gap: 12px;
   flex-shrink: 0;
+  min-height: 44px;
 }
+/* Supplied transparent wordmarks retain their full proportions and smile accent. */
 .brand-logo {
-  height: 62px;
-  width: 142px;
-  border-radius: 12px;
-  overflow: hidden;
-  display: grid;
-  place-items: center;
-  background: var(--brand);
-  position: relative;
+  display: block;
+  flex: 0 0 auto;
+  width: 172px;
+  aspect-ratio: 1246 / 307;
 }
 .brand-logo img {
-  width: 142px;
-  height: 142px;
-  max-width: none;
-  transition: transform 0.6s;
-}
-.brand-logo:after {
-  content: '';
-  position: absolute;
-  inset: -80%;
-  background: linear-gradient(110deg, transparent 40%, #fff3 50%, transparent 60%);
-  transform: translateX(-100%);
-  transition: transform 0.8s;
-}
-.brand:hover .brand-logo:after {
-  transform: translateX(100%);
-}
-.brand:hover img {
-  transform: rotate(-3deg) scale(1.025);
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
 }
 .brand-caption {
   display: flex;
@@ -415,12 +399,7 @@ html:not(.tooth-ready) .hero-image-note {
     height: 90px;
   }
   .brand-logo {
-    width: 125px;
-    height: 58px;
-  }
-  .brand-logo img {
-    width: 132px;
-    height: 132px;
+    width: 148px;
   }
   .site-header nav a small {
     display: none;
@@ -439,7 +418,32 @@ html:not(.tooth-ready) .hero-image-note {
 @media (max-width: 700px) {
   .site-header {
     height: 88px;
-    position: relative;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    transform: translateY(0);
+    transition:
+      transform 0.32s cubic-bezier(0.22, 1, 0.36, 1),
+      background 0.25s,
+      box-shadow 0.25s;
+  }
+  .site-header.is-scrolled {
+    background: #fcfcfae0;
+    border-bottom-color: #ffffff80;
+    box-shadow:
+      0 8px 28px #172b5212,
+      inset 0 -1px 0 #d7deed66;
+  }
+  .site-header.is-mobile-hidden {
+    transform: translateY(calc(-100% - 2px));
+    pointer-events: none;
+  }
+  @supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    .site-header.is-scrolled {
+      background: #fcfcfabf;
+      -webkit-backdrop-filter: blur(22px) saturate(160%);
+      backdrop-filter: blur(22px) saturate(160%);
+    }
   }
   .site-header nav {
     display: none;
@@ -451,6 +455,8 @@ html:not(.tooth-ready) .hero-image-note {
     border-radius: 18px;
     box-shadow: 0 18px 40px #2441851f;
     background: #f3f6fe;
+    max-height: calc(100dvh - 104px);
+    overflow-y: auto;
   }
   .site-header nav.is-open {
     display: flex;
@@ -499,9 +505,6 @@ html:not(.tooth-ready) .hero-image-note {
   .scan-sweep {
     animation: none;
   }
-  .brand:hover img {
-    transform: none;
-  }
   .smile-spark {
     display: none;
   }
@@ -532,15 +535,6 @@ html:not(.tooth-ready) .hero-image-note {
     display: none;
   }
 }
-.brand-logo img {
-  position: absolute;
-  left: 0;
-  top: 50%;
-  transform: translateY(-50%);
-}
-.brand:hover .brand-logo img {
-  transform: translateY(-50%) rotate(-3deg) scale(1.025);
-}
 @media (max-width: 1200px) {
   .brand .brand-caption {
     display: none;
@@ -555,14 +549,35 @@ html:not(.tooth-ready) .hero-image-note {
 .site-footer {
   background: #182c58;
 }
-.footer-brand .brand-logo {
-  width: 150px;
-  height: 64px;
-  border-radius: 10px;
+.footer-brand {
+  display: inline-block;
 }
-.footer-brand .brand-logo img {
-  width: 150px;
-  height: 150px;
+.footer-brand .brand-logo {
+  width: 200px;
+}
+.footer-credit {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 8px;
+}
+.website-credit {
+  margin: 0;
+  padding-block: 12px;
+  font-size: 11px;
+  color: var(--blue-deep);
+}
+.website-credit strong {
+  color: var(--paper);
+  font-weight: 550;
+}
+@media (max-width: 700px) {
+  .footer-credit {
+    justify-content: flex-start;
+    margin-top: 0;
+  }
+  .footer-brand .brand-logo {
+    width: 188px;
+  }
 }
 .hero-image-note {
   min-width: 32px;

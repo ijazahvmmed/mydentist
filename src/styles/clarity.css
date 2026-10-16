@@ -81,6 +81,16 @@ h3 {
 .header-inner > .header-cta {
   flex-shrink: 0;
 }
+@media (min-width: 701px) {
+  .header-inner > nav,
+  .header-inner > .header-cta {
+    height: 52px;
+    align-self: center;
+  }
+  .header-inner > .header-cta:hover {
+    transform: none;
+  }
+}
 @media (min-width: 1201px) {
   .header-inner {
     display: grid;
@@ -799,10 +809,5 @@ h3 {
   }
   .breadcrumbs {
     font-size: 12px;
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  .brand:hover .brand-logo img {
-    transform: translateY(-50%);
   }
 }

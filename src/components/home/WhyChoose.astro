@@ -1,13 +1,14 @@
 ---
 import type { TrustPoint } from '../../types/content';
 import Arrow from '../common/Arrow.astro';
+import EditorialMedia from '../common/EditorialMedia.astro';
 interface Props {
   points: TrustPoint[];
 }
 const { points } = Astro.props;
 ---
 
-<section class="why-choose wrap" aria-labelledby="why-heading">
+<section class="why-choose why-visual wrap" aria-labelledby="why-heading">
   <div class="why-heading">
     <span class="eyebrow">THE CARE BEHIND THE NAME</span>
     <h2 id="why-heading">
@@ -21,22 +22,44 @@ const { points } = Astro.props;
       With room for your questions.
     </p>
   </div>
-  <div class="trust-points">
+  <div class="trust-stories">
     {points.map((point) => (
-      <a class="trust-point" href={point.href}>
-        <span class="eyebrow">{point.number}</span>
-        <div>
-          {point.displayValue && (
-            <span class="trust-value" aria-hidden="true">
-              {point.displayValue}
-              <small>{point.label}</small>
-            </span>
-          )}
-          <h3>{point.name}</h3>
-          <p>{point.summary}</p>
+      <article class={`trust-story trust-story-${point.id}`}>
+        <div class="trust-story-media">
+          <EditorialMedia
+            asset={
+              point.id === 'advanced-equipment'
+                ? 'intraoral-scan'
+                : point.id === 'years-of-care'
+                  ? 'reception'
+                  : 'endodontic-review-client'
+            }
+            class="trust-editorial-media"
+            position={
+              point.id === 'advanced-equipment'
+                ? '50% 58%'
+                : point.id === 'years-of-care'
+                  ? '50% 35%'
+                  : undefined
+            }
+            motion={point.id === 'endodontic-care' ? 'cinematic' : 'horizontal'}
+            sizes="(max-width: 700px) 100vw, 55vw"
+          />
         </div>
-        <Arrow diagonal />
-      </a>
+        <div class="trust-story-copy">
+          <span class="eyebrow">{point.number} / MYDENTIST</span>
+          <h3 data-story-title>{point.name}</h3>
+          <p>{point.summary}</p>
+          <a class="text-link" href={point.href}>
+            {point.id === 'advanced-equipment'
+              ? 'Explore the technology'
+              : point.id === 'years-of-care'
+                ? 'Get to know MyDentist'
+                : 'Understand Root Canal Therapy'}{' '}
+            <Arrow diagonal />
+          </a>
+        </div>
+      </article>
     ))}
   </div>
 </section>

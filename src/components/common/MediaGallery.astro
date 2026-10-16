@@ -20,7 +20,6 @@ const { assets, title } = Astro.props;
             height={asset.height}
             loading="lazy"
           />
-          {asset.kind === 'illustration' && <figcaption>Illustrative visual</figcaption>}
         </figure>
       ))}
     </div>

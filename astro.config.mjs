@@ -11,6 +11,7 @@ export default defineConfig({
   output: 'static',
   trailingSlash: 'always',
   integrations: [react()],
+  devToolbar: { enabled: false },
   // A build must not replace dependency files that the running preview is serving.
   vite: {
     cacheDir:

@@ -1,12 +1,12 @@
 ---
 import Icon from '../components/common/Icon.astro';
-import { treatmentVisuals } from '../lib/treatment-visuals';
 import Base from '../layouts/Base.astro';
 import Arrow from '../components/common/Arrow.astro';
 import ToothScene from '../components/three/ToothScene';
 import EditorialMedia from '../components/common/EditorialMedia.astro';
 import CareNetwork from '../components/home/CareNetwork.astro';
-import ServiceFamilies from '../components/common/ServiceFamilies.astro';
+import ServiceChapters from '../components/home/ServiceChapters.astro';
+import PriorityCare from '../components/home/PriorityCare.astro';
 import WhyChoose from '../components/home/WhyChoose.astro';
 import AdvancedTechnology from '../components/home/AdvancedTechnology.astro';
 import ToothStory from '../components/home/ToothStory.astro';
@@ -43,6 +43,7 @@ const homeFAQs = allFAQs.filter((faq) =>
   title="Dr Kiran’s MyDentist | Advanced Dental Care in Alappuzha"
   description="15 years of dental care across six MyDentist clinic locations in Alappuzha. Explore Root Canal Therapy, implants, orthodontics, pediatric care and advanced dental imaging."
   schema={[organization(Astro.site), website(Astro.site)]}
+  pageClass="home-campaign"
 >
   <section class="hero hero-photographic wrap">
     <div class="hero-topline">
@@ -103,14 +104,6 @@ const homeFAQs = allFAQs.filter((faq) =>
             fetchpriority="high"
           />
         </picture>
-        <a
-          class="hero-photo-credit"
-          href="https://www.pexels.com/photo/unrecognizable-crop-dentist-in-latex-gloves-examining-teeth-of-patient-in-clinic-3881451/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Stock photography / Andrea Piacquadio
-        </a>
         <a class="hero-study" href="#tooth-story">
           <span class="study-icon" aria-hidden="true">
             <Icon name="tooth" />
@@ -142,125 +135,104 @@ const homeFAQs = allFAQs.filter((faq) =>
         <br />
         Thirunalloor · Aroor · Vaduthala
       </div>
-      <a href="#care-intro" class="scroll-link">
+      <a href="#tooth-story" class="scroll-link">
         SCROLL TO DISCOVER <Icon name="down" />
       </a>
     </div>
   </section>
   <ToothScene client:idle />
   <ToothStory />
-  <CareNetwork branches={branches} />
-  <section class="services-overview wrap" aria-labelledby="services-heading">
-    <div class="section-top">
-      <div>
-        <span class="eyebrow">FOUR FAMILIES OF CARE</span>
-        <h2 id="services-heading">Explore our services.</h2>
-      </div>
-      <a class="text-link" href="/treatments/">
-        View the service directory <Arrow diagonal />
-      </a>
-    </div>
-    <ServiceFamilies categories={categories} services={services} compact />
-  </section>
-  <section class="treatments-home wrap">
-    <div class="section-top">
-      <div>
-        <span class="eyebrow">YOUR CARE, CONSIDERED</span>
-        <h2>
-          A closer look at
-          <br />
-          your care options.
-        </h2>
-      </div>
-      <a class="text-link" href="/treatments/">
-        Explore all treatments <Arrow diagonal />
-      </a>
-    </div>
-    <a class="featured-treatment" href="/treatments/clear-aligners/">
-      <div>
-        <span class="section-cue">
-          <Icon name="aligner" />
-          <span class="eyebrow">CLEAR ALIGNERS / ALIGNMENT</span>
-        </span>
-        <h3>
-          A little change.
-          <br />A new perspective.
-        </h3>
-        <p>Explore clear aligners and what an individual treatment plan could involve.</p>
-        <span class="button light">
-          Discover clear aligners <Arrow diagonal />
-        </span>
-      </div>
-      <EditorialMedia
-        asset="clear-aligner"
-        class="featured-aligner"
-        sizes="(max-width: 700px) 100vw, 45vw"
-        motion="none"
-      />
-    </a>
-    <div class="treatment-rows">
-      {treatments
-        .filter((t) =>
-          ['root-canal-treatment', 'dental-implants', 'wisdom-tooth-removal'].includes(t.slug)
-        )
-        .map((t, i) => (
-          <a href={`/treatments/${t.slug}/`}>
-            <span class="row-index">0{i + 1}</span>
-            <div class="treatment-media" aria-hidden="true">
-              {t.slug === 'dental-implants' ? (
-                <EditorialMedia
-                  asset="dental-implant"
-                  caption={false}
-                  decorative
-                  motion="none"
-                  sizes="130px"
-                />
-              ) : (
-                <img
-                  src={`/images/treatments/${treatmentVisuals[t.slug]}-640.webp`}
-                  width="640"
-                  height="640"
-                  alt=""
-                  loading="lazy"
-                />
-              )}
-            </div>
-            <h3>{t.name}</h3>
-            <p>{t.summary}</p>
-            <span class="circle-link">
-              <Arrow diagonal />
-            </span>
-          </a>
-        ))}
-    </div>
-  </section>
-  <WhyChoose points={trustPoints} />
-  <AdvancedTechnology technologies={technologies} />
-  <section class="human-transition editorial-split wrap">
+  <section class="life-chapter" aria-labelledby="life-heading">
     <EditorialMedia
-      asset="lifestyle-smile"
-      class="lifestyle-media"
-      sizes="(max-width: 700px) 100vw, 60vw"
+      asset="lifestyle-at-home-client"
+      class="life-media"
+      sizes="(max-width: 700px) 100vw, (max-width: 1456px) 53vw, 720px"
+      motion="cinematic"
+      position="50% 30%"
+      mobilePosition="50% 40%"
     />
-    <div class="editorial-copy">
+    <div class="life-copy wrap">
       <span class="eyebrow">YOUR LIFE. YOUR DENTAL CARE.</span>
-      <h2>
-        Care that fits
+      <h2 id="life-heading">
+        Care should fit
         <br />
         back into life.
       </h2>
-      <p>
-        Understanding your options is a good place to begin. Explore our treatments and connect with
-        a clinic close to home.
-      </p>
       <a class="text-link" href="/treatments/">
         Understand your options <Arrow diagonal />
       </a>
     </div>
   </section>
-  <BranchFinder branches={branches} />
-  <FAQs items={homeFAQs} />
-  <section class="human-cta editorial-split wrap">
+  <CareNetwork branches={branches} />
+  <section class="services-campaign" aria-labelledby="services-heading">
+    <div class="services-campaign-heading wrap">
+      <span class="eyebrow">FOUR FAMILIES OF CARE</span>
+      <h2 id="services-heading">
+        Different needs.
+        <br />
+        Thoughtful care.
+      </h2>
+      <a class="text-link" href="/treatments/">
+        Explore our services <Arrow diagonal />
+      </a>
+    </div>
+    <ServiceChapters categories={categories} services={services} />
+  </section>
+  <PriorityCare treatments={treatments} />
+  <WhyChoose points={trustPoints} />
+  <AdvancedTechnology technologies={technologies} />
+  <section class="conversation-chapter wrap" aria-labelledby="conversation-heading">
+    <div class="conversation-heading">
+      <span class="eyebrow">THE HUMAN PART OF CARE</span>
+      <h2 id="conversation-heading">
+        Better views.
+        <br />
+        Clearer conversations.
+      </h2>
+    </div>
+    <EditorialMedia
+      asset="consultation"
+      class="conversation-media"
+      sizes="(max-width: 700px) 100vw, 74vw"
+      motion="cinematic"
+    />
+    <div class="conversation-copy">
+      <p>
+        Imaging and scanning support assessment. Your dentist explains what is relevant to your
+        care.
+      </p>
+      <a class="text-link" href="/contact/">
+        Make room for your questions <Arrow diagonal />
+      </a>
+    </div>
+  </section>
+  <section class="local-access-intro wrap" aria-labelledby="local-access-heading">
+    <EditorialMedia
+      asset="smile-macro-client"
+      class="local-access-media"
+      sizes="(max-width: 700px) 100vw, 50vw"
+      motion="horizontal"
+      position="32% 48%"
+    />
+    <div>
+      <span class="eyebrow">YOUR NEIGHBOURHOOD. YOUR MYDENTIST.</span>
+      <h2 id="local-access-heading">
+        Care,
+        <br />
+        closer to home.
+      </h2>
+      <a class="text-link" href="#clinics">
+        Find your neighbourhood <Arrow diagonal />
+      </a>
+    </div>
+  </section>
+  <div class="location-scene" data-location-surface>
+    <BranchFinder branches={branches} />
+  </div>
+  <div class="quiet-questions">
+    <FAQs items={homeFAQs} />
+  </div>
+  <section class="human-cta closing-frame wrap">
     <div class="editorial-copy">
       <span class="eyebrow">YOUR NEXT STEP</span>
       <h2>

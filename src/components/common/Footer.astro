@@ -1,5 +1,6 @@
 ---
 import Icon from './Icon.astro';
+import BrandLogo from './BrandLogo.astro';
 import { content } from '../../lib/content/repository';
 import { createWhatsAppUrl, phoneHref, primaryPhone } from '../../lib/whatsapp';
 import Arrow from './Arrow.astro';
@@ -28,15 +29,7 @@ const branches = await content.getBranches();
   <div class="wrap footer-grid">
     <div>
       <a class="footer-brand" href="/">
-        <span class="brand-logo">
-          <img
-            src="/images/brand/mydentist-logo.png"
-            width="150"
-            height="150"
-            alt="mydentist"
-            loading="lazy"
-          />
-        </span>
+        <BrandLogo variant="white" loading="lazy" />
       </a>
       <p>
         Dr Kiran’s MyDentist
@@ -75,5 +68,10 @@ const branches = await content.getBranches();
         Back to top <Icon name="up" />
       </a>
     </span>
+  </div>
+  <div class="wrap footer-credit">
+    <p class="website-credit">
+      Website by <strong>Unknown</strong>
+    </p>
   </div>
 </footer>

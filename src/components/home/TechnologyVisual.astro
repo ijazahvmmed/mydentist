@@ -28,7 +28,6 @@ const { kind, media } = Astro.props;
       <i></i>
     </div>
     <span class="visual-mode">3D SURFACE VIEW</span>
-    <span class="visual-coordinate bottom">ILLUSTRATIVE VISUAL · EXTERNAL SURFACES</span>
   </div>
 ) : (
   <div class:list={['digital-visual', 'imaging-visual', `${kind}-imaging-visual`]}>
@@ -62,6 +61,5 @@ const { kind, media } = Astro.props;
     ) : (
       <span class="cbct-slice" aria-hidden="true"></span>
     )}
-    <span class="imaging-caption bottom">ILLUSTRATIVE STUDY · NOT A PATIENT SCAN</span>
   </div>
 )}

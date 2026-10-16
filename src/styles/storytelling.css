@@ -1,0 +1,1197 @@
+/* Homepage art direction: images stay in their own grid cells and use source-aware crops. */
+.home-campaign {
+  --story-paper: var(--paper);
+  --story-blue: var(--blue);
+  --story-dark: var(--ink);
+  --story-gap: clamp(32px, 5vw, 76px);
+  overflow: clip;
+  background: var(--story-paper);
+}
+.home-campaign .media-frame {
+  min-width: 0;
+  width: 100%;
+}
+.home-campaign .media-frame .editorial-media {
+  border-radius: 10px;
+  height: auto;
+}
+.home-campaign .media-frame picture {
+  position: absolute;
+  inset: 0;
+}
+.home-campaign .media-frame img {
+  object-position: var(--media-position);
+}
+.home-campaign .media-frame figcaption {
+  position: static;
+  padding: 12px 0 0;
+  font-size: 10px;
+  line-height: 1.6;
+  letter-spacing: 0.01em;
+}
+.home-campaign .media-frame .editorial-media::after {
+  border: 0;
+}
+/* Wide group photography keeps both people in frame, including on a phone. */
+.home-campaign .life-chapter {
+  background: var(--story-dark);
+  color: var(--paper);
+}
+.home-campaign .life-media .editorial-media {
+  aspect-ratio: 16 / 9;
+  border-radius: 0;
+}
+.home-campaign .life-copy {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.7fr);
+  gap: 20px 40px;
+  align-items: end;
+  padding-block: 34px 60px;
+}
+.home-campaign .life-copy > .eyebrow {
+  grid-column: 1 / -1;
+}
+.home-campaign .life-copy h2 {
+  font-size: clamp(44px, 5.4vw, 78px);
+  line-height: 1.04;
+  max-width: 700px;
+}
+.home-campaign .life-copy .text-link {
+  color: var(--paper);
+  border-color: var(--blue-deep);
+  justify-self: end;
+  margin-bottom: 8px;
+}
+/* Desktop copy and photography share one composition; phones retain the photo-first stack. */
+@media (min-width: 701px) {
+  .home-campaign .life-chapter {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    align-items: center;
+    gap: clamp(32px, 5vw, 72px);
+    padding-block: clamp(56px, 6vw, 88px);
+    padding-inline: max(28px, calc((100% - 1360px) / 2));
+  }
+  .home-campaign .life-media {
+    grid-column: 2;
+    grid-row: 1;
+    margin: 0;
+  }
+  .home-campaign .life-media .editorial-media {
+    aspect-ratio: 4 / 3;
+    border-radius: 10px;
+  }
+  .home-campaign .life-copy {
+    grid-column: 1;
+    grid-row: 1;
+    display: block;
+    width: 100%;
+    max-width: 560px;
+    margin: 0;
+    padding: 0;
+  }
+  .home-campaign .life-copy h2 {
+    margin: 24px 0 32px;
+    font-size: clamp(36px, 4.4vw, 64px);
+    line-height: 1.08;
+  }
+  .home-campaign .life-copy .text-link {
+    margin: 0;
+  }
+}
+@media (min-width: 1101px) {
+  .home-campaign .life-chapter {
+    padding-inline: max(48px, calc((100% - 1360px) / 2));
+  }
+}
+/* The clinic story shares one two-column grid; the light and chair retain their context. */
+.home-campaign .care-network {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+  gap: 44px var(--story-gap);
+  align-items: center;
+  padding-block: clamp(72px, 8vw, 120px);
+}
+.home-campaign .care-duration {
+  grid-column: 1;
+  grid-row: 1;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0 30px;
+  align-items: center;
+  padding: 0;
+}
+.home-campaign .duration-mask {
+  grid-row: 1 / 3;
+  position: relative;
+  overflow: visible;
+  padding-bottom: 14px;
+}
+.home-campaign .duration-mask strong {
+  font-size: clamp(140px, 15vw, 210px);
+  line-height: 1;
+  color: var(--brand);
+}
+.home-campaign .duration-readable {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+.home-campaign .duration-digits {
+  display: flex;
+  letter-spacing: normal;
+}
+.home-campaign .duration-digit-mask {
+  display: block;
+  overflow: clip;
+  padding: 0.06em 0.04em 0.1em;
+  margin: -0.06em -0.04em -0.1em;
+  perspective: 600px;
+}
+.home-campaign .duration-digit-mask + .duration-digit-mask {
+  margin-left: -0.1em;
+}
+.home-campaign .duration-digit {
+  display: block;
+  transform-origin: 50% 100%;
+}
+.home-campaign .duration-rule {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  background: var(--brand);
+  opacity: 0.4;
+  transform-origin: left center;
+}
+.home-campaign .care-duration .eyebrow {
+  font-size: 10px;
+  align-self: end;
+  margin: 0 0 12px;
+}
+.home-campaign .care-duration p {
+  font-size: 13px;
+  max-width: 210px;
+  margin: 0;
+  align-self: start;
+}
+.home-campaign .care-network-heading {
+  grid-column: 2;
+  grid-row: 1;
+}
+.home-campaign .care-network-heading h2 {
+  font-size: clamp(36px, 3.7vw, 54px);
+  margin: 22px 0 26px;
+}
+.home-campaign .care-network-heading .text-link {
+  font-size: 13px;
+}
+.home-campaign .care-network-media {
+  grid-column: 1;
+  grid-row: 2;
+  align-self: start;
+  margin: 0;
+  min-height: 0;
+}
+.home-campaign .care-network-media .editorial-media {
+  aspect-ratio: 1.625;
+  min-height: 0;
+}
+.home-campaign .network-selector {
+  width: 100%;
+  display: block;
+  grid-column: 2;
+  grid-row: 2;
+  align-self: start;
+  padding: 0;
+}
+.home-campaign .network-location {
+  min-height: 55px;
+  font-size: 21px;
+  padding-block: 11px;
+  background: transparent;
+}
+.home-campaign .network-location > span:nth-child(2) {
+  transition: transform 0.35s;
+  transform-origin: left center;
+}
+.home-campaign .network-location.is-active > span:nth-child(2) {
+  transform: translateX(4px);
+}
+.home-campaign .network-marker {
+  height: 55px;
+  background: var(--brand);
+}
+.home-campaign .network-list-heading {
+  padding-bottom: 18px;
+}
+/* Four care chapters: shared alignment, different subjects and measured alternating grids. */
+.home-campaign .services-campaign {
+  background: var(--story-blue);
+}
+.home-campaign .services-campaign-heading,
+.home-campaign .why-heading {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 22px 50px;
+  align-items: end;
+}
+.home-campaign .services-campaign-heading {
+  padding-block: 72px 20px;
+}
+.home-campaign .services-campaign-heading .eyebrow,
+.home-campaign .why-heading > .eyebrow {
+  grid-column: 1 / -1;
+}
+.home-campaign .services-campaign-heading h2,
+.home-campaign .why-heading h2 {
+  font-size: clamp(44px, 5.7vw, 80px);
+}
+.home-campaign .services-campaign-heading > a {
+  justify-self: end;
+}
+.home-campaign .service-chapter {
+  overflow: clip;
+}
+.home-campaign .service-chapter-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+  gap: var(--story-gap);
+  align-items: center;
+  padding-block: 64px;
+}
+.home-campaign .service-chapter-media {
+  margin: 0;
+  position: relative;
+}
+.home-campaign .service-chapter-media .editorial-media {
+  aspect-ratio: 4 / 3;
+}
+.home-campaign .service-chapter-copy {
+  min-width: 0;
+}
+.home-campaign .service-chapter-copy .family-heading {
+  display: block;
+  margin-bottom: 24px;
+}
+.home-campaign .service-chapter-copy .family-number {
+  display: block;
+  font-size: 10px;
+  margin-bottom: 20px;
+  padding: 0;
+}
+.home-campaign .service-chapter-copy h3 {
+  font-size: clamp(34px, 3.7vw, 54px);
+  line-height: 1.08;
+}
+.home-campaign .service-chapter-copy .family-heading p {
+  font-size: 14px;
+  max-width: 430px;
+  margin-top: 22px;
+}
+.home-campaign .chapter-service-link {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  padding-block: 12px;
+  border-bottom: 1px solid var(--line);
+  font-size: 15px;
+  line-height: 1.4;
+  min-height: 46px;
+}
+.home-campaign .chapter-service-link svg {
+  width: 16px;
+  height: 16px;
+  flex: 0 0 auto;
+  transition: transform 0.3s;
+}
+.home-campaign .chapter-service-link:hover svg {
+  transform: translate(3px, -3px);
+}
+.home-campaign .service-chapter-copy .family-cta {
+  font-size: 13px;
+  margin-top: 28px;
+}
+.home-campaign .service-chapter-surgical-periodontal {
+  background: var(--ink);
+  color: var(--paper);
+}
+.home-campaign .service-chapter-surgical-periodontal .service-chapter-inner {
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.8fr);
+}
+.home-campaign .service-chapter-surgical-periodontal .service-chapter-media {
+  order: 2;
+  max-width: 480px;
+  justify-self: end;
+}
+.home-campaign .service-chapter-surgical-periodontal .editorial-media {
+  aspect-ratio: 3 / 4;
+}
+.home-campaign .service-chapter-surgical-periodontal img {
+  object-fit: contain;
+  object-position: center;
+}
+.home-campaign .service-chapter-surgical-periodontal .family-heading p,
+.home-campaign .service-chapter-surgical-periodontal .family-number,
+.home-campaign .service-chapter-surgical-periodontal figcaption {
+  color: var(--blue-deep);
+}
+.home-campaign .service-chapter-surgical-periodontal .chapter-service-link {
+  border-color: color-mix(in srgb, var(--blue-deep) 40%, transparent);
+}
+.home-campaign .service-chapter-surgical-periodontal .text-link {
+  border-color: var(--blue-deep);
+}
+.home-campaign .service-chapter-orthodontics {
+  background: var(--brand);
+  color: var(--paper);
+}
+.home-campaign .service-chapter-orthodontics .service-chapter-inner {
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.8fr);
+}
+.home-campaign .service-chapter-orthodontics .service-chapter-media {
+  order: 2;
+  max-width: 480px;
+  justify-self: end;
+}
+.home-campaign .service-chapter-orthodontics .editorial-media {
+  aspect-ratio: 4 / 5;
+}
+.home-campaign .service-chapter-orthodontics .family-heading p,
+.home-campaign .service-chapter-orthodontics .family-number,
+.home-campaign .service-chapter-orthodontics figcaption {
+  color: var(--blue-deep);
+}
+.home-campaign .service-chapter-orthodontics .chapter-service-link {
+  border-color: color-mix(in srgb, var(--blue-deep) 40%, transparent);
+}
+.home-campaign .service-chapter-orthodontics .text-link {
+  border-color: var(--blue-deep);
+}
+.home-campaign .service-chapter-pediatric-dentistry {
+  background: #f4f1e9;
+}
+.home-campaign .service-chapter-pediatric-dentistry .service-chapter-inner {
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+}
+.home-campaign .service-chapter-pediatric-dentistry .editorial-media {
+  aspect-ratio: 3 / 2;
+}
+.home-campaign .priority-care {
+  padding-block: 80px 90px;
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  gap: var(--story-gap);
+}
+.home-campaign .priority-care-heading h2 {
+  font-size: clamp(40px, 4.4vw, 64px);
+  margin: 24px 0 32px;
+}
+.home-campaign .priority-care-heading .text-link {
+  font-size: 13px;
+}
+.home-campaign .priority-care-list {
+  margin: 0;
+}
+.home-campaign .priority-care-list > a {
+  display: grid;
+  grid-template-columns: 22px minmax(0, 1fr) 22px;
+  gap: 20px;
+  padding: 25px 0;
+  background: transparent;
+  min-height: 0;
+}
+.home-campaign .priority-care-list h3 {
+  font-size: 25px;
+  line-height: 1.15;
+}
+.home-campaign .priority-care-list p {
+  display: block;
+  font-size: 13px;
+  max-width: 410px;
+  margin: 12px 0 0;
+}
+.home-campaign .priority-care-list > a > svg {
+  width: 20px;
+}
+/* Each trust image belongs to its article; no detached image overlays or intrinsic-height thumbnails. */
+.home-campaign .why-visual {
+  display: block;
+  padding-block: 48px 96px;
+}
+.home-campaign .why-heading {
+  margin-bottom: 48px;
+}
+.home-campaign .why-heading p {
+  justify-self: end;
+  margin: 0 0 5px;
+  max-width: 320px;
+}
+.home-campaign .trust-stories {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 60px 44px;
+  align-items: start;
+}
+.home-campaign .trust-story {
+  min-width: 0;
+}
+.home-campaign .trust-story-media {
+  position: relative;
+  min-width: 0;
+}
+.home-campaign .trust-story-advanced-equipment {
+  grid-column: 1 / 8;
+  background: var(--ink);
+  color: var(--paper);
+  border-radius: 10px;
+  overflow: hidden;
+}
+.home-campaign .trust-story-advanced-equipment .editorial-media {
+  aspect-ratio: 4 / 3;
+  border-radius: 0;
+}
+.home-campaign .trust-story-advanced-equipment figcaption {
+  color: var(--blue-deep);
+  padding-inline: 28px;
+}
+.home-campaign .trust-story-copy {
+  padding: 30px 32px 38px;
+}
+.home-campaign .trust-story-copy h3 {
+  font-size: clamp(28px, 3.2vw, 44px);
+  line-height: 1.1;
+  margin: 18px 0;
+}
+.home-campaign .trust-story-copy p {
+  font-size: 14px;
+  line-height: 1.8;
+  max-width: 500px;
+}
+.home-campaign .trust-story-copy .text-link {
+  font-size: 13px;
+}
+.home-campaign .trust-story-advanced-equipment .trust-story-copy p {
+  color: var(--blue-deep);
+}
+.home-campaign .trust-story-advanced-equipment .text-link {
+  border-color: var(--blue-deep);
+}
+.home-campaign .trust-story-years-of-care {
+  grid-column: 8 / 13;
+  margin-top: 48px;
+}
+.home-campaign .trust-story-years-of-care .editorial-media {
+  aspect-ratio: 4 / 5;
+}
+.home-campaign .trust-story-years-of-care .trust-story-copy {
+  padding: 28px 0 0;
+}
+.home-campaign .trust-story-endodontic-care {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  align-items: center;
+  gap: var(--story-gap);
+  padding-top: 12px;
+}
+.home-campaign .trust-story-endodontic-care .editorial-media {
+  aspect-ratio: 4 / 3;
+}
+.home-campaign .trust-story-endodontic-care .trust-story-copy {
+  padding: 0;
+}
+/* Preserve the moving scanner, CBCT and panoramic studies in contained visual frames. */
+.home-campaign .technology-editorial {
+  --chapter-bg: var(--ink);
+  background: var(--chapter-bg);
+  color: var(--paper);
+  position: relative;
+  isolation: isolate;
+  padding-block: 90px;
+}
+.home-campaign .technology-editorial > .wrap {
+  position: relative;
+}
+.home-campaign .technology-editorial-heading {
+  margin-bottom: 50px;
+  position: relative;
+  z-index: 2;
+}
+.home-campaign .technology-editorial-heading h2 {
+  font-size: clamp(44px, 5.7vw, 80px);
+}
+.home-campaign .technology-editorial-heading > p {
+  color: var(--blue-deep);
+}
+.home-campaign .technology-ambient-media {
+  display: none;
+}
+.home-campaign .technology-chapter {
+  padding-block: 60px;
+  gap: var(--story-gap);
+  border-color: color-mix(in srgb, var(--blue-deep) 40%, transparent);
+}
+.home-campaign .technology-chapter-copy p {
+  color: var(--blue-deep);
+}
+.home-campaign .technology-chapter-copy .eyebrow {
+  color: var(--blue-deep);
+}
+.home-campaign .technology-chapter-copy .section-cue {
+  color: var(--blue-deep);
+}
+.home-campaign .technology-chapter-copy .section-cue > .ui-icon {
+  background: transparent;
+  border-color: var(--blue-deep);
+}
+.home-campaign .technology-chapter-copy .text-link {
+  border-color: var(--blue-deep);
+  color: var(--paper);
+}
+.home-campaign .technology-chapter-media {
+  min-width: 0;
+}
+.home-campaign .technology-chapter-media figcaption {
+  color: var(--blue-deep);
+  font-size: 10px;
+  line-height: 1.6;
+  padding-top: 12px;
+}
+.home-campaign .technology-chapter .digital-visual {
+  border-radius: 10px;
+}
+.home-campaign .technology-chapter-scan {
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  grid-template-rows: auto auto;
+  gap: 30px var(--story-gap);
+}
+.home-campaign .technology-chapter-scan .technology-chapter-copy {
+  grid-column: 1;
+  grid-row: 1;
+}
+.home-campaign .technology-chapter-scan .technology-chapter-media {
+  grid-column: 2;
+  grid-row: 1 / 3;
+  align-self: center;
+}
+.home-campaign .technology-scan-context {
+  grid-column: 1;
+  grid-row: 2;
+  max-width: 380px;
+}
+.home-campaign .technology-scan-context .editorial-media {
+  aspect-ratio: 4 / 3;
+}
+.home-campaign .technology-scan-context img {
+  object-position: 50% 58%;
+}
+.home-campaign .technology-scan-context figcaption {
+  color: var(--blue-deep);
+}
+.home-campaign .technology-chapter-cbct {
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+  gap: var(--story-gap);
+}
+.home-campaign .technology-chapter-cbct .imaging-visual {
+  background: var(--ink);
+  perspective: 900px;
+}
+.home-campaign .technology-chapter-cbct .imaging-base {
+  transform-style: preserve-3d;
+}
+.home-campaign .technology-chapter-opg {
+  display: block;
+  padding-bottom: 0;
+}
+.home-campaign .technology-chapter-opg .technology-chapter-copy {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  gap: 20px 70px;
+  margin-bottom: 38px;
+}
+.home-campaign .technology-chapter-opg .section-cue {
+  grid-column: 1 / -1;
+  margin-bottom: 5px;
+}
+.home-campaign .technology-chapter-opg h3 {
+  grid-column: 1;
+  grid-row: 2 / 4;
+  font-size: clamp(40px, 5.5vw, 78px);
+  max-width: 650px;
+}
+.home-campaign .technology-chapter-opg .technology-chapter-copy > p {
+  grid-column: 2;
+  margin: 0;
+}
+.home-campaign .technology-chapter-opg .text-link {
+  grid-column: 2;
+  justify-self: start;
+}
+.home-campaign .technology-chapter-opg .technology-chapter-media {
+  width: 100%;
+  margin: 0;
+}
+.home-campaign .technology-chapter-opg .opg-imaging-visual {
+  aspect-ratio: 2.1;
+  background: var(--ink);
+  box-shadow: inset 0 0 70px transparent;
+}
+.home-campaign .technology-chapter-opg .imaging-base {
+  inset: 42px 22px;
+}
+.home-campaign .technology-chapter-opg .radiograph-scan {
+  inset: 42px 22px;
+  width: calc(100% - 44px);
+  height: calc(100% - 84px);
+}
+.home-campaign .opg-imaging-visual .radiograph-scan,
+.home-campaign .opg-imaging-visual .radiograph-band {
+  animation-play-state: paused;
+}
+.home-campaign .opg-imaging-visual.is-scanning .radiograph-scan,
+.home-campaign .opg-imaging-visual.is-scanning .radiograph-band {
+  animation-play-state: running;
+}
+/* Portrait scenes stay portrait; copy sits alongside instead of masking the subject. */
+.home-campaign .conversation-chapter {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: 28px var(--story-gap);
+  padding-block: 96px;
+  align-items: center;
+}
+.home-campaign .conversation-heading {
+  grid-column: 2;
+  grid-row: 1;
+  align-self: end;
+}
+.home-campaign .conversation-heading h2 {
+  font-size: clamp(40px, 4.5vw, 64px);
+  margin-top: 24px;
+  line-height: 1.08;
+}
+.home-campaign .conversation-media {
+  grid-column: 1;
+  grid-row: 1 / 3;
+  max-width: 540px;
+}
+.home-campaign .conversation-media .editorial-media {
+  aspect-ratio: 3 / 4;
+}
+.home-campaign .conversation-media img {
+  object-position: 50% 50%;
+}
+.home-campaign .conversation-copy {
+  grid-column: 2;
+  grid-row: 2;
+  align-self: start;
+  max-width: 440px;
+  margin: 0;
+  padding: 0;
+}
+.home-campaign .conversation-copy p {
+  font-size: 15px;
+}
+.home-campaign .conversation-copy .text-link {
+  font-size: 13px;
+}
+.home-campaign .local-access-intro {
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+  gap: var(--story-gap);
+  align-items: center;
+  padding-block: 0 96px;
+}
+.home-campaign .local-access-media {
+  margin: 0;
+}
+.home-campaign .local-access-media .editorial-media {
+  aspect-ratio: 3 / 2;
+}
+.home-campaign .local-access-intro h2 {
+  font-size: clamp(44px, 5.5vw, 78px);
+  margin: 24px 0 32px;
+}
+.home-campaign .location-scene {
+  --location-bg: var(--blue);
+  background: var(--location-bg);
+}
+.home-campaign .location-scene .branch-finder {
+  padding-block: 80px 90px;
+}
+.home-campaign .location-scene .branch-row {
+  border-color: var(--line);
+  background: transparent;
+  border-radius: 0;
+}
+.home-campaign .location-scene .branch-main-link {
+  background: transparent;
+}
+.home-campaign .location-scene .locality-art {
+  background: var(--blue-deep);
+  border-radius: 8px;
+}
+.home-campaign .quiet-questions {
+  background: #f3f1e9;
+}
+.home-campaign .quiet-questions .faq-section {
+  border-top: 0;
+  padding-block: 80px 90px;
+}
+.home-campaign .quiet-questions .faq-list details {
+  border-color: var(--line);
+}
+.home-campaign .closing-frame {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  align-items: center;
+  gap: var(--story-gap);
+  padding-block: 96px;
+  border-top: 0;
+}
+.home-campaign .closing-frame .portrait-media {
+  order: 0;
+  margin: 0;
+  max-width: 540px;
+}
+.home-campaign .closing-frame .portrait-media .editorial-media {
+  aspect-ratio: 4 / 5;
+}
+.home-campaign .closing-frame .portrait-media img {
+  object-position: 50% 42%;
+}
+.home-campaign .closing-frame .editorial-copy {
+  order: 1;
+}
+.home-campaign .closing-frame h2 {
+  font-size: clamp(40px, 4.8vw, 68px);
+}
+.home-campaign .closing-frame .editorial-copy p {
+  font-size: 15px;
+}
+.home-campaign .closing-frame .hero-actions {
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+.home-campaign .closing-frame .text-link {
+  font-size: 13px;
+}
+@media (max-width: 1100px) {
+  .home-campaign {
+    --story-gap: 36px;
+  }
+  .home-campaign .duration-mask strong {
+    font-size: 150px;
+  }
+  .home-campaign .care-duration {
+    gap: 0 20px;
+  }
+  .home-campaign .care-network-heading h2 {
+    font-size: 38px;
+  }
+  .home-campaign .service-chapter-copy h3 {
+    font-size: 36px;
+  }
+  .home-campaign .trust-stories {
+    gap: 48px 30px;
+  }
+  .home-campaign .trust-story-copy {
+    padding: 26px;
+  }
+  .home-campaign .trust-story-copy h3 {
+    font-size: 32px;
+  }
+  .home-campaign .technology-chapter-opg .technology-chapter-copy {
+    gap: 20px 36px;
+  }
+}
+/* Tablet layouts stack before copy or focal points become squeezed. */
+@media (max-width: 900px) {
+  .home-campaign .care-duration {
+    display: block;
+  }
+  .home-campaign .care-duration .eyebrow {
+    margin: 16px 0 10px;
+  }
+  .home-campaign .care-network {
+    gap: 34px;
+  }
+  .home-campaign .care-network-media .editorial-media {
+    aspect-ratio: 4 / 3;
+  }
+  .home-campaign .service-chapter-inner,
+  .home-campaign .service-chapter-surgical-periodontal .service-chapter-inner,
+  .home-campaign .service-chapter-orthodontics .service-chapter-inner,
+  .home-campaign .service-chapter-pediatric-dentistry .service-chapter-inner {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 30px;
+  }
+  .home-campaign .service-chapter-copy h3 {
+    font-size: 32px;
+  }
+  .home-campaign .chapter-service-link {
+    font-size: 14px;
+  }
+  .home-campaign .trust-stories {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .home-campaign .trust-story-advanced-equipment {
+    grid-column: 1;
+  }
+  .home-campaign .trust-story-years-of-care {
+    grid-column: 2;
+    margin-top: 32px;
+  }
+  .home-campaign .trust-story-endodontic-care {
+    grid-column: 1 / -1;
+  }
+  .home-campaign .technology-chapter-scan,
+  .home-campaign .technology-chapter-cbct {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 30px;
+  }
+  .home-campaign .technology-chapter-copy {
+    max-width: 600px;
+  }
+  .home-campaign .technology-chapter-copy,
+  .home-campaign .technology-chapter-cbct .technology-chapter-copy {
+    order: 0;
+  }
+  .home-campaign .technology-chapter-media {
+    order: 1;
+    width: 100%;
+  }
+  .home-campaign .technology-scan-context {
+    display: none;
+  }
+  .home-campaign .technology-chapter-opg .technology-chapter-copy {
+    max-width: none;
+  }
+  .home-campaign .conversation-chapter {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+  .home-campaign .conversation-heading h2 {
+    font-size: 40px;
+  }
+  .home-campaign .local-access-intro h2 {
+    font-size: 48px;
+  }
+}
+@media (max-width: 700px) {
+  .home-campaign {
+    --story-gap: 28px;
+  }
+  .home-campaign .media-frame img {
+    object-position: var(--media-position-mobile, var(--media-position));
+  }
+  .home-campaign .media-frame figcaption {
+    font-size: 10px;
+    padding-top: 10px;
+  }
+  .home-campaign .life-media .editorial-media {
+    aspect-ratio: 4 / 3;
+  }
+  .home-campaign .life-copy {
+    display: block;
+    padding-block: 30px 44px;
+  }
+  .home-campaign .life-copy h2 {
+    font-size: clamp(38px, 10vw, 60px);
+    margin: 20px 0 26px;
+  }
+  .home-campaign .life-copy .text-link {
+    font-size: 13px;
+  }
+  .home-campaign .care-network {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    padding-block: 56px;
+    gap: 30px;
+  }
+  .home-campaign .care-duration {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 0 24px;
+    order: 0;
+  }
+  .home-campaign .duration-mask strong {
+    font-size: 120px;
+  }
+  .home-campaign .care-duration .eyebrow {
+    font-size: 9px;
+    margin: 0 0 10px;
+  }
+  .home-campaign .care-duration p {
+    max-width: none;
+    font-size: 12px;
+  }
+  .home-campaign .care-network-heading {
+    order: 1;
+  }
+  .home-campaign .care-network-heading h2 {
+    font-size: clamp(36px, 9.3vw, 56px);
+  }
+  .home-campaign .care-network-media {
+    order: 2;
+  }
+  .home-campaign .care-network-media .editorial-media {
+    aspect-ratio: 1.625;
+  }
+  .home-campaign .network-selector {
+    order: 3;
+    margin: 0;
+  }
+  .home-campaign .network-location {
+    font-size: 21px;
+  }
+  .home-campaign .services-campaign-heading {
+    display: block;
+    padding-block: 48px 6px;
+  }
+  .home-campaign .services-campaign-heading h2 {
+    font-size: clamp(40px, 10.4vw, 60px);
+    margin: 20px 0 24px;
+  }
+  .home-campaign .services-campaign-heading > a {
+    font-size: 13px;
+  }
+  .home-campaign .service-chapter-inner,
+  .home-campaign .service-chapter-surgical-periodontal .service-chapter-inner,
+  .home-campaign .service-chapter-orthodontics .service-chapter-inner,
+  .home-campaign .service-chapter-pediatric-dentistry .service-chapter-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    padding-block: 38px 48px;
+    gap: 28px;
+  }
+  .home-campaign .service-chapter-media,
+  .home-campaign .service-chapter-surgical-periodontal .service-chapter-media,
+  .home-campaign .service-chapter-orthodontics .service-chapter-media {
+    order: 0;
+    max-width: none;
+    margin: 0;
+    width: 100%;
+  }
+  .home-campaign .service-chapter-copy {
+    order: 1;
+    width: 100%;
+  }
+  .home-campaign .service-chapter-copy h3 {
+    font-size: clamp(32px, 8.5vw, 44px);
+  }
+  .home-campaign .service-chapter-copy .family-heading p {
+    font-size: 14px;
+  }
+  .home-campaign .chapter-service-link {
+    font-size: 15px;
+    padding-block: 13px;
+  }
+  .home-campaign .service-chapter-surgical-periodontal .editorial-media {
+    aspect-ratio: 4 / 5;
+  }
+  .home-campaign .service-chapter-orthodontics .editorial-media {
+    aspect-ratio: 1;
+  }
+  .home-campaign .service-chapter-pediatric-dentistry .editorial-media {
+    aspect-ratio: 3 / 2;
+  }
+  .home-campaign .priority-care {
+    display: block;
+    padding-block: 52px 56px;
+  }
+  .home-campaign .priority-care-heading {
+    margin-bottom: 30px;
+  }
+  .home-campaign .priority-care-heading h2 {
+    font-size: 42px;
+  }
+  .home-campaign .priority-care-list h3 {
+    font-size: 24px;
+  }
+  .home-campaign .priority-care-list > a {
+    gap: 12px;
+    padding-block: 23px;
+  }
+  .home-campaign .why-visual {
+    padding-block: 24px 56px;
+  }
+  .home-campaign .why-heading {
+    display: block;
+    margin-bottom: 32px;
+  }
+  .home-campaign .why-heading h2 {
+    font-size: 44px;
+    margin: 20px 0 24px;
+  }
+  .home-campaign .trust-stories {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+  .home-campaign .trust-story {
+    width: 100%;
+    margin: 0;
+  }
+  .home-campaign .trust-story-advanced-equipment .editorial-media {
+    aspect-ratio: 4 / 3;
+  }
+  .home-campaign .trust-story-advanced-equipment figcaption {
+    padding-inline: 22px;
+  }
+  .home-campaign .trust-story-copy {
+    padding: 24px 22px 30px;
+  }
+  .home-campaign .trust-story-copy h3 {
+    font-size: 32px;
+  }
+  .home-campaign .trust-story-years-of-care .editorial-media {
+    aspect-ratio: 4 / 3;
+  }
+  .home-campaign .trust-story-years-of-care .trust-story-copy {
+    padding: 24px 0 0;
+  }
+  .home-campaign .trust-story-endodontic-care {
+    display: block;
+    padding: 0;
+  }
+  .home-campaign .trust-story-endodontic-care .editorial-media {
+    aspect-ratio: 4 / 3;
+  }
+  .home-campaign .trust-story-endodontic-care .trust-story-copy {
+    padding-top: 24px;
+  }
+  .home-campaign .technology-editorial {
+    padding-block: 56px;
+  }
+  .home-campaign .technology-editorial-heading {
+    margin-bottom: 30px;
+  }
+  .home-campaign .technology-editorial-heading h2 {
+    font-size: clamp(38px, 10.3vw, 60px);
+  }
+  .home-campaign .technology-chapter,
+  .home-campaign .technology-chapter-scan,
+  .home-campaign .technology-chapter-cbct {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 26px;
+    padding-block: 36px;
+  }
+  .home-campaign .technology-chapter-copy h3 {
+    font-size: 36px;
+  }
+  .home-campaign .technology-chapter-media {
+    margin: 0;
+    width: 100%;
+  }
+  .home-campaign .technology-chapter-opg .technology-chapter-copy {
+    display: block;
+    margin-bottom: 26px;
+  }
+  .home-campaign .technology-chapter-opg h3 {
+    font-size: 40px;
+  }
+  .home-campaign .technology-chapter-opg .technology-chapter-copy > p {
+    margin-bottom: 22px;
+  }
+  .home-campaign .technology-chapter-opg .opg-imaging-visual {
+    aspect-ratio: 1.65;
+  }
+  .home-campaign .technology-chapter-opg .imaging-base {
+    inset: 34px 7px;
+  }
+  .home-campaign .technology-chapter-opg .radiograph-scan {
+    inset: 34px 7px;
+    width: calc(100% - 14px);
+    height: calc(100% - 68px);
+  }
+  .home-campaign .conversation-chapter {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 26px;
+    padding-block: 56px;
+  }
+  .home-campaign .conversation-heading h2 {
+    font-size: clamp(38px, 10vw, 56px);
+  }
+  .home-campaign .conversation-heading,
+  .home-campaign .conversation-copy {
+    align-self: stretch;
+    width: 100%;
+  }
+  .home-campaign .conversation-media {
+    max-width: none;
+  }
+  .home-campaign .conversation-media .editorial-media {
+    aspect-ratio: 3 / 4;
+  }
+  .home-campaign .conversation-copy {
+    max-width: none;
+  }
+  .home-campaign .local-access-intro {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 30px;
+    padding-block: 0 56px;
+  }
+  .home-campaign .local-access-media .editorial-media {
+    aspect-ratio: 3 / 2;
+  }
+  .home-campaign .local-access-intro h2 {
+    font-size: 48px;
+    margin: 20px 0 26px;
+  }
+  .home-campaign .location-scene .branch-finder {
+    padding-block: 52px 60px;
+  }
+  .home-campaign .quiet-questions .faq-section {
+    padding-block: 52px 60px;
+  }
+  .home-campaign .closing-frame {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 30px;
+    padding-block: 56px;
+  }
+  .home-campaign .closing-frame .portrait-media {
+    width: 100%;
+    margin: 0;
+    max-width: none;
+  }
+  .home-campaign .closing-frame .editorial-copy {
+    padding: 0;
+  }
+  .home-campaign .closing-frame h2 {
+    font-size: clamp(40px, 10.5vw, 56px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .home-campaign .network-location > span:nth-child(2),
+  .home-campaign .chapter-service-link svg {
+    transition: none;
+  }
+  .home-campaign .network-location.is-active > span:nth-child(2) {
+    transform: none;
+  }
+}
+html.is-page-hidden .home-campaign .opg-imaging-visual.is-scanning .radiograph-scan,
+html.is-page-hidden .home-campaign .opg-imaging-visual.is-scanning .radiograph-band {
+  animation-play-state: paused;
+}

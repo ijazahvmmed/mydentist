@@ -6,17 +6,21 @@ interface Props {
   sizes?: string;
   caption?: boolean;
   decorative?: boolean;
-  motion?: 'vertical' | 'horizontal' | 'none';
+  motion?: 'vertical' | 'horizontal' | 'cinematic' | 'depth' | 'none';
+  position?: string;
+  mobilePosition?: string;
   scanning?: boolean;
 }
 const {
   asset,
   class: className = '',
   sizes = '(max-width: 700px) 100vw, 55vw',
-  caption = true,
+  caption = false,
   decorative = false,
   motion = 'vertical',
   scanning = false,
+  position,
+  mobilePosition,
 } = Astro.props;
 const media = library[asset];
 const srcset = (format: string) =>
@@ -26,7 +30,7 @@ const srcset = (format: string) =>
 <figure
   class:list={['media-frame', className]}
   data-asset={asset}
-  style={`--media-position: ${media.position}`}
+  style={`--media-position: ${position || media.position}; --media-position-mobile: ${mobilePosition || position || media.position}`}
 >
   <div class:list={['editorial-media', { 'media-scanning': scanning }]} data-media-motion={motion}>
     <picture>

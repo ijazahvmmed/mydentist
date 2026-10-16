@@ -1,5 +1,5 @@
 import sharp from 'sharp';
-import { readdir, mkdir, writeFile } from 'node:fs/promises';
+import { readdir, readFile, mkdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 const entries = [
  ['lifestyle-smile','editorial','Woman smiling while holding a cup, editorial illustration.','Editorial illustration','50% 42%'],
@@ -17,7 +17,7 @@ const entries = [
  ['intraoral-scan','technology','Intraoral scanning procedure, illustrative image.','Procedure illustration · Not a clinic photograph','50% 56%'],
 ];
 const originals = (await readdir('assets/editorial/originals')).sort();
-const manifest = {};
+const manifest = JSON.parse(await readFile('src/lib/editorial-media.json', 'utf8').catch(() => '{}'));
 for (const [i,entry] of entries.entries()) {
  const [id,folder,alt,caption,position] = entry;
  const original = originals.find(name => name.startsWith(String(i+1).padStart(2,'0')+'_'));

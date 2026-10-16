@@ -1,0 +1,66 @@
+---
+import type { ServiceCategory, Service } from '../../types/content';
+import { serviceDirectoryHref } from '../../content/services';
+import EditorialMedia from '../common/EditorialMedia.astro';
+import Arrow from '../common/Arrow.astro';
+interface Props {
+  categories: ServiceCategory[];
+  services: Service[];
+}
+const { categories, services } = Astro.props;
+const visuals = {
+  'restorative-endodontics': { asset: 'smile-macro-client', position: '32% 48%' },
+  'surgical-periodontal': { asset: 'dental-implant', position: '50% 50%' },
+  orthodontics: { asset: 'clear-aligner', position: '50% 66%', mobilePosition: '50% 68%' },
+  'pediatric-dentistry': { asset: 'pediatric-lifestyle', position: '50% 40%' },
+} as const;
+---
+
+<div class="service-chapters">
+  {categories.map((category) => (
+    <article
+      class={`service-chapter service-chapter-${category.id}`}
+      id={`home-${category.id}`}
+      data-service-family
+    >
+      <div class="service-chapter-inner wrap">
+        <EditorialMedia
+          asset={visuals[category.id as keyof typeof visuals].asset}
+          position={visuals[category.id as keyof typeof visuals].position}
+          mobilePosition={
+            category.id === 'orthodontics' ? visuals.orthodontics.mobilePosition : undefined
+          }
+          class="service-chapter-media"
+          motion={category.id === 'surgical-periodontal' ? 'none' : 'cinematic'}
+          sizes="(max-width: 900px) 100vw, 50vw"
+        />
+        <div class="service-chapter-copy">
+          <div class="family-heading">
+            <span class="family-number" data-family-number>
+              {category.number} / CARE
+            </span>
+            <h3>{category.name}</h3>
+            <p>{category.summary}</p>
+          </div>
+          <div class="family-services">
+            {category.serviceIds
+              .map((id) => services.find((item) => item.id === id)!)
+              .map((item) => (
+                <a
+                  class="chapter-service-link"
+                  href={serviceDirectoryHref(item, category.id)}
+                  data-family-service
+                >
+                  <span>{item.name}</span>
+                  <Arrow diagonal />
+                </a>
+              ))}
+          </div>
+          <a class="text-link family-cta" href={`/treatments/#${category.id}`} data-family-cta>
+            Explore this family of care <Arrow diagonal />
+          </a>
+        </div>
+      </div>
+    </article>
+  ))}
+</div>

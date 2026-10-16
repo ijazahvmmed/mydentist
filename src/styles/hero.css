@@ -1,222 +1,234 @@
-/* Real photography leads the composition; copy remains live, accessible HTML. */
-.hero.hero-photographic {
-  color: #fff;
-  background: #102632;
-  border-radius: 26px;
-  padding: 30px 42px 0;
+/* Restored photographic hero. Colours come from the supplied MyDentist brand palette. */
+.home-campaign .hero.hero-photographic {
+  color: var(--ink);
+  background: var(--paper);
+  border-radius: 0;
+  padding: 26px 0 0;
+  overflow: visible;
   isolation: isolate;
 }
-.hero-photographic .hero-main {
+.home-campaign .hero .hero-main {
   display: block;
   position: static;
-  min-height: clamp(540px, 42vw, 680px);
+  min-height: 610px;
 }
-.hero-photographic .hero-copy {
-  width: 48%;
-  max-width: 650px;
-  padding: clamp(65px, 7vw, 112px) 0 48px;
+.home-campaign .hero .hero-copy {
+  width: 59%;
+  max-width: 790px;
+  padding: 90px 0 64px;
 }
-.hero-photographic h1 {
-  color: #fff;
-  font-size: clamp(62px, 5.9vw, 94px);
-  line-height: 1.04;
-  letter-spacing: -0.06em;
+.home-campaign .hero h1 {
+  color: var(--ink);
+  font-size: clamp(66px, 7.1vw, 104px);
+  line-height: 1.01;
 }
-.hero-photographic .hero-copy h1 span {
-  color: #fff;
+.home-campaign .hero .hero-copy h1 span {
+  color: inherit;
 }
-.hero-photographic h1 > span,
-.hero-photographic .hero-copy h1 .line-mask:last-child > span {
-  color: #d0e4ed;
+.home-campaign .hero h1 > span,
+.home-campaign .hero .hero-copy h1 .line-mask:last-child > span {
+  color: #5672ab;
 }
-.hero-photographic .hero-copy p {
-  color: #e4edf1;
+.home-campaign .hero .hero-copy > p {
+  color: var(--muted);
+  max-width: 420px;
   font-size: 15px;
   margin: 28px 0;
 }
-.hero-photographic .hero-media {
+.home-campaign .hero .hero-actions {
+  flex-wrap: wrap;
+  gap: 26px;
+}
+.home-campaign .hero .hero-actions .button {
+  background: var(--brand);
+  border-color: var(--brand);
+  color: white;
+}
+.home-campaign .hero .hero-actions .button:hover {
+  background: var(--ink);
+}
+.home-campaign .hero .hero-actions .text-link {
+  color: var(--ink);
+}
+.home-campaign .hero .hero-media {
+  position: absolute;
+  inset: 0 -48px 100px auto;
+  width: 64%;
+  height: auto;
+  margin: 0;
+  overflow: hidden;
+  border-radius: 0;
+  isolation: isolate;
+  background: var(--paper);
+  z-index: 0;
+  mask-image: linear-gradient(90deg, transparent, #000 3%);
+}
+.home-campaign .hero .hero-media picture {
   position: absolute;
   inset: 0;
-  margin: 0;
   width: 100%;
   height: 100%;
-  border-radius: inherit;
-  isolation: isolate;
-  z-index: 0;
-}
-.hero-photographic .hero-media picture {
-  position: absolute;
-  inset: 0 0 0 16%;
-  width: 84%;
   display: block;
-  opacity: 1;
 }
-.hero-photographic .hero-media img {
+.home-campaign .hero .hero-media img {
   display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: 50% 46%;
+  object-position: 47% 44%;
   transform: none;
-  mask-image: none;
   mix-blend-mode: normal;
+  mask-image: none;
 }
-.hero-photographic .hero-media::before {
+.home-campaign .hero .hero-media::before {
   content: '';
   position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(0deg, #102632ee, transparent 35%),
-    linear-gradient(90deg, #102632 0%, #102632f2 20%, #102632bd 35%, #10263240 55%, transparent 75%);
+  inset: -2px;
+  background: linear-gradient(
+    90deg,
+    var(--paper) 8%,
+    color-mix(in srgb, var(--paper) 87%, transparent) 12%,
+    color-mix(in srgb, var(--paper) 25%, transparent) 35%,
+    transparent 56%
+  );
   pointer-events: none;
   z-index: 1;
 }
-.hero-photographic .hero-topline {
-  color: #e9f2f5;
+.home-campaign .hero .hero-topline {
+  color: var(--ink);
 }
-.hero-photographic .hero-topline > span:last-child {
-  background: #102632cf;
+.home-campaign .hero .hero-topline > span:last-child {
+  background: color-mix(in srgb, var(--paper) 85%, transparent);
+  color: var(--ink);
   border-radius: 30px;
   padding: 7px 11px;
 }
-.hero-photographic .hero-topline i {
-  background: #bada8d;
+.home-campaign .hero .hero-topline i {
+  background: var(--lime);
 }
-.hero-photographic .hero-actions .button {
-  color: #172b52;
-  background: #fff;
-  border-color: #fff;
-}
-.hero-photographic .hero-actions .button:hover {
-  background: #dfebf4;
-}
-.hero-photographic .hero-actions .text-link {
-  color: #fff;
-}
-.hero-photographic .hero-study {
-  right: 36px;
-  bottom: 146px;
+.home-campaign .hero .hero-study {
+  right: 28px;
+  bottom: 48px;
+  padding: 15px 20px;
+  border: 0;
   border-radius: 12px;
-  background: #fcfcfaf2;
-  color: #172b52;
-  border: 1px solid #ffffff70;
-  font-size: 12px;
-  padding: 16px 20px;
+  background: color-mix(in srgb, var(--paper) 94%, transparent);
+  color: var(--ink);
 }
-.hero-photographic .hero-bottom {
-  border-color: #ffffff30;
-  padding: 26px 0;
-  color: #e3edf1;
+.home-campaign .hero .study-icon {
+  color: var(--brand);
 }
-.hero-photographic .clinic-signal p,
-.hero-photographic .hero-locations {
-  color: #d1e1e8;
+.home-campaign .hero .hero-bottom {
+  min-height: 100px;
+  padding: 20px 0;
+  border-color: var(--line);
+  color: var(--ink);
+  background: var(--paper);
 }
-.hero-photographic .clinic-spark {
-  color: #fff;
+.home-campaign .hero .clinic-spark {
+  color: var(--ink);
 }
-.hero-photographic .hero-photo-credit {
-  position: absolute;
-  bottom: 112px;
-  right: 38px;
-  z-index: 3;
-  color: #e8eff2;
-  font-size: 9px;
-  letter-spacing: 0.015em;
-  padding: 8px 0;
-  text-underline-offset: 3px;
+.home-campaign .hero .clinic-signal p,
+.home-campaign .hero .hero-locations {
+  color: var(--muted);
 }
-.hero-photographic .hero-photo-credit:hover {
-  text-decoration: underline;
-}
-@media (min-width: 1600px) {
-  .hero-photographic .hero-copy {
-    padding-top: 100px;
+@media (min-width: 1550px) {
+  .home-campaign .hero .hero-media {
+    right: min(-48px, calc((1360px - 100vw) / 2));
+    width: 68%;
   }
 }
-@media (max-width: 1000px) and (min-width: 701px) {
-  .hero-photographic .hero-copy {
-    width: 55%;
+@media (max-width: 1100px) {
+  .home-campaign .hero .hero-copy {
+    width: 64%;
   }
-  .hero-photographic h1 {
-    font-size: 60px;
+  .home-campaign .hero .hero-main {
+    min-height: 560px;
   }
-  .hero-photographic .hero-main {
-    min-height: 540px;
+  .home-campaign .hero .hero-media {
+    width: 67%;
   }
-  .hero-photographic .hero-study {
-    right: 24px;
-    bottom: 142px;
+}
+@media (max-width: 899px) {
+  .home-campaign .hero .hero-copy {
+    width: 65%;
+    padding-top: 65px;
+  }
+  .home-campaign .hero h1 {
+    font-size: 64px;
+  }
+  .home-campaign .hero .hero-study {
+    right: 20px;
+    bottom: 50px;
+    font-size: 10px;
+    padding: 12px;
   }
 }
 @media (max-width: 700px) {
-  .hero.hero-photographic {
-    padding: 24px 22px 0;
-    border-radius: 20px;
+  .home-campaign .hero.hero-photographic {
+    padding: 22px 0 0;
   }
-  .hero-photographic .hero-main {
-    min-height: 665px;
+  .home-campaign .hero .hero-main {
+    display: block;
+    min-height: 0;
   }
-  .hero-photographic .hero-copy {
+  .home-campaign .hero .hero-copy {
     width: 100%;
     max-width: none;
-    padding: 32px 0 0;
+    padding: 30px 0 0;
   }
-  .hero-photographic h1 {
-    font-size: clamp(49px, 11.9vw, 70px);
+  .home-campaign .hero h1 {
+    font-size: clamp(48px, 12.3vw, 76px);
   }
-  .hero-photographic h1 > span {
-    margin-top: 5px;
-  }
-  .hero-photographic .hero-copy p {
+  .home-campaign .hero .hero-copy > p {
     font-size: 13px;
-    margin: 22px 0;
+    margin: 23px 0;
   }
-  .hero-photographic .hero-actions {
-    gap: 20px;
-    flex-wrap: wrap;
+  .home-campaign .hero .hero-actions {
+    flex-direction: row;
+    align-items: center;
+    gap: 18px;
   }
-  .hero-photographic .hero-actions .button {
+  .home-campaign .hero .hero-actions .button {
     width: auto;
-    font-size: 12px;
-    padding: 15px 20px;
+    padding: 14px 18px;
+    font-size: 11px;
+    gap: 18px;
   }
-  .hero-photographic .hero-actions .text-link {
-    font-size: 12px;
-  }
-  .hero-photographic .hero-media picture {
-    inset: 32% 0 0;
-    width: 100%;
-    height: 68%;
-  }
-  .hero-photographic .hero-media img {
-    object-position: 48% 30%;
-  }
-  .hero-photographic .hero-media::before {
-    background:
-      linear-gradient(0deg, #102632 0%, #102632bf 10%, transparent 30%),
-      linear-gradient(
-        180deg,
-        #102632 0%,
-        #102632 32%,
-        #102632e0 43%,
-        #10263240 60%,
-        transparent 72%
-      );
-  }
-  .hero-photographic .hero-study {
-    bottom: 118px;
-    right: 20px;
-    padding: 12px 15px;
+  .home-campaign .hero .hero-actions .text-link {
     font-size: 11px;
   }
-  .hero-photographic .hero-photo-credit {
-    bottom: 85px;
-    right: 22px;
-    font-size: 8px;
+  .home-campaign .hero .hero-media {
+    position: relative;
+    inset: auto;
+    width: calc(100% + 36px);
+    height: clamp(350px, 107vw, 490px);
+    margin: 30px -18px 0;
+    mask-image: none;
   }
-  .hero-photographic .hero-bottom {
-    padding: 22px 0;
-    gap: 12px;
+  .home-campaign .hero .hero-media picture {
+    inset: 0;
+    height: 100%;
+    width: 100%;
+  }
+  .home-campaign .hero .hero-media img {
+    object-position: 47% 45%;
+  }
+  .home-campaign .hero .hero-media::before {
+    background: linear-gradient(
+      0deg,
+      color-mix(in srgb, var(--ink) 36%, transparent),
+      transparent 45%
+    );
+  }
+  .home-campaign .hero .hero-study {
+    right: 18px;
+    bottom: 45px;
+    padding: 12px 14px;
+    font-size: 10px;
+  }
+  .home-campaign .hero .hero-bottom {
+    padding-block: 21px;
+    min-height: 85px;
   }
 }

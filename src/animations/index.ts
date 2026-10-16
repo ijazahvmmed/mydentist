@@ -42,44 +42,106 @@ export function revealText(element: HTMLElement, delay = 0) {
 }
 export function revealImage(element: HTMLElement, delay = 0) {
   const mediaMotion = element.dataset.mediaMotion;
+  const cinematic = mediaMotion === 'cinematic' || mediaMotion === 'depth';
+  const horizontal = mediaMotion === 'horizontal';
+  const mobile = matchMedia('(max-width: 700px)').matches;
+  const entranceDelay = delay + (element.closest('.conversation-media') ? 0.18 : 0);
   gsap.from(element, {
-    clipPath: mediaMotion === 'horizontal' ? 'inset(0 100% 0 0)' : 'inset(100% 0 0 0)',
-    duration: 1.1,
-    delay,
+    clipPath: mobile ? 'inset(8% 0 0 0)' : horizontal ? 'inset(0 100% 0 0)' : 'inset(100% 0 0 0)',
+    duration: mobile ? 0.7 : cinematic ? 1.1 : 0.9,
+    delay: entranceDelay,
     ease: 'power3.inOut',
   });
   const image = element.querySelector('img');
-  if (image) {
+  if (image && mediaMotion !== 'none') {
     gsap.fromTo(
       element.querySelector('picture') || image,
-      { scale: mediaMotion === 'none' ? 1.025 : 1.06 },
-      { scale: 1, duration: 1.3, delay, ease: 'power2.out', clearProps: 'transform' }
+      { scale: 1.025 },
+      {
+        scale: 1,
+        duration: cinematic ? 1.8 : 1.3,
+        delay: entranceDelay,
+        ease: 'power2.out',
+        clearProps: 'transform',
+      }
     );
-    if (mediaMotion !== 'none') {
-      const horizontal = mediaMotion === 'horizontal';
+    // Phone crops remain stable; desktop movement stays inside a small overscan.
+    if (!mobile) {
+      const distance = 0.7;
       gsap.fromTo(
         image,
-        horizontal ? { xPercent: -2, scale: 1.05 } : { yPercent: -3, scale: 1.07 },
+        horizontal ? { xPercent: -distance, scale: 1.025 } : { yPercent: -distance, scale: 1.025 },
         {
-          ...(horizontal ? { xPercent: 2 } : { yPercent: 3 }),
+          ...(horizontal ? { xPercent: distance } : { yPercent: distance }),
           ease: 'none',
-          scrollTrigger: { trigger: element, start: 'top bottom', end: 'bottom top', scrub: 0.6 },
+          scrollTrigger: { trigger: element, start: 'top bottom', end: 'bottom top', scrub: 0.8 },
         }
       );
     }
   }
+}
+/** Reveal the fixed experience milestone without changing the stated number. */
+function revealExperience(element: HTMLElement) {
+  const digits = element.querySelectorAll('[data-experience-digit]');
+  if (!digits.length) return;
+  const palette = getComputedStyle(element);
+  const mobile = matchMedia('(max-width: 700px)').matches;
+  const timeline = gsap.timeline({
+    scrollTrigger: { trigger: element, start: 'top 78%', once: true },
+    defaults: { ease: 'power3.out' },
+  });
+  timeline
+    .from(
+      element.querySelector('.duration-rule'),
+      { scaleX: 0, opacity: 0, duration: 1, clearProps: 'transform,opacity' },
+      0
+    )
+    .from(
+      digits,
+      {
+        yPercent: 112,
+        rotationX: -30,
+        opacity: 0.2,
+        duration: mobile ? 1.05 : 1.3,
+        stagger: 0.14,
+        ease: 'power4.out',
+        clearProps: 'transform,opacity',
+      },
+      0.08
+    )
+    .fromTo(
+      element.querySelector('.duration-value'),
+      { color: palette.getPropertyValue('--blue-deep').trim() },
+      {
+        color: palette.getPropertyValue('--brand').trim(),
+        duration: 1.25,
+        clearProps: 'color',
+      },
+      0.08
+    )
+    .from(
+      element.querySelector('.eyebrow'),
+      { y: 10, opacity: 0, duration: 0.7, clearProps: 'transform,opacity' },
+      0.35
+    )
+    .from(
+      element.querySelector('p'),
+      { y: 12, opacity: 0, duration: 0.8, clearProps: 'transform,opacity' },
+      0.52
+    );
 }
 export function initMotion() {
   const mm = gsap.matchMedia();
   mm.add('(prefers-reduced-motion: no-preference)', () => {
     const restores: Array<() => void> = [];
     const context = gsap.context(() => {
-      gsap.from('.header-inner > *', {
+      document.querySelectorAll<HTMLElement>('[data-care-reveal]').forEach(revealExperience);
+      gsap.from('.header-inner', {
         y: -10,
         opacity: 0,
         duration: 0.65,
-        stagger: 0.06,
         ease: 'power2.out',
+        clearProps: 'transform,opacity',
       });
       document.querySelectorAll<HTMLElement>('.tech-card').forEach((card, i) => {
         const visual = card.querySelector('.digital-visual');
@@ -92,6 +154,98 @@ export function initMotion() {
           scrollTrigger: { trigger: card, start: 'top 92%', once: true },
         });
       });
+      const campaign = document.querySelector('.home-campaign');
+      if (campaign) {
+        const palette = getComputedStyle(campaign);
+        const brandColor = palette.getPropertyValue('--brand').trim();
+        const inkColor = palette.getPropertyValue('--ink').trim();
+        const paperColor = palette.getPropertyValue('--paper').trim();
+        const blueColor = palette.getPropertyValue('--blue').trim();
+        const hero = campaign.querySelector('.hero');
+        const heroPicture = hero?.querySelector('.hero-artwork');
+        const heroImage = hero?.querySelector('.hero-artwork img');
+        if (heroPicture)
+          gsap.fromTo(
+            heroPicture,
+            { scale: 1.055 },
+            { scale: 1, duration: 1.8, ease: 'power3.out', clearProps: 'transform' }
+          );
+        if (hero && heroImage)
+          gsap.fromTo(
+            heroImage,
+            { scale: 1.035, yPercent: -0.6 },
+            {
+              scale: 1.035,
+              yPercent: matchMedia('(max-width: 700px)').matches ? 0.6 : 1.4,
+              ease: 'none',
+              scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: 0.9 },
+            }
+          );
+        const technology = campaign.querySelector('.technology-editorial');
+        if (technology)
+          gsap.fromTo(
+            technology,
+            { '--chapter-bg': brandColor },
+            {
+              '--chapter-bg': inkColor,
+              immediateRender: false,
+              ease: 'none',
+              scrollTrigger: { trigger: technology, start: 'top 95%', end: 'top 22%', scrub: 1 },
+            }
+          );
+        const locations = campaign.querySelector('[data-location-surface]');
+        if (locations)
+          gsap.fromTo(
+            locations,
+            { '--location-bg': paperColor },
+            {
+              '--location-bg': blueColor,
+              immediateRender: false,
+              ease: 'none',
+              scrollTrigger: { trigger: locations, start: 'top 95%', end: 'top 30%', scrub: 0.8 },
+            }
+          );
+        campaign.querySelectorAll<HTMLElement>('[data-cinematic-depth]').forEach((figure) => {
+          const picture = figure.querySelector('.imaging-base');
+          const depth = matchMedia('(max-width: 700px)').matches ? 1 : 3;
+          if (picture)
+            gsap.fromTo(
+              picture,
+              { rotationY: -depth, rotationX: 1, yPercent: -1 },
+              {
+                rotationY: depth,
+                rotationX: -1,
+                yPercent: 1,
+                ease: 'none',
+                scrollTrigger: {
+                  trigger: figure,
+                  start: 'top bottom',
+                  end: 'bottom top',
+                  scrub: 1.2,
+                },
+              }
+            );
+        });
+        campaign.querySelectorAll<HTMLElement>('[data-cinematic-opg]').forEach((figure) => {
+          const visual = figure.querySelector('.opg-imaging-visual');
+          if (!visual) return;
+          gsap.fromTo(
+            visual,
+            { scale: 1.025 },
+            {
+              scale: 1,
+              ease: 'power1.out',
+              scrollTrigger: { trigger: figure, start: 'top 90%', end: 'top 35%', scrub: 1 },
+            }
+          );
+          ScrollTrigger.create({
+            trigger: figure,
+            start: 'top 40%',
+            end: 'bottom top',
+            toggleClass: { targets: visual, className: 'is-scanning' },
+          });
+        });
+      }
       const art = document.querySelector<HTMLElement>('.aligner-art');
       if (art)
         gsap.fromTo(
@@ -143,19 +297,10 @@ export function initMotion() {
                   clearProps: 'opacity,transform',
                 });
             } else if (el.matches('[data-care-motion]')) {
-              gsap.from(el.querySelector('.duration-mask strong'), {
-                yPercent: 108,
-                duration: 0.95,
-                ease: 'power3.out',
-              });
-              gsap.from(el.querySelectorAll('.care-duration .eyebrow,.care-duration p'), {
-                opacity: 0,
-                y: 8,
-                duration: 0.65,
-                stagger: 0.1,
-                delay: 0.15,
-                clearProps: 'opacity,transform',
-              });
+              const careMedia = el.querySelector<HTMLElement>(
+                '.care-network-media .editorial-media'
+              );
+              if (careMedia) revealImage(careMedia, 0.15);
               const heading = el.querySelector<HTMLElement>('.care-network-heading h2');
               if (heading) restores.push(revealText(heading, 0.15));
               gsap.from(el.querySelectorAll('.network-location'), {
@@ -167,7 +312,9 @@ export function initMotion() {
                 clearProps: 'opacity,transform',
               });
             } else if (
-              el.matches('h1,h2,.technology-chapter-copy h3,.tech-copy h3,.featured-treatment h3')
+              el.matches(
+                'h1,h2,h3[data-story-title],.technology-chapter-copy h3,.tech-copy h3,.featured-treatment h3'
+              )
             )
               restores.push(revealText(el));
             else if (el.matches('.aligner-art,.treatment-media,.editorial-media')) revealImage(el);
@@ -186,7 +333,7 @@ export function initMotion() {
     );
     document
       .querySelectorAll(
-        'h1,h2,.technology-chapter-copy h3,.tech-copy h3,.featured-treatment h3,.eyebrow,.hero-topline,.hero-copy>p,.hero-actions,.tech-copy>p,.aligner-art,.treatment-media,.editorial-media,[data-service-family],[data-care-motion]'
+        'h1,h2,h3[data-story-title],.technology-chapter-copy h3,.tech-copy h3,.featured-treatment h3,.eyebrow,.hero-topline,.hero-copy>p,.hero-actions,.tech-copy>p,.aligner-art,.treatment-media,.editorial-media,[data-service-family],[data-care-motion]'
       )
       .forEach((el) => {
         if (el.closest('[data-service-family]') && !el.matches('[data-service-family]')) return;

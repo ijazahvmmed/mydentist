@@ -18,6 +18,14 @@ const { technologies } = Astro.props;
   aria-labelledby="technology-heading"
 >
   <div class="wrap">
+    <EditorialMedia
+      asset="digital-teeth"
+      class="technology-ambient-media"
+      motion="none"
+      caption={false}
+      decorative
+      sizes="45vw"
+    />
     <div class="technology-editorial-heading">
       <span class="eyebrow">ADVANCED EQUIPMENT / A CLEARER PICTURE</span>
       <h2 id="technology-heading">
@@ -52,39 +60,23 @@ const { technologies } = Astro.props;
               Ask about availability <Arrow diagonal />
             </a>
           </div>
-          <figure class="technology-chapter-media">
+          <figure
+            class="technology-chapter-media"
+            data-cinematic-depth={technology.visual === 'cbct' ? 'true' : undefined}
+            data-cinematic-opg={technology.visual === 'opg' ? 'true' : undefined}
+          >
             <TechnologyVisual kind={technology.visual} media={technology.media} />
-            <figcaption>
-              {technology.visual === 'scan'
-                ? 'Illustrative surface study · Not a patient scan'
-                : technology.visual === 'cbct'
-                  ? 'Illustrative CBCT volume · Not a patient scan'
-                  : 'Illustrative panoramic dental imaging · Not a patient radiograph'}
-            </figcaption>
           </figure>
+          {technology.visual === 'scan' && (
+            <EditorialMedia
+              asset="intraoral-scan"
+              class="technology-scan-context"
+              motion="horizontal"
+              sizes="(max-width: 700px) 100vw, 35vw"
+            />
+          )}
         </article>
       ))}
-    </div>
-    <div class="technology-supporting-media" aria-label="Illustrative scanning and imaging studies">
-      <EditorialMedia
-        asset="intraoral-scan"
-        class="scanner-editorial-detail"
-        sizes="(max-width: 700px) 50vw, 20vw"
-        motion="none"
-        scanning
-      />
-      <EditorialMedia
-        asset="digital-teeth"
-        class="digital-editorial-detail"
-        sizes="(max-width: 700px) 50vw, 20vw"
-        motion="horizontal"
-        scanning
-      />
-      <p>
-        Different views. One conversation about your care.
-        <br />
-        <span>Your dentist will explain which imaging, if any, is appropriate.</span>
-      </p>
     </div>
   </div>
 </section>
