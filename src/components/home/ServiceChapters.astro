@@ -3,6 +3,7 @@ import type { ServiceCategory, Service } from '../../types/content';
 import { serviceDirectoryHref } from '../../content/services';
 import EditorialMedia from '../common/EditorialMedia.astro';
 import Arrow from '../common/Arrow.astro';
+import CareSymbol from '../common/CareSymbol.astro';
 interface Props {
   categories: ServiceCategory[];
   services: Service[];
@@ -36,9 +37,12 @@ const visuals = {
         />
         <div class="service-chapter-copy">
           <div class="family-heading">
-            <span class="family-number" data-family-number>
-              {category.number} / CARE
-            </span>
+            <div class="family-signature">
+              <span class="family-number" data-family-number>
+                {category.number} / CARE
+              </span>
+              <CareSymbol family={category.id} />
+            </div>
             <h3>{category.name}</h3>
             <p>{category.summary}</p>
           </div>

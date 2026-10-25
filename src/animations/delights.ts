@@ -44,3 +44,15 @@ const progress = () =>
   );
 addEventListener('scroll', progress, { passive: true });
 progress();
+
+// Only visible controls run the occasional light pass. Hover and focus work without JS.
+const lightButtons = document.querySelectorAll<HTMLElement>('.button');
+const lightObserver = new IntersectionObserver(
+  (entries) =>
+    entries.forEach((entry) => {
+      entry.target.classList.toggle('is-light-catching', entry.isIntersecting);
+    }),
+  { threshold: 0.8 }
+);
+lightButtons.forEach((button) => lightObserver.observe(button));
+document.addEventListener('astro:before-swap', () => lightObserver.disconnect(), { once: true });

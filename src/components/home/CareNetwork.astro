@@ -3,6 +3,7 @@ import type { Branch } from '../../types/content';
 import { careExperience } from '../../content/trust';
 import Arrow from '../common/Arrow.astro';
 import EditorialMedia from '../common/EditorialMedia.astro';
+import BrandRibbon from '../common/BrandRibbon.astro';
 interface Props {
   branches: Branch[];
 }
@@ -38,13 +39,15 @@ const { branches } = Astro.props;
       {careExperience.description}.<br />A local connection to your care.
     </p>
   </div>
-  <EditorialMedia
-    asset="clinical-light-client"
-    class="care-network-media"
-    sizes="(max-width: 700px) 100vw, 40vw"
-    motion="cinematic"
-    position="40% 35%"
-  />
+  <div class="care-network-media ribbon-stage ribbon-stage-clinic">
+    <BrandRibbon id="clinic-ribbon" />
+    <EditorialMedia
+      asset="clinical-light-client"
+      sizes="(max-width: 700px) 100vw, 40vw"
+      motion="cinematic"
+      position="40% 35%"
+    />
+  </div>
   <div class="care-network-heading">
     <span class="eyebrow">DR KIRAN’S MYDENTIST</span>
     <h2 id="closer-heading">

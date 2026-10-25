@@ -1,0 +1,41 @@
+---
+interface Props {
+  id: string;
+}
+const { id } = Astro.props;
+const curve =
+  'M495-42C691 12 440 105 526 214C612 324 665 372 512 431C356 491 274 328 158 399C87 443 81 506-30 535';
+---
+
+<svg class="brand-ribbon" viewBox="0 0 600 520" fill="none" aria-hidden="true" focusable="false">
+  <defs>
+    <linearGradient
+      id={`${id}-tone`}
+      x1="520"
+      y1="0"
+      x2="110"
+      y2="520"
+      gradientUnits="userSpaceOnUse"
+    >
+      <stop stop-color="var(--brand)" stop-opacity="0" />
+      <stop offset=".22" stop-color="var(--brand)" stop-opacity=".24" />
+      <stop offset=".52" stop-color="var(--brand)" stop-opacity=".36" />
+      <stop offset=".8" stop-color="var(--blue-deep)" stop-opacity=".6" />
+      <stop offset="1" stop-color="var(--blue-deep)" stop-opacity="0" />
+    </linearGradient>
+    <pattern
+      id={`${id}-weave`}
+      width="5"
+      height="5"
+      patternUnits="userSpaceOnUse"
+      patternTransform="rotate(-18)"
+    >
+      <path d="M0 .5H5" stroke="var(--paper)" stroke-opacity=".65" />
+    </pattern>
+    <mask id={`${id}-fade`} mask-type="alpha">
+      <path d={curve} stroke={`url(#${id}-tone)`} stroke-width="64" />
+    </mask>
+  </defs>
+  <path d={curve} stroke={`url(#${id}-tone)`} stroke-width="64" />
+  <path d={curve} stroke={`url(#${id}-weave)`} stroke-width="64" mask={`url(#${id}-fade)`} />
+</svg>

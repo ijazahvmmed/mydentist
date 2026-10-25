@@ -4,6 +4,7 @@ import Base from '../layouts/Base.astro';
 import Arrow from '../components/common/Arrow.astro';
 import ToothScene from '../components/three/ToothScene';
 import EditorialMedia from '../components/common/EditorialMedia.astro';
+import BrandRibbon from '../components/common/BrandRibbon.astro';
 import CareNetwork from '../components/home/CareNetwork.astro';
 import ServiceChapters from '../components/home/ServiceChapters.astro';
 import PriorityCare from '../components/home/PriorityCare.astro';
@@ -15,6 +16,8 @@ import FAQs from '../components/common/FAQs.astro';
 import { content } from '../lib/content/repository';
 import { createWhatsAppUrl } from '../lib/whatsapp';
 import { organization, website } from '../lib/schema';
+// Keep the tooth story available to restore without loading its scene on the homepage.
+const showToothStory = false;
 const [branches, treatments, allFAQs, categories, services, technologies, trustPoints] =
   await Promise.all([
     content.getBranches(),
@@ -104,12 +107,13 @@ const homeFAQs = allFAQs.filter((faq) =>
             fetchpriority="high"
           />
         </picture>
-        <a class="hero-study" href="#tooth-story">
+        <a class="hero-study" href={showToothStory ? '#tooth-story' : '/treatments/'}>
           <span class="study-icon" aria-hidden="true">
             <Icon name="tooth" />
           </span>
           <span>
-            Understand your tooth<small>EXPLORE THE STORY</small>
+            {showToothStory ? 'Understand your tooth' : 'Explore your care'}
+            <small>{showToothStory ? 'EXPLORE THE STORY' : 'TREATMENT GUIDES'}</small>
           </span>
           <Arrow diagonal />
         </a>
@@ -135,14 +139,18 @@ const homeFAQs = allFAQs.filter((faq) =>
         <br />
         Thirunalloor · Aroor · Vaduthala
       </div>
-      <a href="#tooth-story" class="scroll-link">
+      <a href={showToothStory ? '#tooth-story' : '#life'} class="scroll-link">
         SCROLL TO DISCOVER <Icon name="down" />
       </a>
     </div>
   </section>
-  <ToothScene client:idle />
-  <ToothStory />
-  <section class="life-chapter" aria-labelledby="life-heading">
+  {showToothStory && (
+    <>
+      <ToothScene client:idle />
+      <ToothStory />
+    </>
+  )}
+  <section class="life-chapter" id="life" aria-labelledby="life-heading">
     <EditorialMedia
       asset="lifestyle-at-home-client"
       class="life-media"
@@ -261,10 +269,9 @@ const homeFAQs = allFAQs.filter((faq) =>
         </a>
       </div>
     </div>
-    <EditorialMedia
-      asset="smiling-portrait"
-      class="portrait-media"
-      sizes="(max-width: 700px) 100vw, 38vw"
-    />
+    <div class="portrait-media ribbon-stage ribbon-stage-portrait">
+      <BrandRibbon id="portrait-ribbon" />
+      <EditorialMedia asset="smiling-portrait" sizes="(max-width: 700px) 100vw, 38vw" />
+    </div>
   </section>
 </Base>

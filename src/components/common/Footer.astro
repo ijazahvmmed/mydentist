@@ -7,71 +7,80 @@ import Arrow from './Arrow.astro';
 const branches = await content.getBranches();
 ---
 
-<section class="closing wrap">
-  <span class="eyebrow">A LITTLE CLOSER TO YOUR NEXT STEP</span>
-  <div>
-    <h2>
-      Let’s talk about
-      <br />
-      your smile.
-    </h2>
-    <a class="button" href={createWhatsAppUrl()} data-event="whatsapp_click">
-      <span class="action-label">
-        <Icon name="chat" />
-        WhatsApp us
-      </span>
-      <Arrow diagonal />
+<footer class="site-footer footer-finale" aria-labelledby="footer-heading">
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="footer-intro">
+        <p class="footer-practice" data-footer-group>
+          Dr Kiran’s MyDentist · Alappuzha
+        </p>
+        <h2 id="footer-heading">
+          A little closer.
+          <br />A lot to smile about.
+        </h2>
+        <p class="footer-description" data-footer-group>
+          15 years of dental care. Six neighbourhood clinics.
+          <br />
+          Find your MyDentist, closer to home.
+        </p>
+      </div>
+      <div class="footer-navigation">
+        <nav class="footer-links" aria-label="Explore MyDentist" data-footer-group>
+          <h3>Explore</h3>
+          <a href="/treatments/">Treatments</a>
+          <a href="/#technology">Technology</a>
+          <a href="/about/">About MyDentist</a>
+          <a href="/contact/">Contact us</a>
+        </nav>
+        <nav class="footer-links" aria-label="MyDentist clinics" data-footer-group>
+          <h3>Our clinics</h3>
+          {branches.map((branch) => (
+            <a href={`/locations/${branch.slug}/`}>{branch.locality}</a>
+          ))}
+        </nav>
+      </div>
+    </div>
+    <div class="footer-contact-row">
+      <div class="footer-contact" data-footer-group>
+        <a href={phoneHref(primaryPhone)} data-event="phone_click">
+          <Icon name="phone" />
+          {primaryPhone}
+        </a>
+        <a href="mailto:kiransdentalhospital@gmail.com">
+          <Icon name="mail" />
+          kiransdentalhospital@gmail.com
+        </a>
+      </div>
+      <div class="footer-invitation" data-footer-group>
+        <p>
+          Have a question?
+          <br />
+          <span>We’re here to help.</span>
+        </p>
+        <a class="button light" href={createWhatsAppUrl()} data-event="whatsapp_click">
+          <span class="action-label">
+            <Icon name="chat" />
+            Let’s talk
+          </span>
+          <Arrow diagonal />
+        </a>
+      </div>
+    </div>
+    <a class="footer-wordmark" href="/" aria-label="MyDentist home" data-footer-wordmark>
+      <BrandLogo variant="white" loading="lazy" />
     </a>
-  </div>
-  <p>Have a question? We’ll help you connect with a clinic.</p>
-</section>
-<footer class="site-footer">
-  <div class="wrap footer-grid">
-    <div>
-      <a class="footer-brand" href="/">
-        <BrandLogo variant="white" loading="lazy" />
-      </a>
-      <p>
-        Dr Kiran’s MyDentist
-        <br />
-        Six locations. One place to start.
+    <div class="footer-utility">
+      <small>© {new Date().getFullYear()} Dr Kiran’s MyDentist</small>
+      <nav aria-label="Website information">
+        <a href="/privacy-policy/">Privacy</a>
+        <a href="/terms/">Terms</a>
+        <a href="#top">
+          Back to top <Icon name="up" />
+        </a>
+      </nav>
+      <p class="website-credit">
+        Website by <strong>Unknown</strong>
       </p>
-      <a href={phoneHref(primaryPhone)} data-event="phone_click">
-        <Icon name="phone" />
-        {primaryPhone}
-      </a>
-      <a href="mailto:kiransdentalhospital@gmail.com">
-        <Icon name="mail" />
-        kiransdentalhospital@gmail.com
-      </a>
     </div>
-    <div>
-      <span class="eyebrow">EXPLORE</span>
-      <a href="/treatments/">Treatments</a>
-      <a href="/#technology">Technology</a>
-      <a href="/about/">About MyDentist</a>
-      <a href="/contact/">Contact us</a>
-    </div>
-    <div>
-      <span class="eyebrow">FIND YOUR CLINIC</span>
-      {branches.map((b) => (
-        <a href={`/locations/${b.slug}/`}>{b.locality}</a>
-      ))}
-    </div>
-  </div>
-  <div class="wrap footer-bottom">
-    <small>© {new Date().getFullYear()} Dr Kiran’s MyDentist</small>
-    <span>
-      <a href="/privacy-policy/">Privacy</a>
-      <a href="/terms/">Terms</a>
-      <a href="#top">
-        Back to top <Icon name="up" />
-      </a>
-    </span>
-  </div>
-  <div class="wrap footer-credit">
-    <p class="website-credit">
-      Website by <strong>Unknown</strong>
-    </p>
   </div>
 </footer>

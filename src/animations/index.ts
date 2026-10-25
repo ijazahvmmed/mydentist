@@ -1,6 +1,8 @@
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
+const headingSelector =
+  'h1,h2,h3[data-story-title],.family-heading h3,.technology-chapter-copy h3,.tech-copy h3,.featured-treatment h3';
 /** Group measured words into visual lines without changing the accessible heading. */
 export function revealText(element: HTMLElement, delay = 0) {
   const original = element.innerHTML;
@@ -29,11 +31,13 @@ export function revealText(element: HTMLElement, delay = 0) {
     )
     .join('');
   gsap.from(element.querySelectorAll('.line-mask > span'), {
-    yPercent: 108,
-    duration: 0.85,
-    stagger: 0.09,
+    yPercent: 115,
+    opacity: 0,
+    duration: 1.1,
+    stagger: 0.14,
     delay,
     ease: 'power3.out',
+    clearProps: 'transform,opacity',
   });
   return () => {
     element.innerHTML = original;
@@ -47,19 +51,25 @@ export function revealImage(element: HTMLElement, delay = 0) {
   const mobile = matchMedia('(max-width: 700px)').matches;
   const entranceDelay = delay + (element.closest('.conversation-media') ? 0.18 : 0);
   gsap.from(element, {
-    clipPath: mobile ? 'inset(8% 0 0 0)' : horizontal ? 'inset(0 100% 0 0)' : 'inset(100% 0 0 0)',
-    duration: mobile ? 0.7 : cinematic ? 1.1 : 0.9,
+    clipPath: mobile
+      ? 'inset(20% 0 20% 0)'
+      : horizontal
+        ? 'inset(0 100% 0 0)'
+        : 'inset(100% 0 0 0)',
+    y: mobile ? 28 : 0,
+    duration: mobile ? 1.1 : cinematic ? 1.35 : 1.15,
     delay: entranceDelay,
     ease: 'power3.inOut',
+    clearProps: 'clipPath,transform',
   });
   const image = element.querySelector('img');
   if (image && mediaMotion !== 'none') {
     gsap.fromTo(
       element.querySelector('picture') || image,
-      { scale: 1.025 },
+      { scale: 1.07 },
       {
         scale: 1,
-        duration: cinematic ? 1.8 : 1.3,
+        duration: cinematic ? 1.8 : 1.5,
         delay: entranceDelay,
         ease: 'power2.out',
         clearProps: 'transform',
@@ -265,80 +275,59 @@ export function initMotion() {
           entrance.unobserve(entry.target);
           context.add(() => {
             const el = entry.target as HTMLElement;
-            if (el.matches('[data-service-family]')) {
-              const number = el.querySelector('[data-family-number]');
-              const heading = el.querySelector<HTMLElement>(
-                '.family-heading h2,.family-heading h3'
-              );
-              gsap.from(number, {
+            gsap.set(el, { opacity: 1 });
+            if (el.matches('.family-services,.network-list')) {
+              gsap.from(el.querySelectorAll('[data-family-service],.network-location'), {
                 opacity: 0,
-                y: 12,
-                duration: 0.5,
+                y: 28,
+                duration: 0.85,
+                stagger: 0.09,
+                ease: 'power3.out',
                 clearProps: 'opacity,transform',
               });
-              if (heading) restores.push(revealText(heading, 0.12));
-              gsap.from(el.querySelectorAll('[data-family-service]'), {
+            } else if (el.matches('[data-footer-wordmark]')) {
+              gsap.from(el.querySelector('.brand-logo'), {
+                yPercent: 112,
+                duration: 1.45,
+                ease: 'power3.out',
+                clearProps: 'transform',
+              });
+            } else if (el.matches('[data-footer-group]')) {
+              const parts = el.matches('nav,.footer-contact') ? Array.from(el.children) : [el];
+              gsap.from(parts, {
                 opacity: 0,
-                y: 10,
-                duration: 0.55,
-                stagger: 0.065,
-                delay: 0.28,
+                y: 30,
+                duration: 0.95,
+                stagger: 0.08,
+                ease: 'power3.out',
                 clearProps: 'opacity,transform',
               });
-              const media = el.querySelector<HTMLElement>('.editorial-media');
-              if (media) revealImage(media, 0.45);
-              const cta = el.querySelector('[data-family-cta]');
-              if (cta)
-                gsap.from(cta, {
-                  opacity: 0,
-                  y: 8,
-                  delay: 0.75,
-                  duration: 0.45,
-                  clearProps: 'opacity,transform',
-                });
-            } else if (el.matches('[data-care-motion]')) {
-              const careMedia = el.querySelector<HTMLElement>(
-                '.care-network-media .editorial-media'
-              );
-              if (careMedia) revealImage(careMedia, 0.15);
-              const heading = el.querySelector<HTMLElement>('.care-network-heading h2');
-              if (heading) restores.push(revealText(heading, 0.15));
-              gsap.from(el.querySelectorAll('.network-location'), {
-                opacity: 0,
-                y: 10,
-                duration: 0.6,
-                stagger: 0.07,
-                delay: 0.35,
-                clearProps: 'opacity,transform',
-              });
-            } else if (
-              el.matches(
-                'h1,h2,h3[data-story-title],.technology-chapter-copy h3,.tech-copy h3,.featured-treatment h3'
-              )
-            )
-              restores.push(revealText(el));
+            } else if (el.matches(headingSelector)) restores.push(revealText(el));
             else if (el.matches('.aligner-art,.treatment-media,.editorial-media')) revealImage(el);
             else
               gsap.from(el, {
                 opacity: 0,
-                y: 12,
-                duration: 0.6,
-                delay: 0.1,
+                y: el.matches('.eyebrow,.family-number') ? 18 : 30,
+                duration: 0.85,
+                delay: 0.08,
+                ease: 'power3.out',
                 clearProps: 'opacity,transform',
               });
           });
         });
       },
-      { rootMargin: '0px 0px 4% 0px' }
+      { rootMargin: '0px 0px -8% 0px' }
     );
     document
       .querySelectorAll(
-        'h1,h2,h3[data-story-title],.technology-chapter-copy h3,.tech-copy h3,.featured-treatment h3,.eyebrow,.hero-topline,.hero-copy>p,.hero-actions,.tech-copy>p,.aligner-art,.treatment-media,.editorial-media,[data-service-family],[data-care-motion]'
+        `${headingSelector},.eyebrow,.family-number,.hero-topline,.hero-copy>p,.hero-actions,.tech-copy>p,.technology-chapter-copy>p,.trust-story-copy>p,.conversation-copy>p,.editorial-copy>p,.aligner-art,.treatment-media,.editorial-media,.family-services,.network-list,[data-family-cta],[data-footer-group],[data-footer-wordmark]`
       )
       .forEach((el) => {
-        if (el.closest('[data-service-family]') && !el.matches('[data-service-family]')) return;
-        if (el.closest('[data-care-motion]') && !el.matches('[data-care-motion]')) return;
+        if (el.closest('[data-care-reveal]')) return;
+        if (el.closest('[data-footer-group]') && !el.matches('[data-footer-group]')) return;
         if (el.matches('.treatment-media') && el.querySelector('.editorial-media')) return;
+        if (el.matches(`${headingSelector},.editorial-media`) && !el.querySelector('a,button'))
+          context.add(() => gsap.set(el, { opacity: 0 }));
         entrance.observe(el);
       });
     const observer = new IntersectionObserver(

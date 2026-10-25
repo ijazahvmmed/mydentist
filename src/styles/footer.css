@@ -1,0 +1,214 @@
+/* A full-width brand closing, informed by the scale and hierarchy of the Canopy reference. */
+.site-footer.footer-finale {
+  padding: clamp(64px, 7vw, 104px) 0 18px;
+  background: var(--ink);
+  color: var(--paper);
+  overflow: clip;
+}
+.footer-top {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  gap: clamp(40px, 7vw, 104px);
+}
+.footer-practice {
+  margin: 0 0 28px;
+  color: var(--blue-deep);
+  font-size: 15px;
+}
+.footer-intro h2 {
+  font-size: clamp(36px, 4.1vw, 60px);
+  line-height: 1.12;
+  letter-spacing: -0.05em;
+}
+.footer-description {
+  margin: 28px 0 0;
+  color: var(--blue-deep);
+  font-size: 15px;
+  line-height: 1.7;
+}
+.footer-navigation {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 30px;
+}
+.footer-links h3 {
+  margin: 0 0 18px;
+  font:
+    550 16px/1.5 'DM Sans Variable',
+    sans-serif;
+  letter-spacing: 0;
+}
+.footer-links a {
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  min-height: 38px;
+  color: var(--blue-deep);
+  font-size: 15px;
+  transition:
+    color 0.2s,
+    transform 0.2s;
+}
+.footer-links a:hover {
+  color: var(--lime);
+  transform: translateX(4px);
+}
+.footer-contact-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  gap: clamp(40px, 7vw, 104px);
+  align-items: end;
+  margin-top: clamp(40px, 5vw, 72px);
+}
+.footer-contact a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: fit-content;
+  max-width: 100%;
+  min-height: 44px;
+  font-size: 15px;
+  overflow-wrap: anywhere;
+}
+.footer-contact .ui-icon {
+  width: 18px;
+  height: 18px;
+  color: var(--blue-deep);
+}
+.footer-invitation {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 24px;
+  background: var(--brand);
+  border-radius: 18px;
+}
+.footer-invitation p {
+  margin: 0;
+  color: var(--paper);
+  font-size: 16px;
+  line-height: 1.5;
+}
+.footer-invitation p span {
+  color: var(--blue-deep);
+}
+.footer-invitation .button {
+  flex-shrink: 0;
+}
+.footer-wordmark {
+  display: block;
+  overflow: clip;
+  margin: clamp(44px, 6vw, 88px) 0 30px;
+  padding-block: 2px;
+}
+.site-footer .footer-wordmark .brand-logo {
+  width: 100%;
+}
+.footer-utility {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 28px;
+}
+.footer-utility small,
+.footer-utility .website-credit,
+.footer-utility nav {
+  color: var(--blue-deep);
+  font-size: 12px;
+}
+.footer-utility nav {
+  display: flex;
+  gap: 24px;
+}
+.footer-utility nav a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+}
+.footer-utility .ui-icon {
+  width: 16px;
+  height: 16px;
+}
+.footer-finale a:focus-visible {
+  outline-color: var(--lime);
+  outline-offset: 4px;
+}
+@media (max-width: 1100px) {
+  .footer-top,
+  .footer-contact-row {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 36px;
+  }
+  .footer-invitation {
+    flex-wrap: wrap;
+    padding: 22px;
+    gap: 18px;
+  }
+}
+@media (max-width: 700px) {
+  .footer-top,
+  .footer-contact-row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 40px;
+  }
+  .footer-practice {
+    margin-bottom: 22px;
+    font-size: 14px;
+  }
+  .footer-intro h2 {
+    font-size: clamp(32px, 8.4vw, 46px);
+  }
+  .footer-description {
+    margin-top: 22px;
+    font-size: 14px;
+  }
+  .footer-navigation {
+    gap: 22px;
+  }
+  .footer-links h3 {
+    margin-bottom: 12px;
+  }
+  .footer-links a {
+    min-height: 44px;
+  }
+  .footer-contact-row {
+    margin-top: 32px;
+    gap: 28px;
+  }
+  .footer-contact a {
+    font-size: 14px;
+    gap: 10px;
+  }
+  .footer-invitation {
+    flex-wrap: nowrap;
+    padding: 20px;
+    gap: 12px;
+  }
+  .footer-invitation p {
+    font-size: 14px;
+  }
+  .footer-invitation .button {
+    gap: 12px;
+    padding-inline: 16px;
+    font-size: 13px;
+  }
+  .footer-invitation .action-label {
+    gap: 8px;
+  }
+  .footer-wordmark {
+    margin: 44px 0 24px;
+  }
+  .footer-utility {
+    display: grid;
+    gap: 4px;
+  }
+  .footer-utility nav {
+    gap: 24px;
+  }
+  .footer-utility .website-credit {
+    padding-block: 4px;
+  }
+}
