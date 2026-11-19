@@ -99,7 +99,7 @@ export const services: Service[] = [
   },
   {
     id: 'gum-depigmentation',
-    name: 'Gum Depigmentation',
+    name: 'Depigmentation',
     summary:
       'An assessment of gum pigmentation and a discussion of treatment options, limitations and aftercare.',
     categoryIds: ['surgical-periodontal'],

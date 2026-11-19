@@ -1,8 +1,104 @@
 import type { APIRoute } from 'astro';
-export const GET: APIRoute = ({ site }) =>
-  new Response(
-    site
-      ? `User-agent: *\nAllow: /\nSitemap: ${new URL('/sitemap.xml', site).href}\n`
-      : 'User-agent: *\nDisallow: /\n',
-    { headers: { 'Content-Type': 'text/plain' } }
-  );
+
+export const GET: APIRoute = ({ site }) => {
+  if (!site) {
+    return new Response('User-agent: *\nDisallow: /\n', {
+      headers: { 'Content-Type': 'text/plain; charset=utf-8' },
+    });
+  }
+
+  const sitemapUrl = new URL('/sitemap.xml', site).href;
+  const llmsUrl = new URL('/llms.txt', site).href;
+  const llmsFullUrl = new URL('/llms-full.txt', site).href;
+
+  const content = [
+    '# ============================================================================== #',
+    '# Dr Kiran’s MyDentist - Crawl, SEO & AEO (Answer Engine Optimization) Directives',
+    '# Six Clinic Locations in Alappuzha, Kerala',
+    '# ============================================================================== #',
+    '',
+    '# Global policy for all crawlers',
+    'User-agent: *',
+    'Allow: /',
+    'Disallow: /api/',
+    'Disallow: /qa/',
+    'Disallow: /_astro/',
+    '',
+    '# Major Search Engines (SEO)',
+    'User-agent: Googlebot',
+    'Allow: /',
+    '',
+    'User-agent: Googlebot-Image',
+    'Allow: /',
+    '',
+    'User-agent: Bingbot',
+    'Allow: /',
+    '',
+    'User-agent: Applebot',
+    'Allow: /',
+    '',
+    'User-agent: DuckDuckBot',
+    'Allow: /',
+    '',
+    'User-agent: Baiduspider',
+    'Allow: /',
+    '',
+    'User-agent: YandexBot',
+    'Allow: /',
+    '',
+    '# AI Search & Answer Engine Optimization (AEO) Bots',
+    'User-agent: GPTBot',
+    'Allow: /',
+    '',
+    'User-agent: ChatGPT-User',
+    'Allow: /',
+    '',
+    'User-agent: OAI-SearchBot',
+    'Allow: /',
+    '',
+    'User-agent: ClaudeBot',
+    'Allow: /',
+    '',
+    'User-agent: Claude-Web',
+    'Allow: /',
+    '',
+    'User-agent: anthropic-ai',
+    'Allow: /',
+    '',
+    'User-agent: PerplexityBot',
+    'Allow: /',
+    '',
+    'User-agent: Applebot-Extended',
+    'Allow: /',
+    '',
+    'User-agent: Google-Extended',
+    'Allow: /',
+    '',
+    'User-agent: Meta-ExternalAgent',
+    'Allow: /',
+    '',
+    'User-agent: Amazonbot',
+    'Allow: /',
+    '',
+    'User-agent: Cohere-ai',
+    'Allow: /',
+    '',
+    'User-agent: Bytespider',
+    'Allow: /',
+    '',
+    '# XML Sitemap',
+    `Sitemap: ${sitemapUrl}`,
+    '',
+    '# LLM Context & Structured Knowledge (llms.txt standard)',
+    `# Standard LLM context: ${llmsUrl}`,
+    `# Full clinical reference: ${llmsFullUrl}`,
+    '',
+  ].join('\n');
+
+  return new Response(content, {
+    headers: {
+      'Content-Type': 'text/plain; charset=utf-8',
+      'Cache-Control': 'public, max-age=86400',
+    },
+  });
+};

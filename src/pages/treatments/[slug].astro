@@ -76,14 +76,12 @@ const careOptions = services.filter((item) => t.serviceIds?.includes(item.id));
       <div class="hero-actions">
         <a
           class="button"
-
           href={enquiryService.createLink({ treatment: t.name })}
-
           data-event="whatsapp_click"
         >
           <span class="action-label">
-            <Icon name="chat" />
-            Enquire about this treatment
+            <Icon name="calendar" />
+            Book an appointment
           </span>
           <Arrow diagonal />
         </a>
@@ -237,14 +235,12 @@ const careOptions = services.filter((item) => t.serviceIds?.includes(item.id));
 
       <a
         class="button"
-
         href={enquiryService.createLink({ treatment: t.name })}
-
         data-event="whatsapp_click"
       >
         <span class="action-label">
-          <Icon name="chat" />
-          WhatsApp an enquiry
+          <Icon name="calendar" />
+          Book an appointment
         </span>
         <Arrow diagonal />
       </a>

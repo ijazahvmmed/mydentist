@@ -13,6 +13,7 @@ import '../styles/footer.css';
 import '../styles/signature.css';
 import Header from '../components/common/Header.astro';
 import Footer from '../components/common/Footer.astro';
+import StickyAppointmentCTA from '../components/common/StickyAppointmentCTA.astro';
 import Analytics from '@vercel/analytics/astro';
 import { absolute, jsonLD } from '../lib/seo';
 interface Props {
@@ -62,6 +63,7 @@ const verification = import.meta.env.PUBLIC_SEARCH_CONSOLE_VERIFICATION;
       <slot />
     </main>
     <Footer />
+    <StickyAppointmentCTA />
     <Analytics mode={import.meta.env.DEV ? 'development' : 'production'} />
     <script>
       import '../lib/analytics/client';

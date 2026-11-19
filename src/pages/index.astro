@@ -71,17 +71,17 @@ const homeFAQs = allFAQs.filter((faq) =>
           Find your MyDentist in Alappuzha.
         </p>
         <div class="hero-actions">
-          <a class="button" href="#clinics">
+          <a class="button" href={createWhatsAppUrl()} data-event="whatsapp_click">
             <span class="action-label">
-              <Icon name="pin" />
-              Find a clinic
+              <Icon name="calendar" />
+              Book an appointment
             </span>
             <Arrow diagonal />
           </a>
-          <a class="text-link" href={createWhatsAppUrl()} data-event="whatsapp_click">
+          <a class="text-link" href="#clinics">
             <span class="action-label">
-              <Icon name="chat" />
-              WhatsApp us
+              <Icon name="pin" />
+              Find a clinic
             </span>
             <Arrow diagonal />
           </a>
@@ -253,17 +253,17 @@ const homeFAQs = allFAQs.filter((faq) =>
         WhatsApp.
       </p>
       <div class="hero-actions">
-        <a class="button" href="/locations/">
+        <a class="button" href={createWhatsAppUrl()} data-event="whatsapp_click">
           <span class="action-label">
-            <Icon name="pin" />
-            Find a clinic
+            <Icon name="calendar" />
+            Book an appointment
           </span>
           <Arrow diagonal />
         </a>
-        <a class="text-link" href={createWhatsAppUrl()} data-event="whatsapp_click">
+        <a class="text-link" href="/locations/">
           <span class="action-label">
-            <Icon name="chat" />
-            WhatsApp us
+            <Icon name="pin" />
+            Find a clinic
           </span>
           <Arrow diagonal />
         </a>
