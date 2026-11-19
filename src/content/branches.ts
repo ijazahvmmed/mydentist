@@ -53,7 +53,7 @@ const rows = [
   [
     'vaduthala',
     'Vaduthala',
-    'Thrichattukulam, Ithiyapalam P.O.',
+    'Thrichattukulam, Puthiyapalam P.O.',
     'Cherthala',
     '688526',
     '+91 89210 65625',
